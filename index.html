@@ -489,10 +489,10 @@ h1,h2{font-family:var(--serif);font-weight:700;letter-spacing:-.01em;line-height
 section{padding:44px 0;border-top:1px solid var(--line)}
 /* hero */
 .hero{background:var(--navy);color:#fff;padding:96px 0 88px;border:0;position:relative;overflow:hidden}
-.hero-bg{position:absolute;top:0;left:0;width:62%;height:100%;object-fit:cover;object-position:left center}
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,42,71,.1) 0%,rgba(15,42,71,.35) 28%,rgba(15,42,71,.9) 50%,#0F2A47 62%)}
+.hero-bg{position:absolute;top:0;left:0;width:62%;height:100%;object-fit:cover;object-position:left center;cursor:pointer}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,42,71,.1) 0%,rgba(15,42,71,.35) 28%,rgba(15,42,71,.9) 50%,#0F2A47 62%);pointer-events:none}
 .hero .wrap{position:relative;z-index:1}
-.hero-sound{display:inline-block;margin:20px 0 0 8px;vertical-align:top;font:700 15px/1 inherit;font-family:inherit;color:var(--navy);background:var(--gold);border:0;border-radius:999px;padding:12px 18px;cursor:pointer;box-shadow:0 8px 20px -8px rgba(0,0,0,.5)}.hero-sound:focus-visible{outline:3px solid #fff;outline-offset:2px}.hero .wrap>div{margin-left:auto;max-width:640px}
+.hero-sound{display:inline-block;margin:20px 0 0 8px;vertical-align:top;font:700 15px/1 inherit;font-family:inherit;color:var(--navy);background:var(--gold);border:0;border-radius:999px;padding:12px 18px;cursor:pointer;box-shadow:0 8px 20px -8px rgba(0,0,0,.5)}.hero-sound:focus-visible{outline:3px solid #fff;outline-offset:2px}.hero .wrap>div{margin-left:auto;max-width:640px}.hero .wrap{pointer-events:none}.hero .wrap>div{pointer-events:auto}
 .hero .label{color:var(--gold)}
 .hero h1{font-size:62px;margin:8px 0 6px}
 .hero .role{font-size:18px;color:#D7DEE6;margin-bottom:14px}
@@ -709,14 +709,14 @@ section{padding:44px 0;border-top:1px solid var(--line)}
     </div>
   </div>
 </header>
-  <script>(function(){var v=document.getElementById('heroVid'),b=document.getElementById('heroSound'),still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  <script>(function(){var v=document.getElementById('heroVid'),b=document.getElementById('heroSound');
 function ui(){b.innerHTML=v.muted||v.paused?'&#128264; Tap for sound':'&#128263; Mute';b.setAttribute('aria-pressed',String(!v.muted&&!v.paused))}
 function sound(on){v.muted=!on;if(on&&v.paused)v.play().catch(function(){});ui()}
-b.onclick=function(){sound(v.muted||v.paused)};
-if(still){v.removeAttribute('autoplay');v.pause()}else{v.muted=false;v.play().then(ui,function(){v.muted=true;v.play().catch(function(){});ui()})}/* browsers block speech before the first click, so fall back to silent */
-function first(e){removeEventListener('pointerdown',first,true);removeEventListener('keydown',first,true);if(e.target!==b&&!still&&v.muted)sound(true)}
+b.onclick=v.onclick=function(){sound(v.muted||v.paused)};
+v.muted=false;v.play().then(ui,function(){v.muted=true;v.play().catch(function(){});ui()});/* browsers block speech before the first click, so fall back to silent */
+function first(e){removeEventListener('pointerdown',first,true);removeEventListener('keydown',first,true);if(e.target!==b&&e.target!==v&&v.muted)sound(true)}
 addEventListener('pointerdown',first,true);addEventListener('keydown',first,true);
-var on=false;new IntersectionObserver(function(x){if(still)return;if(x[0].isIntersecting){if(on)v.play().catch(function(){})}else{on=!v.paused;v.pause()}}).observe(v)})()</script>
+var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)v.play().catch(function(){})}else{on=!v.paused;v.pause()}}).observe(v)})()</script>
 <div class="proof"><div class="wrap"><span>&#9733; <b>8.5/10</b> from 24 MBA &amp; PGDM students</span><span><b>96%</b> want to learn selling skills</span><span>SAFI Institute, Calicut · 2 Nov 2026</span><a href="#feedback">See the feedback &rarr;</a></div></div>
 
 <section>
