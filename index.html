@@ -522,6 +522,19 @@ section{padding:44px 0;border-top:1px solid var(--line)}
 .grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:220px 220px;gap:10px}
 .grid img{width:100%;height:100%;object-fit:cover;border-radius:var(--r)}
 .grid img:first-child{grid-row:1/3}
+#session{overflow-x:clip}
+.reel{overflow:hidden;padding:40px 0;margin:0 calc(50% - 50vw);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.reel-track{display:flex;width:max-content;animation:reelScroll 55s linear infinite}
+.reel:hover .reel-track{animation-play-state:paused}
+.reel img{--tilt:-3deg;flex:0 0 auto;width:420px;height:300px;margin-right:32px;object-fit:cover;border:6px solid #fff;border-radius:var(--r);box-shadow:0 16px 30px -14px rgba(15,42,71,.45);animation:reelFloat 5s ease-in-out infinite;transition:transform .4s,box-shadow .4s}
+.reel img:nth-child(even){--tilt:3deg;animation-delay:-2.5s}.reel img:nth-child(3n){animation-delay:-1.2s}
+.reel img:nth-child(5n+1){width:520px}
+.reel img:hover{animation-play-state:paused;transform:scale(1.1) rotate(0);box-shadow:0 0 0 2px var(--gold),0 24px 40px -14px rgba(15,42,71,.6);position:relative;z-index:1}
+@keyframes reelScroll{to{transform:translateX(-50%)}}
+@keyframes reelFloat{0%,100%{transform:translateY(0) rotate(var(--tilt))}50%{transform:translateY(-14px) rotate(calc(var(--tilt) * -.5))}}
+@media (max-width:760px){.reel img{width:220px;height:160px;margin-right:18px}.reel img:nth-child(5n+1){width:260px}}
+@media (prefers-reduced-motion:reduce){.reel{overflow-x:auto}.reel-track,.reel img{animation:none}}
+@media print{.reel{-webkit-mask-image:none;mask-image:none;padding:0}.reel-track{animation:none;flex-wrap:wrap;width:auto}.reel img{animation:none;width:31%;height:105px;margin:0 2% 6px 0;border:0}.reel img[aria-hidden]{display:none}}
 /* offer */
 .offer{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .card{background:#fff;border:1px solid var(--line);padding:22px;border-radius:var(--r)}
@@ -793,13 +806,18 @@ section{padding:44px 0;border-top:1px solid var(--line)}
   <div class="wrap">
     <div class="label">SAFI Institute · Calicut, Kerala</div>
     <h2>The session</h2>
-    <div class="grid">
+    <div class="reel"><div class="reel-track">
       <img src="photos/presenting.jpg" alt="Anwar Barayil presenting a sales career seminar at SAFI Institute, Calicut, Kerala">
       <img src="photos/classroom.jpg" alt="Students in the SAFI classroom">
       <img src="photos/audience.jpg" alt="Students listening">
       <img src="photos/group.jpg" alt="Group photo with faculty and students">
       <img src="photos/institute.jpg" alt="PMA SAFI Human Resources Institute">
-    </div>
+      <img aria-hidden="true" src="photos/presenting.jpg" alt="">
+      <img aria-hidden="true" src="photos/classroom.jpg" alt="">
+      <img aria-hidden="true" src="photos/audience.jpg" alt="">
+      <img aria-hidden="true" src="photos/group.jpg" alt="">
+      <img aria-hidden="true" src="photos/institute.jpg" alt="">
+    </div></div>
   </div>
 </section>
 
