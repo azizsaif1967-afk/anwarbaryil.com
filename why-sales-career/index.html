@@ -27,6 +27,13 @@ video{width:100%;aspect-ratio:16/9;background:#000;border-radius:8px;display:blo
 .tx{border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;height:min(70vh,560px)}
 .tx-h{padding:10px;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center}.tx-h input{flex:1;font:15px Inter,sans-serif;padding:8px 10px;border:1px solid var(--line);border-radius:6px}
 .tx-h label{font-size:12px;color:var(--mute);white-space:nowrap}
+.vo{padding:10px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--soft)}
+.vo button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 12px;font:600 13px Inter,sans-serif;cursor:pointer}
+.vo-note{background:#FFF6E0;border-left:3px solid var(--gold);padding:10px 12px;margin:10px 0 0;font-size:14px;border-radius:6px}
+.vo #vo-play{background:var(--navy);color:#fff;border-color:var(--navy)}
+.vo input[type=range]{flex:1 1 100%;accent-color:var(--gold)}
+.vo #vo-time{font:12px Inter,sans-serif;color:var(--mute);font-variant-numeric:tabular-nums}
+.vo #vo-go{width:96px;font:13px Inter,sans-serif;padding:6px 8px;border:1px solid var(--line);border-radius:6px;margin-left:auto}
 #lines{overflow-y:auto;padding:6px 0;flex:1;scroll-behavior:smooth}
 .ln{display:grid;grid-template-columns:62px 1fr;gap:8px;padding:5px 12px;cursor:pointer;font-size:15px;border-left:3px solid transparent}
 .ln:hover{background:var(--soft)}.ln i{font-style:normal;color:var(--mute);font-size:12px;font-variant-numeric:tabular-nums;padding-top:2px}
@@ -65,7 +72,7 @@ details{border-top:1px solid var(--line);padding:12px 0}summary{font-weight:700;
 <div class="chs"><button class="ch" data-t="0"><b>00:00</b>Opening</button><button class="ch" data-t="706"><b>11:46</b>His story</button><button class="ch" data-t="1610"><b>26:50</b>Why sales</button><button class="ch" data-t="3499"><b>58:19</b>Skills</button><button class="ch" data-t="4335"><b>1:12:15</b>Goal setting</button><button class="ch" data-t="4993"><b>1:23:13</b>Close</button></div>
 <p class="note">Recording © SAFI Institute of Advanced Study. Transcript made with open-source speech recognition, so expect small errors. One fee figure is muted at Anwar's request.</p>
 </div>
-<div class="tx" id="transcript"><div class="tx-h"><input id="q" type="search" placeholder="Search the talk…" aria-label="Search the transcript"><label><input type="checkbox" id="follow" checked> Follow</label></div><div id="lines"></div></div>
+<div class="tx" id="transcript"><div class="vo" id="vo" hidden><button id="vo-play" type="button">▶ Listen</button><button id="vo-back" type="button" aria-label="Back 30 seconds">−30s</button><button id="vo-fwd" type="button" aria-label="Forward 30 seconds">+30s</button><span id="vo-time">0:00</span><input id="vo-go" placeholder="Go to 12:30" aria-label="Go to a time, like 12:30 or 1:02:32"><input id="vo-pos" type="range" min="0" max="5093" step="1" value="0" aria-label="Position in the talk"></div><div class="tx-h"><input id="q" type="search" placeholder="Search the talk…" aria-label="Search the transcript"><label><input type="checkbox" id="follow" checked> Follow</label></div><div id="lines"></div></div>
 </div></div></section>
 <div class="pc"><b>Book Anwar Barayil:</b> WhatsApp / call +91 98402 44034 · anwar.barayil@gmail.com · Watch the full talk: anwarbaryil.com/why-sales-career/</div>
 <section><div class="wrap"><div class="lb">Six lessons</div><h2>What he wants students to take home</h2><div class="lgrid"><article class="ls"><div class="lb">01 · Decision</div><h3>Take the pay cut that has a future.</h3><p>Left a 7-to-2 Etisalat job for a van job selling chocolates in the heat, then took Gillette Riyadh at 25% less. 99.9% said he was mad.</p><p class="mv">→ Short-term loss, long-term room? Decide, then stop polling people.</p><button class="seek" data-t="1221">▶ Watch at 20:21</button></article><article class="ls"><div class="lb">02 · The room</div><h3>Everything in this room was sold.</h3><p>Fan, clock, desk, the shirt on your back. Someone sold it. Sales is the process in between: products, services, ideas, events, concepts.</p><p class="mv">→ Name five things you can see and trace who sold each one.</p><button class="seek" data-t="2102">▶ Watch at 35:02</button></article><article class="ls"><div class="lb">03 · Numbers</div><h3>Your numbers speak louder than your manager.</h3><p>A salesman who sells 10 cars a month cannot be passed over for the one who sold 2.</p><p class="mv">→ Pick a job where your result is a figure on a board.</p><button class="seek" data-t="2790">▶ Watch at 46:30</button></article><article class="ls"><div class="lb">04 · Resilience</div><h3>Twelve visits, six months, one box.</h3><p>An airport grocery refused Bounty every fortnight for six months. His salary was paid for the effort, and there is always a next visit.</p><p class="mv">→ The sale is in the return visit.</p><button class="seek" data-t="3093">▶ Watch at 51:33</button></article><article class="ls"><div class="lb">05 · Skills</div><h3>Listen, verify, then speak.</h3><p>Obtain, verify, transmit. Know your product and the competitor's. Turn features into benefits. Separate real objections from false ones. Close with the smaller yes.</p><p class="mv">→ Nobody buys a bag. A trainee buys the bag for her first sales call.</p><button class="seek" data-t="3563">▶ Watch at 59:23</button></article><article class="ls"><div class="lb">06 · Route</div><h3>Sales is the fastest road to entrepreneur.</h3><p>Almost every student said 'entrepreneur'; none could say in what. Sales, then management, then leadership, then your own business.</p><p class="mv">→ Ask about pay mix, quota and growth plan. Find a mentor who sells.</p><button class="seek" data-t="5082">▶ Watch at 1:24:42</button></article></div></div></section>
@@ -85,15 +92,30 @@ details{border-top:1px solid var(--line);padding:12px 0}summary{font-weight:700;
 const v=document.getElementById('v'),box=document.getElementById('lines'),q=document.getElementById('q'),follow=document.getElementById('follow');
 const fmt=s=>{s=Math.floor(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=String(s%60).padStart(2,'0');return h?`${h}:${String(m).padStart(2,'0')}:${x}`:`${m}:${x}`};
 let cues=[],els=[],cur=-1;
-function go(t){v.currentTime=t;v.play().catch(()=>{});document.getElementById('watch').scrollIntoView({behavior:'smooth'})}
+const S=window.speechSynthesis,P=id=>document.getElementById(id);let vo=false,tok=0,broken=false,voice=null;
+function markBroken(){if(broken)return;broken=true;const n=document.createElement('p');n.className='vo-note';n.innerHTML='The full recording is being re-uploaded. Meanwhile press <b>▶ Listen</b> to hear the talk read aloud, or click any line, chapter or lesson to jump there.';v.after(n);P('vo-play').focus({preventScroll:true})}
+v.querySelector('source').addEventListener('error',markBroken);if(v.networkState===3)markBroken();
+function go(t){if(S&&(vo||broken)){say(Math.max(0,idx(t)));return}v.currentTime=t;v.play().catch(()=>{});document.getElementById('watch').scrollIntoView({behavior:'smooth'})}
 document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>go(+b.dataset.t));
 fetch('talk-cues.json').then(r=>r.json()).then(c=>{cues=c;const f=document.createDocumentFragment();
- c.forEach((x,i)=>{const d=document.createElement('div');d.className='ln';d.innerHTML=`<i>${fmt(x.s)}</i><span></span>`;d.lastChild.textContent=x.t;d.onclick=()=>{v.currentTime=x.s;v.play().catch(()=>{})};f.appendChild(d);els.push(d)});
+ c.forEach((x,i)=>{const d=document.createElement('div');d.className='ln';d.innerHTML=`<i>${fmt(x.s)}</i><span></span>`;d.lastChild.textContent=x.t;d.onclick=()=>{if(S&&(vo||broken))say(i);else{v.currentTime=x.s;v.play().catch(()=>{})}};f.appendChild(d);els.push(d)});
  box.appendChild(f);const h=+(location.hash.match(/t=(\d+)/)||[])[1];if(h)v.currentTime=h});
 function idx(t){let lo=0,hi=cues.length-1,a=-1;while(lo<=hi){const m=(lo+hi)>>1;if(cues[m].s<=t){a=m;lo=m+1}else hi=m-1}return a}
-v.addEventListener('timeupdate',()=>{const i=idx(v.currentTime);if(i===cur)return;if(cur>=0)els[cur].classList.remove('on');cur=i;if(i<0)return;els[i].classList.add('on');
+v.addEventListener('timeupdate',()=>{if(!vo)sync(v.currentTime)});
+function sync(t){P('vo-pos').value=t;P('vo-time').textContent=fmt(t);const i=idx(t);if(i===cur)return;if(cur>=0)els[cur].classList.remove('on');cur=i;if(i<0)return;els[i].classList.add('on');
  if(follow.checked&&!q.value)box.scrollTop=els[i].offsetTop-box.offsetTop-box.clientHeight/3;
- document.querySelectorAll('.ch').forEach(b=>b.classList.toggle('on',+b.dataset.t<=v.currentTime&&!([...document.querySelectorAll('.ch')].some(o=>+o.dataset.t>+b.dataset.t&&+o.dataset.t<=v.currentTime))))});
+ document.querySelectorAll('.ch').forEach(b=>b.classList.toggle('on',+b.dataset.t<=t&&!([...document.querySelectorAll('.ch')].some(o=>+o.dataset.t>+b.dataset.t&&+o.dataset.t<=t))))}
+// voice-over: reads the transcript line by line with the browser's speech engine
+function say(i){if(i>=cues.length)return stopVo();vo=true;v.pause();S.cancel();const my=++tok,u=new SpeechSynthesisUtterance(cues[i].t);u.lang='en-IN';if(voice)u.voice=voice;u.onend=()=>{if(my===tok&&vo)say(i+1)};S.speak(u);sync(cues[i].s);P('vo-play').textContent='■ Stop'}
+function stopVo(){vo=false;tok++;S.cancel();P('vo-play').textContent='▶ Listen'}
+const now=()=>cur<0?0:cues[cur].s, parseT=x=>x.trim().split(':').reduce((a,b)=>a*60+(+b),0);
+if(S){P('vo').hidden=false;const pick=()=>{const vs=S.getVoices();voice=vs.find(x=>/en.IN/i.test(x.lang))||vs.find(x=>/^en/i.test(x.lang))||null};pick();S.onvoiceschanged=pick;
+ P('vo-play').onclick=()=>vo?stopVo():say(Math.max(0,cur));
+ P('vo-back').onclick=()=>go(Math.max(0,now()-30));P('vo-fwd').onclick=()=>go(now()+30);
+ P('vo-pos').oninput=e=>P('vo-time').textContent=fmt(+e.target.value);P('vo-pos').onchange=e=>go(+e.target.value);
+ P('vo-go').onkeydown=e=>{if(e.key!=='Enter')return;const t=parseT(e.target.value);if(!isNaN(t))go(t)};
+ v.addEventListener('play',()=>{if(vo)stopVo()});addEventListener('pagehide',()=>S.cancel())}
+q.addEventListener('keydown',e=>{if(e.key!=='Enter')return;const i=els.findIndex(x=>!x.classList.contains('hide'));if(i>=0)go(cues[i].s)});
 q.addEventListener('input',()=>{const s=q.value.trim().toLowerCase();els.forEach((e,i)=>e.classList.toggle('hide',!!s&&!cues[i].t.toLowerCase().includes(s)))});
 </script>
 <div style="background:#F5EFE4;color:#15110D;border-top:2px solid #15110D;padding:12px 16px;text-align:center;font:12px/1.5 'Familjen Grotesk',system-ui,sans-serif">Designed with love for Anwar Barayil &middot; Website designed by Claude Code by Aziz Saif &middot; Input from Mr. Anwar &middot; Sources provided by Mr. Anwar <a href="https://azizsaif.com/" target="_blank" rel="noopener" style="display:inline-block;margin-left:6px;padding:1px 9px;background:#fff;border:1.5px solid #15110D;border-radius:999px;box-shadow:2px 2px 0 #15110D;color:#15110D;font-weight:800;text-decoration:none;white-space:nowrap">aziz<span style="color:#FF5B1F">/</span>saif</a></div>
