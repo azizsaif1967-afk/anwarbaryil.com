@@ -916,7 +916,7 @@ document.getElementById('bk').addEventListener('submit',async e=>{
   Object.assign(d,{_subject:'Anwar Barayil booking: '+d.Purpose+' · '+d.Company+', '+d.City,_cc:'anwar.barayil@gmail.com',_template:'table',_captcha:'false',Page:location.href});
   b.disabled=true;b.textContent='Sending…';m.className='bk-msg';m.textContent='';
   try{
-    const r=await fetch('https://formsubmit.co/ajax/aziz@azizsaif.com',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)});
+    const r=await fetch('https://formsubmit.co/ajax/c411e0fd2158ffd37fb38dbcb99b501c',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)});
     const j=await r.json();
     if(!r.ok||String(j.success)!=='true')throw 0;
     f.reset();m.className='bk-msg ok';m.textContent='Thank you, '+d.Name+'. Anwar will be in touch soon.';
