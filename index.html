@@ -608,6 +608,14 @@ section{padding:44px 0;border-top:1px solid var(--line)}
 .ig-sess img{width:100%;height:100%;object-fit:cover}
 .ig-sess figcaption{position:absolute;inset:auto 0 0 0;padding:40px 12px 12px;background:linear-gradient(transparent,rgba(15,42,71,.95));color:var(--gold);font-weight:700;font-size:13px}
 .ig-sess figcaption b{display:block;color:#fff;font-size:16px;line-height:1.2}
+.ig-sess figure{transform-origin:50% 0;animation:igCardSwing 7s ease-in-out infinite;transition:box-shadow .35s;cursor:zoom-in}
+.ig-sess figure:nth-child(2){animation-delay:-1.75s}.ig-sess figure:nth-child(3){animation-delay:-3.5s}.ig-sess figure:nth-child(4){animation-delay:-5.25s}
+.ig-sess figure:hover,.ig-sess figure:active{animation-play-state:paused;box-shadow:0 0 0 2px var(--gold),0 18px 30px -12px rgba(15,42,71,.55)}
+.ig-sess img{transition:transform .45s ease-out,transform-origin .12s linear}
+.ig-sess figure:hover img,.ig-sess figure:active img{transform:scale(1.6)}
+.ig-sess figure:hover figcaption{opacity:.25;transition:opacity .3s}
+@keyframes igCardSwing{0%,100%{transform:rotate(-.8deg)}50%{transform:rotate(.8deg) translateY(-3px)}}
+@media (prefers-reduced-motion:reduce){.ig-sess figure,.ig-sess img{animation:none;transition:none}.ig-sess figure:hover img{transform:none}}
 @media (max-width:760px){.ig-stats,.ig-sess{grid-template-columns:repeat(2,1fr)}.ig-where{grid-template-columns:1fr}.ig-where>img{min-height:220px;max-height:260px}.ig-stats b{font-size:40px}}
 @media print{.ig-where,.ig-sess{display:none}}
 
@@ -935,5 +943,6 @@ document.getElementById('bk').addEventListener('submit',async e=>{
   b.disabled=false;b.textContent='Send';
 });
 </script>
+<script>/* cursor-follow zoom on session photos */document.querySelectorAll('.ig-sess figure').forEach(f=>{const i=f.querySelector('img');f.addEventListener('pointermove',e=>{const r=f.getBoundingClientRect();i.style.transformOrigin=((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%'});f.addEventListener('pointerleave',()=>{i.style.transformOrigin=''})})</script>
 </body>
 </html>
