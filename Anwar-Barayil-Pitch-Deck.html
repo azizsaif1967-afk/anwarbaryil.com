@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Classroom deck by sales trainer Anwar Barayil: why sales is a career worth choosing, goal setting and selling skills, for colleges and management students in India.">
+<link rel="canonical" href="https://anwarbarayil.com/Anwar-Barayil-Pitch-Deck.html">
+<meta property="og:title" content="Sales is a career worth choosing · Anwar Barayil">
+<meta property="og:url" content="https://anwarbarayil.com/Anwar-Barayil-Pitch-Deck.html">
+<meta property="og:image" content="https://anwarbarayil.com/photos/presenting.jpg">
+<title>Sales is a career worth choosing. · Anwar Barayil Classroom Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>
+:root{
+  --cream:#FBF7F1;--cream-soft:#F4EDE2;--cream-deep:#EBE1D2;--paper:#FFFFFF;
+  --terracotta:#C45A3D;--terracotta-d:#A4452C;--sage:#7A8C5C;--sage-d:#5C6E42;
+  --gold:#D9A86C;--gold-d:#B8862F;--charcoal:#2A2622;--ink:#16110D;--mute:#6E665C;--line:#E4DDD0;
+  --ff-display:"Playfair Display",Georgia,serif;--ff-body:"Inter",-apple-system,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--ff-body);background:var(--ink);color:var(--charcoal);overflow:hidden}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;background:var(--cream);
+  padding:5.5vh 6vw;animation:fade .45s ease}
+.slide.on{display:flex}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* cover */
+.cover{background:linear-gradient(135deg,var(--terracotta-d),var(--terracotta) 55%,var(--gold) 130%);color:#fff;
+  align-items:flex-start;justify-content:center}
+.cover .eyebrow{color:#FBE5D8}
+.cover h1{font-family:var(--ff-display);font-weight:900;font-size:clamp(34px,6.2vw,90px);line-height:1.02;max-width:18ch}
+.cover .sub{font-size:clamp(18px,2.4vw,32px);font-weight:600;margin-top:.5em;max-width:30ch}
+.cover .lead{font-size:clamp(15px,1.5vw,21px);margin-top:1.4em;max-width:52ch;opacity:.95;line-height:1.55}
+.cover .byline{position:absolute;bottom:5vh;left:6vw;font-weight:700;letter-spacing:.5px;font-size:15px;opacity:.9}
+
+.eyebrow{font-weight:800;text-transform:uppercase;letter-spacing:.18em;font-size:clamp(11px,1vw,15px);
+  color:var(--terracotta);margin-bottom:.6em}
+.slide h2{font-family:var(--ff-display);font-weight:800;font-size:clamp(28px,4.2vw,58px);line-height:1.05;
+  color:var(--ink);margin-bottom:.55em;max-width:20ch}
+.row{display:flex;gap:4vw;flex:1;align-items:center}
+.col-text{flex:1.15;min-width:0}
+.col-media{flex:.85;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+ul.bul{list-style:none;display:flex;flex-direction:column;gap:.85em}
+ul.bul li{position:relative;padding-left:1.5em;font-size:clamp(17px,1.9vw,28px);font-weight:500;line-height:1.4;color:var(--charcoal)}
+ul.bul li::before{content:"";position:absolute;left:0;top:.5em;width:.55em;height:.55em;border-radius:3px;
+  background:var(--sage);transform:rotate(45deg)}
+.icon-badge{width:clamp(70px,9vw,128px);height:clamp(70px,9vw,128px);border-radius:24px;display:flex;
+  align-items:center;justify-content:center;background:var(--paper);box-shadow:0 14px 40px rgba(42,38,34,.16);
+  border:1px solid var(--line);color:var(--terracotta);flex:none}
+.icon-badge svg{width:54%;height:54%;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.photo{width:100%;aspect-ratio:16/10;border-radius:20px;object-fit:cover;background:var(--cream-deep);
+  box-shadow:0 18px 50px rgba(42,38,34,.18);border:1px solid var(--line)}
+.photo-fallback{width:100%;aspect-ratio:16/10;border-radius:20px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--cream-deep),var(--gold-l,#E8C89A));color:var(--terracotta-d);
+  box-shadow:0 18px 50px rgba(42,38,34,.12);border:1px solid var(--line)}
+.photo-fallback svg{width:30%;height:30%;stroke:currentColor;stroke-width:1.4;fill:none}
+
+/* questions */
+.qs{background:var(--charcoal);color:var(--cream)}
+.qs h2{color:#fff}.qs .eyebrow{color:var(--gold)}
+ol.qlist{list-style:none;counter-reset:q;display:grid;grid-template-columns:1fr 1fr;gap:1.1em 3vw;margin-top:.5em}
+ol.qlist li{counter-increment:q;position:relative;padding-left:2.2em;font-size:clamp(15px,1.6vw,23px);line-height:1.4;font-weight:500}
+ol.qlist li::before{content:counter(q);position:absolute;left:0;top:-.05em;width:1.5em;height:1.5em;border-radius:50%;
+  background:var(--terracotta);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72em;font-weight:800}
+
+/* chrome */
+#bar{position:fixed;bottom:0;left:0;height:5px;background:var(--terracotta);width:0;transition:width .3s;z-index:30}
+#hud{position:fixed;top:18px;right:20px;display:flex;gap:8px;z-index:40}
+#hud button{font-family:var(--ff-body);font-weight:700;font-size:13px;border:none;border-radius:999px;padding:9px 15px;
+  cursor:pointer;background:rgba(255,255,255,.92);color:var(--charcoal);box-shadow:0 4px 14px rgba(0,0,0,.18)}
+#hud button:hover{background:#fff}
+#hud button.live{background:var(--terracotta);color:#fff}
+#count{position:fixed;bottom:16px;right:20px;color:var(--mute);font-weight:700;font-size:13px;z-index:40;
+  background:rgba(255,255,255,.85);padding:4px 12px;border-radius:999px}
+.nav{position:fixed;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(255,255,255,.85);font-size:20px;color:var(--charcoal);z-index:40;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+#prev{left:16px}#next{right:16px}
+
+@media print{
+  body,#stage{position:static;overflow:visible;background:#fff;height:auto}
+  #hud,#count,.nav,#bar{display:none!important}
+  .slide{display:flex!important;position:relative;inset:auto;page-break-after:always;min-height:100vh;animation:none}
+}
+@media(max-width:760px){.row{flex-direction:column;gap:3vh}.col-media{order:-1}ol.qlist{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<button class="nav" id="prev" aria-label="Previous">‹</button>
+<button class="nav" id="next" aria-label="Next">›</button>
+<div id="hud">
+  <button id="narr">▶ Narrate</button>
+  <button id="ppt">⬇ PPT</button>
+  <button id="pdf">⬇ PDF</button>
+</div>
+<div id="count"></div>
+<div id="bar"></div>
+
+<script>
+/* ===== DECK DATA (filled by the aftab-deck skill) ===== */
+const DECK = {"eyebrow": "Trainer profile · Sales and goal setting", "title": "Sales is a career worth choosing.", "subtitle": "Career talks, goal-setting workshops and selling-skills training by Anwar Barayil", "lead": "Twenty-seven years with Gillette, P&G and Etisalat in the Gulf, twenty years as an entrepreneur, and verified feedback from the first college session.", "slides": [{"eyebrow": "Who I am", "title": "Anwar Barayil", "bullets": ["27 years with multinationals in the Gulf: Etisalat, Transmed, Gillette", "20 years running my own businesses in the UAE and India", "Mahe, Kerala born; educated at Madras Christian College, Chennai", "Now based in Chennai, training across South India and beyond"], "narration": "My name is Anwar Barayil. I spent twenty-seven years in sales with multinationals in the Gulf, including Etisalat, Transmed and Gillette, and then twenty years building my own businesses in the U A E and India. I now teach what that journey taught me.", "icon": "people", "image_query": "photos/selfie-safi.jpg"}, {"eyebrow": "Corporate career", "title": "From sales clerk to Middle East manager", "bullets": ["Etisalat, Dubai: sales clerk to assistant supervisor in nine years", "Transmed: took a 40 percent pay cut to become a van salesman, rose to unit manager", "Gillette: Area Sales Manager Saudi, Trade Marketing Manager Saudi, Sales Planning and Sales Training Manager Middle East, Trade Marketing Manager Middle East"], "narration": "I started as a sales clerk at Etisalat in nineteen seventy-eight. I left a comfortable job and took a forty percent pay cut to become a van salesman, because that is where the growth was. Eleven years at Gillette took me from area sales manager in Saudi Arabia to trade marketing manager for the whole Middle East.", "icon": "growth", "image_query": "photos/institute.jpg"}, {"eyebrow": "Entrepreneur", "title": "Twenty years building my own businesses", "bullets": ["Mattress retail: one showroom in Abu Dhabi in 2005 to ten outlets across the UAE and India", "Distribution rights for Kerala and Tamil Nadu", "Garment export and chemical import businesses in India", "Wound down through the 2017 downturn and Covid; moved back to India in 2026"], "narration": "In two thousand and five I became an entrepreneur. One mattress showroom in Abu Dhabi grew to ten outlets across the U A E and India, with distribution rights in two states. I also know what it is to close businesses in a downturn. Students hear both sides.", "icon": "rocket", "image_query": "photos/presenting.jpg"}, {"eyebrow": "What I teach", "title": "Three sessions, one message", "bullets": ["Career talk: Sales is a career worth choosing, 90 minutes", "Workshop: Goal setting that sticks, half a day with a written exercise", "Course: Selling skills for students and sales teams, one to two days", "Nothing from books. Everything from the field."], "narration": "I offer three sessions. A ninety-minute career talk on why sales belongs beside engineering, medicine, law and accountancy. A half-day goal-setting workshop where every student leaves with written goals. And a one to two day selling skills course for students or company sales teams.", "icon": "target", "image_query": "photos/classroom.jpg"}, {"eyebrow": "Proof", "title": "SAFI Institute, Calicut, 2 November 2026", "bullets": ["Career talk for final-year MBA and PGDM students", "Topics: sales as a career, and objective and goal setting", "The institute collected written feedback from 24 students", "Every number on the next slides comes from those forms"], "narration": "On the second of November twenty twenty-six I spoke to final-year management students at SAFI Institute in Calicut. The institute collected written feedback from twenty-four students. Everything that follows comes from those forms.", "icon": "doc", "image_query": "photos/audience.jpg"}, {"eyebrow": "The scores", "title": "8.1 out of 10 across nine criteria", "bullets": ["Overall event 8.5, clarity of speech 8.6, satisfaction 8.3", "92 percent scored clarity of speech 8 or above", "Sales as a career 8.2, body language 8.2, goal setting 8.1", "75 percent of all 216 ratings were 8 or above"], "narration": "Across nine criteria the average score was eight point one out of ten. Overall event scored eight point five. Clarity of speech scored eight point six, with ninety-two percent of students giving it eight or more.", "icon": "chart", "image_query": "photos/presenting.jpg"}, {"eyebrow": "Intent", "title": "What the students will do next", "bullets": ["96 percent want to learn selling skills (23 of 24)", "88 percent are willing to pay for them (21 of 24)", "79 percent will practise goal setting; 79 percent are open to a sales career", "75 percent would recommend me; the rest were not sure, none said no"], "narration": "Twenty-three of the twenty-four students want to learn selling skills, and twenty-one are willing to pay for them. Nineteen will put goal setting into practice. Eighteen would recommend me to companies and institutions, and not one said no.", "icon": "star", "image_query": "photos/group.jpg"}, {"eyebrow": "In their words", "title": "What they wrote", "bullets": ["He shared nothing from books, it is from his personal experience. Jaseela V", "I got clarity on sales as a career. Shan Omar", "100 percent perfect one and gets motivation. Ameeq Aqfal", "Good event, clear presentation, a valuable learning experience. Shamila PP"], "narration": "One student wrote: he shared nothing from books, it is from his personal experience. Another wrote: I got clarity on sales as a career. That is exactly what the session is for.", "icon": "idea", "image_query": "photos/classroom.jpg"}, {"eyebrow": "The honest part", "title": "What they asked me to fix", "bullets": ["Students were told to be brutally honest", "The one recurring request: more time", "A 90-minute afternoon slot was too short for the goal-setting exercise", "Fix: offer the half-day workshop format, walk the room, keep the exercise in"], "narration": "The students were asked to be brutal, and the one recurring request was more time. Ninety minutes in the afternoon was too short for the goal-setting exercise. So the workshop format is half a day, with the exercise built in.", "icon": "check", "image_query": "photos/audience.jpg"}, {"eyebrow": "For companies", "title": "Sales team training", "bullets": ["Field sales, trade marketing and sales planning", "FMCG, telecom and retail experience at Gillette, Transmed and Etisalat", "Built and ran sales teams as an owner, not only as a manager", "Custom length, on your premises"], "narration": "For companies I train sales teams in field sales, trade marketing and sales planning, drawing on F M C G, telecom and retail experience, and on running my own sales teams as an owner.", "icon": "people", "image_query": "photos/group.jpg"}, {"eyebrow": "Book a session", "title": "Let us talk", "bullets": ["Email: anwar.barayil@gmail.com", "Call or WhatsApp: +91 98402 44034", "Based in Chennai: Kerala, Tamil Nadu, Karnataka and Andhra first, anywhere else on request", "Career talk, goal-setting workshop, selling-skills course, corporate training", "Feedback forms and photos available on request"], "narration": "To book a session, write to anwar dot barayil at gmail dot com. I am available across Kerala and Tamil Nadu, and online. Thank you.", "icon": "email", "image_query": "photos/institute.jpg"}], "questions": ["Choose the format: 90-minute talk, half-day workshop, or 1 to 2 day course", "Share your batch size and dates", "Email anwar.barayil@gmail.com or WhatsApp +91 98402 44034", "Receive a one-page outline within two days", "Feedback forms are collected at the end of every session"]};
+
+/* ===== ICON LIBRARY — keyword → inline SVG path(s) ===== */
+const ICONS = {
+  email:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  chart:'<path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/>',
+  growth:'<path d="M3 17 9 11l4 4 8-8"/><path d="M21 3h-5M21 3v5"/>',
+  money:'<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1.1 1.1-2 2.5-2s2.5.9 2.5 2-1.1 2-2.5 2-2.5.9-2.5 2 1.1 2 2.5 2 2.5-.9 2.5-2"/>',
+  factory:'<path d="M3 21V9l6 4V9l6 4V5l6 4v12z"/><path d="M3 21h18"/>',
+  people:'<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15.5 20c0-2 1-3.5 2.5-4.2"/>',
+  idea:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/>',
+  tech:'<rect x="4" y="4" width="16" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/>',
+  warning:'<path d="M12 3 2 20h20z"/><path d="M12 9v5M12 17h.01"/>',
+  check:'<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+  book:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 5v14"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',
+  leaf:'<path d="M5 21c0-9 6-15 15-15 0 9-6 15-15 15z"/><path d="M5 21C9 14 14 11 18 9"/>',
+  shield:'<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/>',
+  chain:'<path d="M9 12h6M8 8a4 4 0 0 0 0 8h2M16 8a4 4 0 0 1 0 8h-2"/>',
+  scale:'<path d="M12 3v18M5 7h14M7 7l-3 6h6zM17 7l-3 6h6zM8 20h8"/>',
+  doc:'<path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M9 12h6M9 16h6"/>',
+  flag:'<path d="M5 21V4M5 4h11l-2 3 2 3H5"/>',
+  rocket:'<path d="M12 3c3 2 5 6 5 10l-3 3h-4l-3-3c0-4 2-8 5-10z"/><path d="M9 17l-2 4M15 17l2 4M12 11h.01"/>',
+  network:'<circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7 6 17M12 7l6 10"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+  star:'<path d="m12 3 2.6 6 6.4.5-4.9 4.2 1.5 6.3L12 17l-5.6 3 1.5-6.3L3 9.5 9.4 9z"/>',
+  _default:'<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>'
+};
+function svg(key){return '<svg viewBox="0 0 24 24">'+(ICONS[(key||'').toLowerCase()]||ICONS._default)+'</svg>';}
+function photoURL(q){if(q&&(q.indexOf('/')>-1||q.indexOf('data:')==0))return q;return 'https://loremflickr.com/1280/800/'+encodeURIComponent((q||'lecture classroom').replace(/\s+/g,',')+',academic');}
+
+/* ===== RENDER ===== */
+const stage=document.getElementById('stage');
+const slides=[];
+function el(html){const d=document.createElement('div');d.innerHTML=html.trim();return d.firstElementChild;}
+
+// cover
+slides.push(el(`<section class="slide cover">
+  <div class="eyebrow">${DECK.eyebrow||'College &amp; MBA Lecture'}</div>
+  <h1>${DECK.title}</h1>
+  <div class="sub">${DECK.subtitle||''}</div>
+  <div class="lead">${DECK.lead||''}</div>
+  <div class="byline">Anwar Barayil</div>
+</section>`));
+
+// content slides
+(DECK.slides||[]).forEach(s=>{
+  const bullets=(s.bullets||[]).map(b=>`<li>${b}</li>`).join('');
+  const sec=el(`<section class="slide">
+    <div class="eyebrow">${s.eyebrow||''}</div>
+    <h2>${s.title}</h2>
+    <div class="row">
+      <div class="col-text"><ul class="bul">${bullets}</ul></div>
+      <div class="col-media">
+        <div class="icon-badge">${svg(s.icon)}</div>
+        <img class="photo" alt="${s.title}" src="${photoURL(s.image_query)}">
+      </div>
+    </div>
+  </section>`);
+  sec.dataset.narration=s.narration||(s.title+'. '+(s.bullets||[]).join('. '));
+  slides.push(sec);
+});
+
+// questions
+if((DECK.questions||[]).length){
+  const qs=(DECK.questions||[]).map(q=>`<li>${q}</li>`).join('');
+  slides.push(el(`<section class="slide qs">
+    <div class="eyebrow">Next Steps</div>
+    <h2>How to Book</h2>
+    <ol class="qlist">${qs}</ol>
+  </section>`));
+}
+
+slides.forEach(s=>stage.appendChild(s));
+
+/* ===== NAVIGATION ===== */
+let i=0;const bar=document.getElementById('bar'),count=document.getElementById('count');
+function show(n){i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  count.textContent=(i+1)+' / '+slides.length;}
+document.getElementById('prev').onclick=()=>{stop();show(i-1);};
+document.getElementById('next').onclick=()=>{stop();show(i+1);};
+addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){show(i+1);}if(e.key==='ArrowLeft'){show(i-1);}});
+show(0);
+
+/* ===== NARRATION (browser TTS) ===== */
+const narrBtn=document.getElementById('narr');let speaking=false;
+function pickVoice(){const v=speechSynthesis.getVoices();return v.find(x=>/en-GB/i.test(x.lang))||v.find(x=>/en/i.test(x.lang))||v[0];}
+function speakCurrent(){if(!('speechSynthesis'in window))return;
+  const t=slides[i].dataset.narration||slides[i].innerText;
+  const u=new SpeechSynthesisUtterance(t);u.rate=.96;u.pitch=1;const vo=pickVoice();if(vo)u.voice=vo;
+  u.onend=()=>{if(speaking&&i<slides.length-1){show(i+1);speakCurrent();}else stop();};
+  speechSynthesis.speak(u);}
+function start(){speaking=true;narrBtn.classList.add('live');narrBtn.textContent='⏸ Stop';speechSynthesis.cancel();speakCurrent();}
+function stop(){speaking=false;narrBtn.classList.remove('live');narrBtn.textContent='▶ Narrate';if('speechSynthesis'in window)speechSynthesis.cancel();}
+narrBtn.onclick=()=>speaking?stop():start();
+
+/* ===== EXPORT: PDF (print) ===== */
+document.getElementById('pdf').onclick=()=>{stop();window.print();};
+
+/* ===== EXPORT: PPT (PptxGenJS) ===== */
+document.getElementById('ppt').onclick=()=>{
+  stop();
+  const p=new PptxGenJS();p.defineLayout({name:'WIDE',width:13.33,height:7.5});p.layout='WIDE';
+  const CRE='FBF7F1',INK='16110D',TER='C45A3D',SAGE='5C6E42',CHAR='2A2622';
+  // cover
+  let c=p.addSlide();c.background={color:TER};
+  c.addText((DECK.eyebrow||'College & MBA Lecture').toUpperCase(),{x:.6,y:.7,w:12,fontSize:14,color:'FBE5D8',bold:true,charSpacing:3});
+  c.addText(DECK.title,{x:.6,y:1.6,w:12,h:2.6,fontSize:40,bold:true,color:'FFFFFF',fontFace:'Georgia'});
+  c.addText(DECK.subtitle||'',{x:.6,y:4.3,w:12,fontSize:20,bold:true,color:'FFFFFF'});
+  if(DECK.lead)c.addText(DECK.lead,{x:.6,y:5.1,w:11,fontSize:13,color:'FBE5D8'});
+  c.addText('Anwar Barayil',{x:.6,y:6.8,w:12,fontSize:13,bold:true,color:'FFFFFF'});
+  // slides
+  (DECK.slides||[]).forEach(s=>{
+    const sl=p.addSlide();sl.background={color:CRE};
+    sl.addText((s.eyebrow||'').toUpperCase(),{x:.6,y:.5,w:12,fontSize:12,bold:true,color:TER,charSpacing:2});
+    sl.addText(s.title,{x:.6,y:.95,w:12,h:1.1,fontSize:30,bold:true,color:INK,fontFace:'Georgia'});
+    sl.addText((s.bullets||[]).map(b=>({text:b,options:{bullet:{indent:18},color:CHAR,fontSize:18,paraSpaceAfter:10}})),{x:.7,y:2.3,w:11.9,h:4.4,valign:'top'});
+    sl.addText(s.narration||'',{x:.6,y:7.0,w:12,fontSize:9,italic:true,color:'8B8275'});
+  });
+  // questions
+  if((DECK.questions||[]).length){
+    const q=p.addSlide();q.background={color:CHAR};
+    q.addText('FOR DISCUSSION',{x:.6,y:.6,w:12,fontSize:13,bold:true,color:'D9A86C',charSpacing:2});
+    q.addText('How to Book',{x:.6,y:1.1,w:12,fontSize:30,bold:true,color:'FFFFFF',fontFace:'Georgia'});
+    q.addText((DECK.questions||[]).map((t,n)=>({text:(n+1)+'.  '+t,options:{color:'F4EDE2',fontSize:16,paraSpaceAfter:12}})),{x:.7,y:2.4,w:12,h:4.5,valign:'top'});
+  }
+  p.writeFile({fileName:(DECK.title||'aftab-deck').replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'.pptx'});
+};
+</script>
+</body>
+</html>
