@@ -536,7 +536,7 @@ section{padding:44px 0;border-top:1px solid var(--line)}
 @keyframes reelScroll{to{transform:translateX(-50%)}}
 @keyframes reelFloat{0%,100%{transform:translateY(0) rotate(var(--tilt))}50%{transform:translateY(-14px) rotate(calc(var(--tilt) * -.5))}}
 @media (max-width:760px){.reel img{width:220px;height:160px;margin-right:18px}.reel img:nth-child(5n+1){width:260px}}
-@media (prefers-reduced-motion:reduce){.reel{overflow-x:auto}.reel-track,.reel img{animation:none}}
+@media (prefers-reduced-motion:reduce){.reel img{animation:none}}
 @media print{.reel{-webkit-mask-image:none;mask-image:none;padding:0}.reel-track{animation:none;flex-wrap:wrap;width:auto}.reel img{animation:none;width:31%;height:105px;margin:0 2% 6px 0;border:0}.reel img[aria-hidden]{display:none}}
 /* offer */
 .offer{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -612,7 +612,7 @@ section{padding:44px 0;border-top:1px solid var(--line)}
 @keyframes igSwing{0%,100%{transform:rotate(-1deg);background-color:#0F2A47}50%{transform:rotate(1deg) translateY(-3px);background-color:#163A60}}
 @media (prefers-reduced-motion:reduce){.ig-stats div,.ig-stats svg{animation:none;transition:none}}
 .ig-where{display:grid;grid-template-columns:5fr 6fr;gap:12px;margin-bottom:14px}
-.ig-where>img{width:100%;height:100%;min-height:300px;object-fit:cover;object-position:30% 40%;border-radius:var(--r)}
+.ig-where>img{width:100%;height:100%;min-height:300px;object-fit:cover;object-position:30% 40%;border-radius:var(--r);transition:opacity .35s}
 .ig-map{background:var(--soft);border-radius:var(--r);padding:18px}
 .ig-map svg{width:100%;height:auto;margin:6px 0}
 .ig-else{font-size:14px;color:var(--mute);text-align:center}.ig-else b{color:var(--ink);margin-right:6px}
@@ -733,7 +733,7 @@ var on=false;new IntersectionObserver(function(x){if(still)return;if(x[0].isInte
       <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.5-7-12a7 7 0 0114 0c0 5.5-7 12-7 12zM12 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg><b>Chennai</b><span>Home base</span></div>
     </div>
     <div class="ig-where">
-      <img src="photos/selfie-safi.jpg" alt="Anwar Barayil outside SAFI Institute, Calicut, Kerala" loading="lazy">
+      <img id="whereShow" src="photos/selfie-safi.jpg" alt="Photos of Anwar Barayil at SAFI Institute, Calicut, Kerala" loading="lazy">
       <div class="ig-map">
         <div class="label">Where he trains</div>
         <svg viewBox="0 0 360 230" role="img" aria-label="Based in Chennai, first preference Karnataka, Andhra Pradesh, Kerala and Tamil Nadu">
@@ -975,5 +975,10 @@ document.getElementById('bk').addEventListener('submit',async e=>{
 });
 </script>
 <script>/* cursor-follow zoom on session photos */document.querySelectorAll('.ig-sess figure').forEach(f=>{const i=f.querySelector('img');f.addEventListener('pointermove',e=>{const r=f.getBoundingClientRect();i.style.transformOrigin=((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%'});f.addEventListener('pointerleave',()=>{i.style.transformOrigin=''})})</script>
+<script>/* where-box: random photo every 2 s, never the same twice in a row */(()=>{const el=document.getElementById('whereShow');if(!el)return;
+const P=['selfie-safi','institute','presenting','classroom','group','audience','headshot','hero-loop'].map(n=>'photos/'+n+'.jpg');
+P.forEach(u=>{new Image().src=u});let cur=0;
+setInterval(()=>{if(document.hidden)return;let n;do{n=Math.floor(Math.random()*P.length)}while(n===cur);cur=n;
+el.style.opacity=0;setTimeout(()=>{el.src=P[n];el.style.opacity=1},350)},2000)})()</script>
 </body>
 </html>
