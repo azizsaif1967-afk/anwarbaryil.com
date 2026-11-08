@@ -487,9 +487,10 @@ h1,h2{font-family:var(--serif);font-weight:700;letter-spacing:-.01em;line-height
 @media screen{h2{font-size:38px;margin:8px 0 22px}section{padding:72px 0}}
 section{padding:44px 0;border-top:1px solid var(--line)}
 /* hero */
-.hero{background:var(--navy);color:#fff;padding:72px 0 64px;border:0}
-.hero .wrap{display:grid;grid-template-columns:240px 1fr;gap:36px;align-items:center}
-.hero img{width:240px;height:300px;object-fit:cover;border-radius:var(--r);box-shadow:0 0 0 1px rgba(201,150,46,.5),14px 14px 0 -2px var(--gold)}
+.hero{background:var(--navy);color:#fff;padding:96px 0 88px;border:0;position:relative;overflow:hidden}
+.hero-bg{position:absolute;top:0;left:0;width:62%;height:100%;object-fit:cover;object-position:left center}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,42,71,.1) 0%,rgba(15,42,71,.35) 28%,rgba(15,42,71,.9) 50%,#0F2A47 62%)}
+.hero .wrap{position:relative;z-index:1}.hero .wrap>div{margin-left:auto;max-width:640px}
 .hero .label{color:var(--gold)}
 .hero h1{font-size:62px;margin:8px 0 6px}
 .hero .role{font-size:18px;color:#D7DEE6;margin-bottom:14px}
@@ -555,7 +556,7 @@ section{padding:44px 0;border-top:1px solid var(--line)}
 .foot a{color:#fff}
 .foot .dl a{display:inline-block;margin-left:14px;font-size:14px}
 @media screen and (max-width:820px){
-  .hero .wrap{grid-template-columns:1fr}.hero img{width:140px;height:175px}.hero h1{font-size:44px}
+  .hero{padding:0 0 40px}.hero-bg{position:static;width:100%;height:auto;aspect-ratio:16/9;display:block;margin-bottom:24px}.hero:after{display:none}.hero .wrap>div{max-width:none}.hero h1{font-size:44px}
   .tiles,.offer{grid-template-columns:1fr 1fr}.two,.quotes,.story{grid-template-columns:1fr}
   .grid{grid-template-columns:1fr 1fr;grid-template-rows:180px 180px 180px}.grid img:first-child{grid-column:1/3;grid-row:1}
   .bar{grid-template-columns:130px 1fr 40px}.cta.ghost{margin:10px 0 0}
@@ -566,8 +567,8 @@ section{padding:44px 0;border-top:1px solid var(--line)}
   section{padding:10px 0;border-top:1px solid var(--line)}
   .tile,.q,.card,.grid,.story>div,.honest,.bar{break-inside:avoid}
   .hero{padding:16px 0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .hero .wrap{grid-template-columns:110px 1fr;gap:18px}
-  .hero img{width:110px;height:138px}.hero h1{font-size:26px;margin:4px 0}.hero .role{font-size:13px;margin-bottom:6px}.hero p{font-size:11px}.cta{display:none}
+  .hero-bg,.hero:after{display:none}.hero .wrap>div{max-width:none}
+  .hero h1{font-size:26px;margin:4px 0}.hero .role{font-size:13px;margin-bottom:6px}.hero p{font-size:11px}.cta{display:none}
   h2{font-size:17px;margin:3px 0 8px}
   .tiles{gap:8px}.tile{padding:8px 10px}.tile .n{font-size:22px}.tile .t{font-size:10px;margin-top:3px}
   .src{font-size:10px;margin-top:6px}
@@ -663,8 +664,9 @@ section{padding:44px 0;border-top:1px solid var(--line)}
 <body>
 
 <header class="hero">
+  <video class="hero-bg" autoplay muted loop playsinline preload="auto" poster="photos/hero-loop.jpg" aria-hidden="true" src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/hero-loop.mp4"></video>
+  <script>if(matchMedia('(prefers-reduced-motion: reduce)').matches){var hv=document.currentScript.previousElementSibling;hv.removeAttribute('autoplay');hv.pause()}</script>
   <div class="wrap">
-    <img src="photos/headshot.jpg" alt="Anwar Barayil, sales and goal-setting trainer" width="200" height="250">
     <div>
       <div class="label">Trainer · Consultant · Entrepreneur</div>
       <h1>Anwar Barayil</h1>
