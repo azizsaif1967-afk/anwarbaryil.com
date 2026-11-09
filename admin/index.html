@@ -9,7 +9,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="../assets/ab.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
-<style>.hide{display:none!important}.pane{display:none}.pane.on{display:block}textarea.code{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;min-height:260px}iframe{width:100%;height:420px;border:1px solid var(--line);border-radius:8px;background:#fff}.sm{font-size:12px;padding:5px 10px}.ok{color:#1b7f3a}.off{color:#b71c1c}.cmt{max-width:360px;white-space:pre-wrap}</style>
+<style>.hide{display:none!important}.pane{display:none}.pane.on{display:block}textarea.code{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;min-height:260px}iframe{width:100%;height:420px;border:1px solid var(--line);border-radius:8px;background:#fff}.sm{font-size:12px;padding:5px 10px}.ok{color:#1b7f3a}.off{color:#b71c1c}.cmt{max-width:360px;white-space:pre-wrap}.nlhelp{margin:10px 0 14px;border:1px solid #E8E1CF;border-radius:10px;background:#FFFDF7}
+.nlhelp summary{cursor:pointer;padding:12px 14px;font-weight:700;color:var(--navy)}
+.nlhelp-body{padding:0 16px 14px;font-size:14px;line-height:1.55}
+.nlhelp h3{font-family:Georgia,serif;color:var(--navy);font-size:17px;margin:12px 0 6px}
+.nlhelp ol{margin:0;padding-left:20px}.nlhelp li{margin:3px 0}
+.nlhelp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:4px 22px}
+</style>
 </head>
 <body>
 <div class="top"><div class="wrap"><a href="../"><b>Anwar Barayil</b> <small>· Admin</small></a><span id="who" style="font-size:13px"></span></div></div>
@@ -52,6 +58,52 @@
     <div class="row"><div><label>Reply-to</label><input id="nReply" value="anwar.barayil@gmail.com"></div><div><label>Subject</label><input id="nSubject" placeholder="Subject line" required></div></div>
     <label>Body (HTML). Use the buttons to insert formatting or an image.</label>
     <div class="bar"><button type="button" class="cta ghost sm" data-ins="&lt;h2&gt;Heading&lt;/h2&gt;">Heading</button><button type="button" class="cta ghost sm" data-ins="&lt;p&gt;Paragraph&lt;/p&gt;">Paragraph</button><button type="button" class="cta ghost sm" data-ins="&lt;b&gt;bold&lt;/b&gt;">Bold</button><button type="button" class="cta ghost sm" data-ins="&lt;a href=&quot;https://anwarbaryil.com/&quot;&gt;link text&lt;/a&gt;">Link</button><button type="button" class="cta ghost sm" data-ins="&lt;a href=&quot;https://wa.me/919840244034&quot; style=&quot;display:inline-block;background:#25D366;color:#fff;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:700&quot;&gt;WhatsApp Anwar&lt;/a&gt;">WhatsApp button</button><label class="cta ghost sm" style="margin:0;cursor:pointer">Insert image <input type="file" id="nImg" accept="image/*" hidden></label><button type="button" class="cta ghost sm" id="nTemplate">Load template</button><label class="cta sm" style="margin:0;cursor:pointer" title="PDF, HTML, CSV or TXT. Fills subject and body for you.">Import file (PDF / HTML / CSV) <input type="file" id="nImport" accept=".pdf,.html,.htm,.csv,.txt" hidden></label><a class="hint" href="../assets/newsletter-template.csv" download style="align-self:center">CSV template</a></div>
+    <details class="nlhelp">
+      <summary>How to import a newsletter from a PDF, CSV, HTML or TXT file (step by step)</summary>
+      <div class="nlhelp-body">
+        <h3>Every file type: the same 6 steps</h3>
+        <ol>
+          <li>Prepare your file on your computer (see the rules for each type below).</li>
+          <li>Click the gold <b>Import file (PDF / HTML / CSV)</b> button and choose the file.</li>
+          <li>Wait for the green line under the Send buttons: <i>"Imported … Check the preview"</i>. Subject and Body are now filled in.</li>
+          <li>Scroll to <b>Preview</b> and read it as a student would. Fix any word directly in the Body box; the preview updates as you type.</li>
+          <li>Type your own email in the test box and click <b>Send test</b>. Open it on your phone and check it.</li>
+          <li>Click <b>Send to all subscribers</b>. It asks once more ("Yes, send to …"): click again to send. The result appears in <b>Sent log</b>.</li>
+        </ol>
+        <div class="nlhelp-grid">
+          <div><h3>PDF</h3><ol>
+            <li>Write the newsletter in Word, Google Docs or Canva and <b>Save / Download as PDF</b>.</li>
+            <li>Put the subject as the <b>very first line</b>, e.g. "December seminars in Chennai".</li>
+            <li>Use short lines with no full stop for headings. Normal sentences become paragraphs.</li>
+            <li>Type web addresses in full (https://…); they become clickable links.</li>
+            <li>Photos inside the PDF are <b>not</b> copied. After importing, click in the Body where the photo should go and use <b>Insert image</b>.</li>
+            <li>A scanned or photographed page has no text to read. Use the TXT way instead.</li>
+          </ol></div>
+          <div><h3>CSV (Excel / Google Sheets)</h3><ol>
+            <li>Click <b>CSV template</b> to download the example and open it in Excel or Google Sheets.</li>
+            <li>Keep the first row (column names) exactly as it is.</li>
+            <li>Row 2: fill <b>subject</b> and, if needed, from_name, from_email, reply_to.</li>
+            <li>Each row is one section: <b>heading</b>, <b>text</b>, optional <b>image_url</b> (a web link to a photo), optional <b>button_text</b> + <b>button_url</b>.</li>
+            <li>A WhatsApp link (https://wa.me/…) makes a green button; any other link makes a gold one.</li>
+            <li>Save as <b>CSV</b> (File, Download, Comma-separated values) and import it.</li>
+          </ol></div>
+          <div><h3>HTML</h3><ol>
+            <li>Use this when the newsletter is already designed (Mailchimp, Canva email, or a sample we sent you).</li>
+            <li>Export or save it as an <b>.html</b> file.</li>
+            <li>The design is kept as it is. Anwar's header is <b>not</b> added, so the file should carry its own.</li>
+            <li>The page title becomes the Subject. If the file has no title, type the Subject yourself.</li>
+            <li>Images must be web links (https://…), not files on your computer.</li>
+          </ol></div>
+          <div><h3>TXT (plain text, easiest)</h3><ol>
+            <li>Open Notepad (Windows) or TextEdit (Mac, Format, Make Plain Text).</li>
+            <li>Line 1 = subject. Leave <b>one empty line</b> between paragraphs.</li>
+            <li>A short line with no full stop becomes a heading.</li>
+            <li>Save as <b>.txt</b> and import. Anwar's header, greeting and WhatsApp button are added for you.</li>
+          </ol></div>
+        </div>
+        <p class="hint"><b>Good to know:</b> {{name}} anywhere in the Body becomes each student's name. The unsubscribe line is added automatically. The file never leaves your computer; it is converted inside this page. Importing replaces the Body box, so import first and then edit.</p>
+      </div>
+    </details>
     <textarea id="nBody" class="code" placeholder="<p>Hello {{name}},</p>"></textarea>
     <p class="hint">{{name}} becomes the subscriber's name (or "there"). An unsubscribe line is added automatically.</p>
     <label>Preview</label><iframe id="nPrev" title="Preview"></iframe>
