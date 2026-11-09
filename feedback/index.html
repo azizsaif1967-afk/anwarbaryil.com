@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seminar feedback · Anwar Barayil</title>
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230f2a4a%27/%3E%3Ctext x=%2732%27 y=%2743%27 font-family=%27Georgia,serif%27 font-size=%2730%27 font-weight=%27700%27 fill=%27%23c9962b%27 text-anchor=%27middle%27%3EAB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../assets/ab.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
+<style>body{max-width:560px;margin:0 auto}.hide{display:none!important}.who{font-size:13px;color:var(--mute);display:flex;justify-content:space-between;align-items:center;gap:8px}.who button{background:none;border:0;color:var(--navy);text-decoration:underline;cursor:pointer;font:inherit}</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><a href="../"><b>Anwar Barayil</b> <small>· Seminar feedback</small></a><a href="../reviews/" style="font-size:13px">All reviews →</a></div></div>
+<div class="wrap">
+
+<!-- 1. Sign in -->
+<section id="auth" class="card">
+  <div class="label">Step 1 of 2</div>
+  <h1>Sign in to leave feedback</h1>
+  <p class="hint">Your real name appears with your review. Your email and WhatsApp stay private to Anwar.</p>
+  <button class="cta g" id="google" type="button"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.6 2.5 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.8 6C12.2 13.3 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.4 28.8A14.5 14.5 0 019.5 24c0-1.7.3-3.3.8-4.8l-7.8-6A24 24 0 000 24c0 3.9.9 7.5 2.6 10.8l7.8-6z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.4 0-11.8-3.8-13.6-9.2l-7.8 6C6.5 42.6 14.6 48 24 48z"/></svg>Continue with Google</button>
+  <p class="hint" style="margin:14px 0 4px">or with email and password</p>
+  <form id="pw" autocomplete="on">
+    <label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+    <label for="pass">Password</label><input id="pass" name="password" type="password" autocomplete="current-password" minlength="6" required placeholder="At least 6 characters">
+    <p class="hint">Tip: when your browser offers to save this password, say yes. Next time it fills in for you.</p>
+    <div class="bar" style="margin-top:10px"><button class="cta navy" type="submit" id="signin">Sign in</button><button class="cta ghost" type="button" id="signup">Create account</button><button type="button" id="forgot" style="background:none;border:0;color:var(--navy);text-decoration:underline;cursor:pointer;font:inherit">Forgot password?</button></div>
+  </form>
+  <div id="amsg" class="msg hide"></div>
+</section>
+
+<!-- Password recovery (arrives via email link) -->
+<section id="recover" class="card hide">
+  <h2>Set a new password</h2>
+  <form id="recoverForm" autocomplete="on"><label for="npass">New password</label><input id="npass" type="password" autocomplete="new-password" minlength="6" required><div class="bar" style="margin-top:10px"><button class="cta navy" type="submit">Save password</button></div></form>
+  <div id="rmsg" class="msg hide"></div>
+</section>
+
+<!-- 2. The form (mirrors the SAFI paper form) -->
+<section id="form" class="card hide">
+  <div class="who"><span>Signed in as <b id="me"></b></span><button type="button" id="out">Sign out</button></div>
+  <div class="label" style="margin-top:10px">Step 2 of 2</div>
+  <h1>Seminar feedback form</h1>
+  <form id="fb" autocomplete="on">
+    <label for="seminar">Seminar you attended</label>
+    <select id="seminar" required></select>
+    <div class="row">
+      <div><label for="name">Your name (shown with your review)</label><input id="name" name="name" autocomplete="name" required maxlength="80"></div>
+      <div><label for="class_div">Class / division</label><input id="class_div" placeholder="MBA 1st year, Div A" maxlength="60"></div>
+    </div>
+    <label for="whatsapp">WhatsApp (private, optional)</label><input id="whatsapp" type="tel" autocomplete="tel" placeholder="+91 ..." maxlength="20">
+
+    <h2 style="margin-top:22px">On a scale of 1 to 10, where 1 is poor and 10 is excellent, please rate</h2>
+    <div id="scales"></div>
+
+    <h2 style="margin-top:22px">A few quick questions</h2>
+    <label>Do you plan to consider sales as a career?</label>
+    <div class="chips" data-radio="consider_sales"><label><input type="radio" name="consider_sales" value="yes" required>Yes</label><label><input type="radio" name="consider_sales" value="no">No</label><label><input type="radio" name="consider_sales" value="maybe">May be</label><label><input type="radio" name="consider_sales" value="undecided">Undecided</label></div>
+    <label>Did you find the goal-setting part of this seminar…</label>
+    <div class="chips"><label><input type="checkbox" name="goal_found" value="interesting">Interesting</label><label><input type="checkbox" name="goal_found" value="practical">Practical</label><label><input type="checkbox" name="goal_found" value="useful">Useful</label></div>
+    <label>Were you exposed to the idea of setting goals before this seminar?</label>
+    <div class="chips"><label><input type="checkbox" name="exposed_before" value="yes">Yes</label><label><input type="checkbox" name="exposed_before" value="no">No</label><label><input type="checkbox" name="exposed_before" value="school">In school</label><label><input type="checkbox" name="exposed_before" value="college">In college</label><label><input type="checkbox" name="exposed_before" value="other">Other seminars / events / training</label></div>
+    <label>Will you be actively putting goal setting into practice in your life?</label>
+    <div class="chips"><label><input type="radio" name="practice_goals" value="yes" required>Yes</label><label><input type="radio" name="practice_goals" value="no">No</label><label><input type="radio" name="practice_goals" value="maybe">May be</label><label><input type="radio" name="practice_goals" value="undecided">Undecided</label></div>
+    <label>Are you interested in learning selling skills?</label>
+    <div class="chips"><label><input type="radio" name="learn_selling" value="true" required>Yes</label><label><input type="radio" name="learn_selling" value="false">No</label></div>
+    <label>Are you willing to pay to acquire those skills?</label>
+    <div class="chips"><label><input type="radio" name="willing_pay" value="true" required>Yes</label><label><input type="radio" name="willing_pay" value="false">No</label></div>
+    <label>Can you organise a group of 10 to 50 participants?</label>
+    <div class="chips"><label><input type="radio" name="can_organize" value="true" required>Yes</label><label><input type="radio" name="can_organize" value="false">No</label></div>
+    <label>Would you recommend my service to individuals, companies or institutions?</label>
+    <div class="chips"><label><input type="radio" name="recommend" value="yes" required>Yes</label><label><input type="radio" name="recommend" value="not sure">Not sure</label></div>
+
+    <label for="comment">Your overall comment on the event and presenter. Be brutally honest.</label>
+    <textarea id="comment" maxlength="2000" placeholder="This is the part shown publicly with your name."></textarea>
+
+    <div class="chips" style="margin-top:14px"><label><input type="checkbox" id="newsletter" checked>Join Anwar's newsletter (training dates, free resources, occasional emails)</label></div>
+    <div class="bar" style="margin-top:16px"><button class="cta" type="submit" id="send">Submit feedback</button></div>
+    <div id="fmsg" class="msg hide"></div>
+  </form>
+</section>
+
+<section id="done" class="card hide">
+  <div class="label">Thank you</div>
+  <h1>Your feedback is live</h1>
+  <p>It appears on the <a href="../reviews/">reviews page</a> and on the home page with your name. You can come back and edit it any time by signing in again.</p>
+  <div id="mine"></div>
+  <div class="bar"><a class="cta ghost" href="../reviews/">See all reviews</a><button class="cta navy" type="button" id="again">Edit my answers</button></div>
+</section>
+
+<p class="foot">Your email and WhatsApp are never shown publicly. <a href="../">anwarbaryil.com</a></p>
+</div>
+<script src="../assets/ab.js"></script>
+<script>
+(() => {
+const { sb, esc, card } = AB;
+const $ = id => document.getElementById(id);
+const show = (id, on=true) => $(id).classList.toggle('hide', !on);
+const say = (id, text, ok) => { const m=$(id); m.textContent=text; m.className='msg '+(ok?'ok':'err'); };
+const SCALES = [['r_overall','Overall event'],['r_goal','Goal setting'],['r_sales_career','Sales as a career'],['r_gs_exercise','Goal-setting exercise'],['r_clarity','Clarity of speech'],['r_body','Body language'],['r_flow','Flow of presentation'],['r_satisfaction','Your satisfaction']];
+$('scales').innerHTML = SCALES.map(([k,t]) => `<label>${t}</label><div class="scale">${Array.from({length:10},(_,i)=>i+1).map(n=>`<label><input type="radio" name="${k}" value="${n}" required><span>${n}</span></label>`).join('')}</div>`).join('');
+const here = location.origin + location.pathname;
+let user = null;
+
+/* ---- auth ---- */
+$('google').onclick = () => sb.auth.signInWithOAuth({ provider:'google', options:{ redirectTo: here + location.search } });
+$('pw').onsubmit = async e => { e.preventDefault(); const { error } = await sb.auth.signInWithPassword({ email:$('email').value.trim(), password:$('pass').value }); if (error) say('amsg', error.message, false); };
+$('signup').onclick = async () => {
+  if (!$('pw').reportValidity()) return;
+  const { data, error } = await sb.auth.signUp({ email:$('email').value.trim(), password:$('pass').value, options:{ emailRedirectTo: here } });
+  if (error) return say('amsg', error.message, false);
+  if (!data.session) say('amsg', 'Account created. Check your email and click the confirmation link, then sign in here.', true);
+};
+$('forgot').onclick = async () => {
+  const email = $('email').value.trim(); if (!email) return say('amsg', 'Type your email above first, then click Forgot password.', false);
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: here });
+  say('amsg', error ? error.message : 'Password reset link sent to ' + email + '. Open it on this device.', !error);
+};
+$('recoverForm').onsubmit = async e => { e.preventDefault(); const { error } = await sb.auth.updateUser({ password:$('npass').value }); if (error) return say('rmsg', error.message, false); show('recover', false); await enter(); };
+$('out').onclick = () => sb.auth.signOut();
+$('again').onclick = () => { show('done', false); show('form'); };
+sb.auth.onAuthStateChange(async (ev, session) => {
+  if (ev === 'PASSWORD_RECOVERY') { show('auth', false); show('recover'); return; }
+  user = session?.user || null;
+  if (user) await enter(); else { show('auth'); show('form', false); show('done', false); }
+});
+
+/* ---- form ---- */
+async function enter() {
+  show('auth', false); show('form');
+  $('me').textContent = user.email;
+  $('name').value ||= user.user_metadata?.full_name || '';
+  const { data: sems } = await sb.from('ab_seminars').select('*').eq('active', true).order('held_on', { ascending:false });
+  const want = new URLSearchParams(location.search).get('seminar');
+  $('seminar').innerHTML = (sems||[]).map(s => `<option value="${s.id}" ${s.id===want?'selected':''}>${esc(AB.fmtDate(s.held_on))} · ${esc(s.college)}, ${esc(s.city)}</option>`).join('') || '<option value="">No seminar open yet</option>';
+  $('seminar').onchange = loadMine; await loadMine();
+}
+async function loadMine() {
+  const sid = $('seminar').value; if (!sid) return;
+  const { data: r } = await sb.from('ab_reviews').select('*').eq('user_id', user.id).eq('seminar_id', sid).maybeSingle();
+  $('fb').reset(); $('name').value = r?.name || user.user_metadata?.full_name || ''; $('seminar').value = sid;
+  if (!r) return;
+  for (const [k] of SCALES) { const el = document.querySelector(`[name=${k}][value="${r[k]}"]`); if (el) el.checked = true; }
+  for (const k of ['consider_sales','practice_goals','recommend','learn_selling','willing_pay','can_organize']) { const el = document.querySelector(`[name=${k}][value="${r[k]}"]`); if (el) el.checked = true; }
+  for (const k of ['goal_found','exposed_before']) (r[k]||[]).forEach(v => { const el = document.querySelector(`[name=${k}][value="${v}"]`); if (el) el.checked = true; });
+  $('class_div').value = r.class_div || ''; $('whatsapp').value = r.whatsapp || ''; $('comment').value = r.comment || ''; $('newsletter').checked = !!r.newsletter;
+  $('send').textContent = 'Update my feedback';
+}
+const val = n => document.querySelector(`[name=${n}]:checked`)?.value ?? null;
+const vals = n => [...document.querySelectorAll(`[name=${n}]:checked`)].map(e => e.value);
+$('fb').onsubmit = async e => {
+  e.preventDefault(); const b = $('send'); b.disabled = true;
+  const row = { user_id:user.id, seminar_id:$('seminar').value, email:user.email, name:$('name').value.trim(), class_div:$('class_div').value.trim()||null, whatsapp:$('whatsapp').value.trim()||null,
+    consider_sales:val('consider_sales'), goal_found:vals('goal_found'), exposed_before:vals('exposed_before'), practice_goals:val('practice_goals'),
+    learn_selling:val('learn_selling')==='true', willing_pay:val('willing_pay')==='true', can_organize:val('can_organize')==='true', recommend:val('recommend'),
+    comment:$('comment').value.trim()||null, newsletter:$('newsletter').checked, updated_at:new Date().toISOString() };
+  for (const [k] of SCALES) row[k] = +val(k);
+  const { data, error } = await sb.from('ab_reviews').upsert(row, { onConflict:'user_id,seminar_id' }).select('*, ab_seminars(college,city,held_on)').single();
+  b.disabled = false;
+  if (error) return say('fmsg', 'Could not save: ' + error.message, false);
+  if (row.newsletter) await sb.from('ab_subscribers').upsert({ email:user.email.toLowerCase(), name:row.name, source:'feedback' }, { onConflict:'email', ignoreDuplicates:true });
+  $('mine').innerHTML = card({ ...data, ...data.ab_seminars });
+  show('form', false); show('done');
+  try { window.opener?.postMessage('ab-review-added', '*'); } catch (_) {}
+};
+})();
+</script>
+</body>
+</html>

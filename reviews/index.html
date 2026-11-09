@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student reviews · Anwar Barayil, sales and goal-setting trainer</title>
+<meta name="description" content="Verified feedback from college students who attended Anwar Barayil's sales-career and goal-setting seminars. Real names, scores out of 10, honest comments.">
+<link rel="canonical" href="https://anwarbaryil.com/reviews/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230f2a4a%27/%3E%3Ctext x=%2732%27 y=%2743%27 font-family=%27Georgia,serif%27 font-size=%2730%27 font-weight=%27700%27 fill=%27%23c9962b%27 text-anchor=%27middle%27%3EAB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../assets/ab.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+<div class="top"><div class="wrap"><a href="../"><b>Anwar Barayil</b> <small>· Student reviews</small></a><a class="cta" href="../feedback/" style="padding:8px 16px;font-size:14px">Attended a seminar? Give feedback</a></div></div>
+<div class="wrap">
+  <div style="margin:26px 0 6px" class="label">In their words</div>
+  <h1>What students wrote after the seminar</h1>
+  <p class="hint">Every review is tied to a signed-in student account. Only the student's name, scores and comment are shown.</p>
+  <div class="bar"><label for="sem" style="margin:0">Seminar</label><select id="sem"><option value="">All seminars</option></select></div>
+  <div class="tiles" id="tiles"></div>
+  <div class="rv-grid" id="grid"><p class="hint">Loading reviews…</p></div>
+  <p class="foot"><a href="../">anwarbaryil.com</a> · Reviews are written by students and published as submitted. Anwar can hide abusive content only.</p>
+</div>
+<script src="../assets/ab.js"></script>
+<script>
+(async () => {
+const { sb, esc, card } = AB;
+const sel = document.getElementById('sem'), grid = document.getElementById('grid'), tiles = document.getElementById('tiles');
+const { data: sems } = await sb.from('ab_seminars').select('*').eq('active', true).order('held_on', { ascending:false });
+sel.innerHTML += (sems||[]).map(s => `<option value="${s.id}">${esc(AB.fmtDate(s.held_on))} · ${esc(s.college)}, ${esc(s.city)}</option>`).join('');
+const avg = (rows, k) => { const v = rows.map(r => r[k]).filter(Number.isFinite); return v.length ? (v.reduce((a,b)=>a+b,0)/v.length).toFixed(1) : '–'; };
+async function load() {
+  let q = sb.from('ab_reviews_public').select('*').order('created_at', { ascending:false });
+  if (sel.value) q = q.eq('seminar_id', sel.value);
+  const { data: rows, error } = await q;
+  if (error) { grid.innerHTML = `<p class="msg err">Could not load reviews: ${esc(error.message)}</p>`; return; }
+  tiles.innerHTML = `<div class="tile"><div class="n">${rows.length}</div><div class="t">Verified reviews</div></div><div class="tile"><div class="n">${avg(rows,'r_overall')}<small>/10</small></div><div class="t">Overall event</div></div><div class="tile"><div class="n">${avg(rows,'r_clarity')}<small>/10</small></div><div class="t">Clarity of speech</div></div><div class="tile"><div class="n">${avg(rows,'r_satisfaction')}<small>/10</small></div><div class="t">Student satisfaction</div></div>`;
+  grid.innerHTML = rows.length ? rows.map(card).join('') : '<p class="hint">No reviews yet for this seminar. <a href="../feedback/">Be the first.</a></p>';
+}
+sel.onchange = load; await load();
+})();
+</script>
+</body>
+</html>

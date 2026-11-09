@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin · Anwar Barayil</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230f2a4a%27/%3E%3Ctext x=%2732%27 y=%2743%27 font-family=%27Georgia,serif%27 font-size=%2730%27 font-weight=%27700%27 fill=%27%23c9962b%27 text-anchor=%27middle%27%3EAB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../assets/ab.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
+<style>.hide{display:none!important}.pane{display:none}.pane.on{display:block}textarea.code{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;min-height:260px}iframe{width:100%;height:420px;border:1px solid var(--line);border-radius:8px;background:#fff}.sm{font-size:12px;padding:5px 10px}.ok{color:#1b7f3a}.off{color:#b71c1c}.cmt{max-width:360px;white-space:pre-wrap}</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><a href="../"><b>Anwar Barayil</b> <small>· Admin</small></a><span id="who" style="font-size:13px"></span></div></div>
+<div class="wrap">
+
+<section id="auth" class="card" style="max-width:460px;margin:30px auto">
+  <h1>Admin sign in</h1>
+  <p class="hint">Only Aziz's and Anwar's emails are allowed. Anyone else is signed out at once.</p>
+  <button class="cta g" id="google" type="button">Continue with Google</button>
+  <form id="pw" autocomplete="on" style="margin-top:12px"><label for="email">Email</label><input id="email" type="email" autocomplete="username" required><label for="pass">Password</label><input id="pass" type="password" autocomplete="current-password" required>
+  <div class="bar" style="margin-top:10px"><button class="cta navy" type="submit">Sign in</button><button type="button" id="forgot" style="background:none;border:0;color:var(--navy);text-decoration:underline;cursor:pointer;font:inherit">Forgot password?</button></div></form>
+  <div id="amsg" class="msg hide"></div>
+</section>
+
+<div id="app" class="hide">
+<div class="tabs"><button data-p="reviews" class="on">Reviews</button><button data-p="seminars">Seminars</button><button data-p="subs">Email database</button><button data-p="news">Newsletter</button><button data-p="sent">Sent log</button></div>
+
+<section class="pane on" id="p-reviews">
+  <div class="bar"><select id="rvSem"><option value="">All seminars</option></select><input id="rvQ" placeholder="Search name, email, comment"><button class="cta ghost sm" id="rvCsv" type="button">Download CSV</button><span class="hint" id="rvCount"></span></div>
+  <div class="tiles" id="rvTiles"></div>
+  <div class="scroll"><table id="rvTable"><thead><tr><th>Date</th><th>Name</th><th>Class</th><th>Email · WhatsApp</th><th>Overall</th><th>Goal</th><th>Sales career</th><th>GS ex.</th><th>Clarity</th><th>Body</th><th>Flow</th><th>Satisf.</th><th>Consider sales</th><th>Learn / Pay / Organise</th><th>Recommend</th><th>Comment</th><th>Shown</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section class="pane" id="p-seminars">
+  <div class="card"><h2>Add a seminar</h2><p class="hint">Students pick the seminar by date on the feedback form. Share the link shown after saving.</p>
+    <form id="semForm"><div class="row"><div><label>Title</label><input id="sTitle" required value="Sales as a career + goal setting"></div><div><label>Date</label><input id="sDate" type="date" required></div></div><div class="row"><div><label>College / company</label><input id="sCollege" required></div><div><label>City</label><input id="sCity" required></div></div><div class="bar" style="margin-top:12px"><button class="cta navy" type="submit">Save seminar</button></div></form></div>
+  <div class="scroll"><table id="semTable"><thead><tr><th>Date</th><th>Title</th><th>College</th><th>City</th><th>Reviews</th><th>Feedback link</th><th>Open</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section class="pane" id="p-subs">
+  <div class="bar"><input id="subQ" placeholder="Search email or name"><button class="cta ghost sm" id="subCsv" type="button">Download CSV</button><span class="hint" id="subCount"></span></div>
+  <form id="subAdd" class="bar"><input id="subEmail" type="email" placeholder="Add an email manually" required><input id="subName" placeholder="Name (optional)"><button class="cta sm" type="submit">Add</button></form>
+  <div class="scroll"><table id="subTable"><thead><tr><th>Email</th><th>Name</th><th>Source</th><th>Joined</th><th>Status</th><th></th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section class="pane" id="p-news">
+  <div class="card">
+    <h2>Compose newsletter</h2>
+    <div class="row"><div><label>From name</label><input id="nFromName" value="Anwar Barayil"></div><div><label>From email (must be on a domain verified in Resend)</label><input id="nFrom" value="newsletter@azizsaif.com"></div></div>
+    <div class="row"><div><label>Reply-to</label><input id="nReply" value="anwar.barayil@gmail.com"></div><div><label>Subject</label><input id="nSubject" placeholder="Subject line" required></div></div>
+    <label>Body (HTML). Use the buttons to insert formatting or an image.</label>
+    <div class="bar"><button type="button" class="cta ghost sm" data-ins="&lt;h2&gt;Heading&lt;/h2&gt;">Heading</button><button type="button" class="cta ghost sm" data-ins="&lt;p&gt;Paragraph&lt;/p&gt;">Paragraph</button><button type="button" class="cta ghost sm" data-ins="&lt;b&gt;bold&lt;/b&gt;">Bold</button><button type="button" class="cta ghost sm" data-ins="&lt;a href=&quot;https://anwarbaryil.com/&quot;&gt;link text&lt;/a&gt;">Link</button><button type="button" class="cta ghost sm" data-ins="&lt;a href=&quot;https://wa.me/919840244034&quot; style=&quot;display:inline-block;background:#25D366;color:#fff;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:700&quot;&gt;WhatsApp Anwar&lt;/a&gt;">WhatsApp button</button><label class="cta ghost sm" style="margin:0;cursor:pointer">Insert image <input type="file" id="nImg" accept="image/*" hidden></label><button type="button" class="cta ghost sm" id="nTemplate">Load template</button></div>
+    <textarea id="nBody" class="code" placeholder="<p>Hello {{name}},</p>"></textarea>
+    <p class="hint">{{name}} becomes the subscriber's name (or "there"). An unsubscribe line is added automatically.</p>
+    <label>Preview</label><iframe id="nPrev" title="Preview"></iframe>
+    <div class="bar" style="margin-top:12px"><input id="nTest" type="email" placeholder="Send a test to this email"><button class="cta ghost" type="button" id="nSendTest">Send test</button><button class="cta" type="button" id="nSendAll">Send to all subscribers</button></div>
+    <div id="nmsg" class="msg hide"></div>
+  </div>
+</section>
+
+<section class="pane" id="p-sent"><div class="scroll"><table id="sentTable"><thead><tr><th>Sent</th><th>Subject</th><th>By</th><th>Delivered</th><th>Failed</th></tr></thead><tbody></tbody></table></div></section>
+</div>
+</div>
+<script src="../assets/ab.js"></script>
+<script>
+(() => {
+const { sb, esc, isAdmin, fmtDate, URL } = AB;
+const $ = id => document.getElementById(id);
+const show = (id, on=true) => $(id).classList.toggle('hide', !on);
+const say = (id, t, ok) => { const m=$(id); m.textContent=t; m.className='msg '+(ok?'ok':'err'); };
+const csv = (name, rows) => { if (!rows.length) return; const k = Object.keys(rows[0]); const body = [k.join(','), ...rows.map(r => k.map(c => `"${String(r[c] ?? '').replace(/"/g,'""')}"`).join(','))].join('\n'); const a = document.createElement('a'); a.href = window.URL.createObjectURL(new Blob([body], {type:'text/csv'})); a.download = name; a.click(); };
+let user = null, seminars = [], reviews = [], subs = [];
+
+/* auth */
+$('google').onclick = () => sb.auth.signInWithOAuth({ provider:'google', options:{ redirectTo: location.origin + location.pathname } });
+$('pw').onsubmit = async e => { e.preventDefault(); const { error } = await sb.auth.signInWithPassword({ email:$('email').value.trim(), password:$('pass').value }); if (error) say('amsg', error.message, false); };
+$('forgot').onclick = async () => { const { error } = await sb.auth.resetPasswordForEmail($('email').value.trim(), { redirectTo: location.origin + '/feedback/' }); say('amsg', error ? error.message : 'Reset link sent. Set the new password on the page it opens, then come back here.', !error); };
+sb.auth.onAuthStateChange(async (_e, session) => {
+  user = session?.user || null;
+  if (!user) { show('auth'); show('app', false); $('who').textContent=''; return; }
+  if (!isAdmin(user.email)) { await sb.auth.signOut(); say('amsg', user.email + ' is not an admin.', false); return; }
+  show('auth', false); show('app'); $('who').innerHTML = esc(user.email) + ' · <a href="#" id="out">Sign out</a>'; $('out').onclick = e => { e.preventDefault(); sb.auth.signOut(); };
+  await Promise.all([loadSeminars(), loadReviews(), loadSubs(), loadSent()]);
+});
+document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x===b)); document.querySelectorAll('.pane').forEach(p => p.classList.toggle('on', p.id === 'p-' + b.dataset.p)); });
+
+/* seminars */
+async function loadSeminars() {
+  const { data } = await sb.from('ab_seminars').select('*, ab_reviews(count)').order('held_on', { ascending:false }); seminars = data || [];
+  $('rvSem').innerHTML = '<option value="">All seminars</option>' + seminars.map(s => `<option value="${s.id}">${esc(fmtDate(s.held_on))} · ${esc(s.college)}</option>`).join('');
+  $('semTable').tBodies[0].innerHTML = seminars.map(s => { const link = `https://anwarbaryil.com/feedback/?seminar=${s.id}`; return `<tr><td>${esc(fmtDate(s.held_on))}</td><td>${esc(s.title)}</td><td>${esc(s.college)}</td><td>${esc(s.city)}</td><td>${s.ab_reviews?.[0]?.count ?? 0}</td><td><a href="${link}" target="_blank">${link}</a></td><td><button class="cta ghost sm" data-tog="${s.id}" data-on="${s.active}">${s.active ? 'Open' : 'Closed'}</button></td></tr>`; }).join('');
+  $('semTable').querySelectorAll('[data-tog]').forEach(b => b.onclick = async () => { await sb.from('ab_seminars').update({ active: b.dataset.on !== 'true' }).eq('id', b.dataset.tog); loadSeminars(); });
+}
+$('semForm').onsubmit = async e => { e.preventDefault(); const { error } = await sb.from('ab_seminars').insert({ title:$('sTitle').value.trim(), held_on:$('sDate').value, college:$('sCollege').value.trim(), city:$('sCity').value.trim() }); if (error) return alert(error.message); $('semForm').reset(); $('sTitle').value='Sales as a career + goal setting'; loadSeminars(); };
+
+/* reviews */
+const yn = v => v === true ? 'Yes' : v === false ? 'No' : '–';
+const avg = (rows, k) => { const v = rows.map(r => r[k]).filter(Number.isFinite); return v.length ? (v.reduce((a,b)=>a+b,0)/v.length).toFixed(1) : '–'; };
+const pct = (rows, f) => rows.length ? Math.round(rows.filter(f).length / rows.length * 100) + '%' : '–';
+async function loadReviews() { const { data } = await sb.from('ab_reviews').select('*, ab_seminars(college,city,held_on)').order('created_at', { ascending:false }); reviews = data || []; drawReviews(); }
+function filtered() { const q = $('rvQ').value.toLowerCase(), s = $('rvSem').value; return reviews.filter(r => (!s || r.seminar_id === s) && (!q || [r.name, r.email, r.comment, r.class_div].join(' ').toLowerCase().includes(q))); }
+function drawReviews() {
+  const rows = filtered(); $('rvCount').textContent = rows.length + ' of ' + reviews.length;
+  $('rvTiles').innerHTML = `<div class="tile"><div class="n">${avg(rows,'r_overall')}<small>/10</small></div><div class="t">Overall event</div></div><div class="tile"><div class="n">${avg(rows,'r_clarity')}<small>/10</small></div><div class="t">Clarity of speech</div></div><div class="tile"><div class="n">${pct(rows, r => r.learn_selling)}</div><div class="t">Want selling skills</div></div><div class="tile"><div class="n">${pct(rows, r => r.willing_pay)}</div><div class="t">Willing to pay</div></div>`;
+  $('rvTable').tBodies[0].innerHTML = rows.map(r => `<tr><td>${esc(new Date(r.created_at).toLocaleDateString('en-IN'))}<br><small>${esc(r.ab_seminars?.college||'')}</small></td><td><b>${esc(r.name)}</b></td><td>${esc(r.class_div||'')}</td><td>${esc(r.email)}<br>${esc(r.whatsapp||'')}</td><td>${r.r_overall}</td><td>${r.r_goal}</td><td>${r.r_sales_career}</td><td>${r.r_gs_exercise}</td><td>${r.r_clarity}</td><td>${r.r_body}</td><td>${r.r_flow}</td><td>${r.r_satisfaction}</td><td>${esc(r.consider_sales||'')}</td><td>${yn(r.learn_selling)} / ${yn(r.willing_pay)} / ${yn(r.can_organize)}</td><td>${esc(r.recommend||'')}</td><td class="cmt">${esc(r.comment||'')}</td><td><button class="cta ghost sm" data-hide="${r.id}" data-on="${r.approved}">${r.approved ? '<span class="ok">Shown</span>' : '<span class="off">Hidden</span>'}</button></td></tr>`).join('') || '<tr><td colspan="17" class="hint">No reviews yet.</td></tr>';
+  $('rvTable').querySelectorAll('[data-hide]').forEach(b => b.onclick = async () => { await sb.from('ab_reviews').update({ approved: b.dataset.on !== 'true' }).eq('id', b.dataset.hide); loadReviews(); });
+}
+$('rvQ').oninput = $('rvSem').onchange = drawReviews;
+$('rvCsv').onclick = () => csv('anwar-reviews.csv', filtered().map(({ ab_seminars, user_id, ...r }) => ({ ...r, seminar: `${ab_seminars?.college} ${ab_seminars?.held_on}`, goal_found: (r.goal_found||[]).join('|'), exposed_before: (r.exposed_before||[]).join('|') })));
+
+/* subscribers */
+async function loadSubs() { const { data } = await sb.from('ab_subscribers').select('*').order('created_at', { ascending:false }); subs = data || []; drawSubs(); }
+function drawSubs() {
+  const q = $('subQ').value.toLowerCase(); const rows = subs.filter(s => !q || (s.email + ' ' + (s.name||'')).toLowerCase().includes(q));
+  $('subCount').textContent = rows.length + ' of ' + subs.length + ' · ' + subs.filter(s => !s.unsubscribed).length + ' active';
+  $('subTable').tBodies[0].innerHTML = rows.map(s => `<tr><td>${esc(s.email)}</td><td>${esc(s.name||'')}</td><td>${esc(s.source||'')}</td><td>${esc(new Date(s.created_at).toLocaleDateString('en-IN'))}</td><td>${s.unsubscribed ? '<span class="off">Unsubscribed</span>' : '<span class="ok">Active</span>'}</td><td><button class="cta ghost sm" data-unsub="${s.id}" data-on="${s.unsubscribed}">${s.unsubscribed ? 'Re-activate' : 'Unsubscribe'}</button> <button class="cta ghost sm" data-del="${s.id}">Delete</button></td></tr>`).join('') || '<tr><td colspan="6" class="hint">No subscribers yet.</td></tr>';
+  $('subTable').querySelectorAll('[data-unsub]').forEach(b => b.onclick = async () => { await sb.from('ab_subscribers').update({ unsubscribed: b.dataset.on !== 'true' }).eq('id', b.dataset.unsub); loadSubs(); });
+  $('subTable').querySelectorAll('[data-del]').forEach(b => b.onclick = async () => { if (b.textContent !== 'Sure?') { b.textContent = 'Sure?'; return; } await sb.from('ab_subscribers').delete().eq('id', b.dataset.del); loadSubs(); });
+}
+$('subQ').oninput = drawSubs;
+$('subCsv').onclick = () => csv('anwar-subscribers.csv', subs);
+$('subAdd').onsubmit = async e => { e.preventDefault(); const { error } = await sb.from('ab_subscribers').upsert({ email:$('subEmail').value.trim().toLowerCase(), name:$('subName').value.trim()||null, source:'admin' }, { onConflict:'email' }); if (error) return alert(error.message); $('subAdd').reset(); loadSubs(); };
+
+/* newsletter */
+const TEMPLATE = `<div style="font-family:Georgia,serif;font-size:26px;color:#0F2A47;margin-bottom:6px">Anwar Barayil</div>
+<div style="font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#C9962E;font-weight:700;margin-bottom:20px">Sales &amp; goal-setting trainer · South India</div>
+<p>Hello {{name}},</p>
+<p>Write your news here. Keep it short: one idea, one photo, one call to action.</p>
+<p><a href="https://wa.me/919840244034" style="display:inline-block;background:#25D366;color:#fff;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:700">WhatsApp Anwar</a></p>
+<p style="color:#5E6670;font-size:13px">Anwar Barayil · Chennai · +91 98402 44034 · <a href="https://anwarbaryil.com/">anwarbaryil.com</a></p>`;
+const wrapHtml = (body, name) => `<!DOCTYPE html><html><body style="margin:0;background:#FBF8F1;font-family:Inter,Arial,sans-serif;color:#141414;line-height:1.55"><div style="max-width:600px;margin:0 auto;background:#fff;padding:32px 28px;border:1px solid #E8E1CF;border-radius:12px">${body.replace(/{{\s*name\s*}}/g, esc(name || 'there'))}<p style="margin-top:28px;font-size:12px;color:#888">You receive this because you joined Anwar Barayil's newsletter. <a href="mailto:anwar.barayil@gmail.com?subject=Unsubscribe" style="color:#888">Unsubscribe</a></p></div></body></html>`;
+const preview = () => { $('nPrev').srcdoc = wrapHtml($('nBody').value, 'Student'); };
+$('nBody').oninput = preview; $('nTemplate').onclick = () => { $('nBody').value = TEMPLATE; preview(); };
+const insertAt = txt => { const t = $('nBody'), s = t.selectionStart, e = t.selectionEnd; t.value = t.value.slice(0, s) + txt + t.value.slice(e); t.selectionStart = t.selectionEnd = s + txt.length; t.focus(); preview(); };
+document.querySelectorAll('[data-ins]').forEach(b => b.onclick = () => insertAt(b.dataset.ins));
+$('nImg').onchange = async () => {
+  const f = $('nImg').files[0]; if (!f) return; if (f.size > 4 * 1024 * 1024) return say('nmsg', 'Image is over 4 MB. Resize it first.', false);
+  const path = Date.now() + '-' + f.name.replace(/[^a-z0-9.]+/gi, '-').toLowerCase();
+  const { error } = await sb.storage.from('ab-newsletter').upload(path, f, { contentType: f.type });
+  if (error) return say('nmsg', 'Upload failed: ' + error.message, false);
+  insertAt(`<img src="${URL}/storage/v1/object/public/ab-newsletter/${path}" alt="" style="max-width:100%;border-radius:8px">`); $('nImg').value = '';
+};
+async function sendOne(to, name) {
+  const { data: { session } } = await sb.auth.getSession();
+  const r = await fetch(URL + '/functions/v1/send-email', { method:'POST', headers:{ 'Content-Type':'application/json', Authorization:'Bearer ' + session.access_token }, body: JSON.stringify({ from: `${$('nFromName').value.trim()} <${$('nFrom').value.trim()}>`, to:[to], reply_to:$('nReply').value.trim(), subject:$('nSubject').value.trim(), html: wrapHtml($('nBody').value, name) }) });
+  const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.message || j.error || ('HTTP ' + r.status)); return j;
+}
+$('nSendTest').onclick = async () => { if (!$('nSubject').value.trim() || !$('nBody').value.trim() || !$('nTest').value) return say('nmsg', 'Subject, body and a test address are needed.', false); try { await sendOne($('nTest').value, 'Test'); say('nmsg', 'Test sent to ' + $('nTest').value, true); } catch (e) { say('nmsg', e.message, false); } };
+$('nSendAll').onclick = async () => {
+  const list = subs.filter(s => !s.unsubscribed); const b = $('nSendAll');
+  if (!$('nSubject').value.trim() || !$('nBody').value.trim()) return say('nmsg', 'Subject and body are needed.', false);
+  if (b.textContent !== `Yes, send to ${list.length}`) { b.textContent = `Yes, send to ${list.length}`; return; }
+  b.disabled = true; let sent = 0, failed = 0;
+  for (const s of list) { try { await sendOne(s.email, s.name); sent++; } catch (e) { failed++; console.warn(s.email, e.message); } say('nmsg', `Sending… ${sent} sent, ${failed} failed`, true); await new Promise(r => setTimeout(r, 600)); } // Resend free tier: 2 req/s
+  await sb.from('ab_campaigns').insert({ subject:$('nSubject').value.trim(), html:$('nBody').value, sent_count:sent, failed_count:failed, sent_by:user.email });
+  b.disabled = false; b.textContent = 'Send to all subscribers'; say('nmsg', `Done: ${sent} delivered, ${failed} failed.`, failed === 0); loadSent();
+};
+async function loadSent() { const { data } = await sb.from('ab_campaigns').select('*').order('sent_at', { ascending:false }).limit(50); $('sentTable').tBodies[0].innerHTML = (data||[]).map(c => `<tr><td>${esc(new Date(c.sent_at).toLocaleString('en-IN'))}</td><td>${esc(c.subject)}</td><td>${esc(c.sent_by||'')}</td><td>${c.sent_count}</td><td>${c.failed_count}</td></tr>`).join('') || '<tr><td colspan="5" class="hint">Nothing sent yet.</td></tr>'; }
+preview();
+})();
+</script>
+</body>
+</html>

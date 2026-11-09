@@ -717,7 +717,7 @@ v.muted=false;v.play().then(ui,function(){v.muted=true;v.play().catch(function()
 function first(e){removeEventListener('pointerdown',first,true);removeEventListener('keydown',first,true);if(e.target!==b&&e.target!==v&&v.muted)sound(true)}
 addEventListener('pointerdown',first,true);addEventListener('keydown',first,true);
 var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)v.play().catch(function(){})}else{on=!v.paused;v.pause()}}).observe(v)})()</script>
-<div class="proof"><div class="wrap"><span>&#9733; <b>8.5/10</b> from 24 MBA &amp; PGDM students</span><span><b>96%</b> want to learn selling skills</span><span>SAFI Institute, Calicut · 2 Nov 2026</span><a href="#feedback">See the feedback &rarr;</a></div></div>
+<div class="proof"><div class="wrap"><span>&#9733; <b>8.5/10</b> from 24 MBA &amp; PGDM students</span><span><b>96%</b> want to learn selling skills</span><span>SAFI Institute, Calicut · 2 Nov 2026</span><a href="#feedback">See the feedback &rarr;</a><a href="feedback/" class="ab-open" style="background:var(--gold);color:#fff;border-radius:999px;padding:6px 14px;text-decoration:none;font-weight:700">Attended? Give feedback</a></div></div>
 
 <section>
   <div class="wrap">
@@ -791,7 +791,7 @@ var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)
   <div class="wrap">
     <div class="label">In their words</div>
     <div class="rv-head"><h2>What the students wrote</h2><div class="rv-score"><b>8.5</b><span>/10 ★</span><small>24 verified ratings<br>SAFI, Calicut</small></div></div>
-    <div class="rv-grid">
+    <div class="rv-grid" id="rvLive">
       <figure class="rv"><div class="rv-top"><span class="rv-av">JV</span><div><b>Jaseela V</b><span class="rv-ok">✓ Verified student · MBA</span></div></div><blockquote>He shared nothing from books. It's from his personal experience. Really great to have Mr Anwar Barayil with us.</blockquote></figure>
       <figure class="rv"><div class="rv-top"><span class="rv-av">SO</span><div><b>Shan Omar</b><span class="rv-ok">✓ Verified student · MBA</span></div></div><blockquote>The session was great. I got clarity on sales as a career. Thank you.</blockquote></figure>
       <figure class="rv"><div class="rv-top"><span class="rv-av">AA</span><div><b>Ameeq Aqfal M</b><span class="rv-ok">✓ Verified student · MBA</span></div></div><blockquote>100 percent perfect one, and gets motivation.</blockquote></figure>
@@ -799,6 +799,7 @@ var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)
       <figure class="rv"><div class="rv-top"><span class="rv-av">FN</span><div><b>Fathima Nishana</b><span class="rv-ok">✓ Verified student · MBA</span></div></div><blockquote>Interesting session. Gained many valuable points and thoughts.</blockquote></figure>
       <figure class="rv"><div class="rv-top"><span class="rv-av">AR</span><div><b>Afthab Rahman CK</b><span class="rv-ok">✓ Verified student · MBA</span></div></div><blockquote>I hope we will get your guidance in future.</blockquote></figure>
     </div>
+    <p class="src" id="rvMore" style="margin:14px 0 0"><a href="reviews/">See all verified reviews &rarr;</a> · <a href="feedback/" class="ab-open">Attended a seminar? Add yours</a></p>
     <div class="rv-ask"><span>Most asked for</span><b>More time</b><i>→</i><b>Now a half-day workshop</b></div>
   </div>
 </section>
@@ -945,11 +946,23 @@ var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)
       <a href="Anwar-Barayil-Trainer-Profile.pdf">Download profile (PDF)</a>
       <a href="Anwar-Barayil-Pitch-Deck.html">Pitch deck</a>
       <a href="linkedin/">LinkedIn posts</a>
-      <a href="instagram/">Reels</a>
+      <a href="instagram/">Reels</a> <a href="reviews/">Student reviews</a> <a href="feedback/" class="ab-open">Give feedback</a>
       <a href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/anwar-barayil-promo.mp4">1-minute video</a>
     </div>
   </div>
+  <form class="wrap" id="nlJoin" style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><label for="nlEmail" style="font-weight:700">Join the newsletter</label><input id="nlEmail" type="email" required placeholder="your@email.com" autocomplete="email" style="padding:9px 12px;border:1px solid #cfc7b4;border-radius:999px;font:14px Inter,system-ui,sans-serif;min-width:220px"><button type="submit" style="background:var(--gold);color:#fff;border:0;border-radius:999px;padding:9px 18px;font:700 14px Inter,system-ui,sans-serif;cursor:pointer">Join</button><span id="nlMsg" style="font-size:13px"></span></form>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js" defer></script>
+<script src="assets/ab.js" defer></script>
+<script>/* live reviews + feedback popup + newsletter join */addEventListener('DOMContentLoaded',()=>{
+const grid=document.getElementById('rvLive'),seed=grid.innerHTML;
+async function live(){try{const{data}=await AB.sb.from('ab_reviews_public').select('*').order('created_at',{ascending:false}).limit(6);if(!data||!data.length)return;
+grid.innerHTML=data.map(AB.card).join('')+(data.length<6?seed:'');const n=document.querySelector('.rv-score small');
+const{count}=await AB.sb.from('ab_reviews_public').select('*',{count:'exact',head:true});if(n&&count)document.getElementById('rvMore').firstElementChild.textContent='See all '+count+' live reviews \u2192'}catch(e){}}
+live();addEventListener('message',e=>{if(e.data==='ab-review-added')live()});
+document.querySelectorAll('.ab-open').forEach(a=>a.addEventListener('click',e=>{const w=window.open(a.href,'abfb','popup,width=560,height=900');if(w)e.preventDefault()}));
+const f=document.getElementById('nlJoin'),m=document.getElementById('nlMsg');f.addEventListener('submit',async e=>{e.preventDefault();const email=document.getElementById('nlEmail').value.trim().toLowerCase();
+const{error}=await AB.sb.from('ab_subscribers').upsert({email,source:'footer'},{onConflict:'email',ignoreDuplicates:true});m.textContent=error?'Could not join: '+error.message:'Thank you, you are on the list.';if(!error)f.reset()})});</script>
 <div style="background:#F5EFE4;color:#15110D;border-top:2px solid #15110D;padding:12px 16px;text-align:center;font:12px/1.5 'Familjen Grotesk',system-ui,sans-serif">Designed with love for Anwar Barayil &middot; Website designed by Claude Code by Aziz Saif &middot; Input from Mr. Anwar &middot; Sources provided by Mr. Anwar <a href="https://azizsaif.com/" target="_blank" rel="noopener" style="display:inline-block;margin-left:6px;padding:1px 9px;background:#fff;border:1.5px solid #15110D;border-radius:999px;box-shadow:2px 2px 0 #15110D;color:#15110D;font-weight:800;text-decoration:none;white-space:nowrap">aziz<span style="color:#FF5B1F">/</span>saif</a></div>
 <script>
 // Booking form -> FormSubmit (aziz@azizsaif.com, activated), cc Anwar
