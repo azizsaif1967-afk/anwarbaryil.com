@@ -962,7 +962,7 @@ const{count}=await AB.sb.from('ab_reviews_public').select('*',{count:'exact',hea
 live();addEventListener('message',e=>{if(e.data==='ab-review-added')live()});
 document.querySelectorAll('.ab-open').forEach(a=>a.addEventListener('click',e=>{const w=window.open(a.href,'abfb','popup,width=560,height=900');if(w)e.preventDefault()}));
 const f=document.getElementById('nlJoin'),m=document.getElementById('nlMsg');f.addEventListener('submit',async e=>{e.preventDefault();const email=document.getElementById('nlEmail').value.trim().toLowerCase();
-const{error}=await AB.sb.from('ab_subscribers').upsert({email,source:'footer'},{onConflict:'email',ignoreDuplicates:true});m.textContent=error?'Could not join: '+error.message:'Thank you, you are on the list.';if(!error)f.reset()})});</script>
+let{error}=await AB.sb.from('ab_subscribers').insert({email,source:'footer'});if(error&&error.code==='23505')error=null;m.textContent=error?'Could not join: '+error.message:'Thank you, you are on the list.';if(!error)f.reset()})});</script>
 <div style="background:#F5EFE4;color:#15110D;border-top:2px solid #15110D;padding:12px 16px;text-align:center;font:12px/1.5 'Familjen Grotesk',system-ui,sans-serif">Designed with love for Anwar Barayil &middot; Website designed by Claude Code by Aziz Saif &middot; Input from Mr. Anwar &middot; Sources provided by Mr. Anwar <a href="https://azizsaif.com/" target="_blank" rel="noopener" style="display:inline-block;margin-left:6px;padding:1px 9px;background:#fff;border:1.5px solid #15110D;border-radius:999px;box-shadow:2px 2px 0 #15110D;color:#15110D;font-weight:800;text-decoration:none;white-space:nowrap">aziz<span style="color:#FF5B1F">/</span>saif</a></div>
 <script>
 // Booking form -> FormSubmit (aziz@azizsaif.com, activated), cc Anwar

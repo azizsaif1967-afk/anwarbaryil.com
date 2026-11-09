@@ -161,7 +161,7 @@ $('fb').onsubmit = async e => {
   const { data, error } = await sb.from('ab_reviews').upsert(row, { onConflict:'user_id,seminar_id' }).select('*, ab_seminars(college,city,held_on)').single();
   b.disabled = false;
   if (error) return say('fmsg', 'Could not save: ' + error.message, false);
-  if (row.newsletter) await sb.from('ab_subscribers').upsert({ email:user.email.toLowerCase(), name:row.name, source:'feedback' }, { onConflict:'email', ignoreDuplicates:true });
+  if (row.newsletter) await sb.from('ab_subscribers').insert({ email:user.email.toLowerCase(), name:row.name, source:'feedback' }); // duplicate email = already on the list, error ignored on purpose
   $('mine').innerHTML = card({ ...data, ...data.ab_seminars });
   show('form', false); show('done');
   try { window.opener?.postMessage('ab-review-added', '*'); } catch (_) {}

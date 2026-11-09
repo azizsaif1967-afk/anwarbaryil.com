@@ -21,13 +21,20 @@ Google login is NOT enabled in that project yet (the azizsaif.com admin uses ema
    Then set `GOOGLE = true` in `assets/ab.js` and push.
    Optional: Authentication → Providers → Email → turn off "Confirm email" so students at a seminar
    can sign up and post in one step. Leave "Secure password change" off.
-3. **Anwar as sender.** Terminal:
+3. **Email function.** `send-email` is NOT deployed on this project yet (POST returns 404). Supabase → Edge Functions →
+   Deploy a new function → name `send-email`, paste `~/aziz-saif-story/supabase/functions/send-email/index.ts`, deploy.
+   Then Edge Functions → Secrets: `RESEND_API_KEY` (from resend.com/api-keys) and `ADMIN_EMAILS` (below).
+   Or with the CLI: `npx supabase@latest login`, then `npx supabase functions deploy send-email --project-ref qtkvtwwtkxwigibockhi`
+   from `~/aziz-saif-story`.
+3b. **Anwar as sender.** Terminal:
    `supabase secrets set ADMIN_EMAILS="aziz@azizsaif.com,azizsaif1967@gmail.com,aziz6492370@gmail.com,anwar.barayil@gmail.com" --project-ref qtkvtwwtkxwigibockhi`
    Without this Anwar can see everything in /admin/ but "Send" returns "Not an authorized admin".
 4. **From address.** Newsletter "From email" defaults to `newsletter@azizsaif.com` (the domain already
    verified in Resend). Reply-to is Anwar's Gmail. To send from `@anwarbaryil.com`, verify that domain at
    resend.com/domains first.
-5. **Test.** Open `https://anwarbaryil.com/admin/`, sign in with Google, Seminars tab shows SAFI.
+5. **Test.** Done 9 Nov by Claude as `ab-test-student@azizsaif.com`: sign-up, review insert (hidden), RLS checks all pass.
+   Delete the test rows in /admin/ → Email database (ab-test-*@azizsaif.com) and Reviews (Test Student).
+   Then: open `https://anwarbaryil.com/admin/`, sign in with Google, Seminars tab shows SAFI.
    Open the feedback link from that row in a private window, create a student account, submit.
    The review appears on `/reviews/` and the home page within a second.
 
