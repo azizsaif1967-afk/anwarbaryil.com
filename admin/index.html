@@ -51,7 +51,7 @@
     <div class="row"><div><label>From name</label><input id="nFromName" value="Anwar Barayil"></div><div><label>From email (must be on a domain verified in Resend)</label><input id="nFrom" value="anwar@anwarbaryil.com"></div></div>
     <div class="row"><div><label>Reply-to</label><input id="nReply" value="anwar.barayil@gmail.com"></div><div><label>Subject</label><input id="nSubject" placeholder="Subject line" required></div></div>
     <label>Body (HTML). Use the buttons to insert formatting or an image.</label>
-    <div class="bar"><button type="button" class="cta ghost sm" data-ins="&lt;h2&gt;Heading&lt;/h2&gt;">Heading</button><button type="button" class="cta ghost sm" data-ins="&lt;p&gt;Paragraph&lt;/p&gt;">Paragraph</button><button type="button" class="cta ghost sm" data-ins="&lt;b&gt;bold&lt;/b&gt;">Bold</button><button type="button" class="cta ghost sm" data-ins="&lt;a href=&quot;https://anwarbaryil.com/&quot;&gt;link text&lt;/a&gt;">Link</button><button type="button" class="cta ghost sm" data-ins="&lt;a href=&quot;https://wa.me/919840244034&quot; style=&quot;display:inline-block;background:#25D366;color:#fff;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:700&quot;&gt;WhatsApp Anwar&lt;/a&gt;">WhatsApp button</button><label class="cta ghost sm" style="margin:0;cursor:pointer">Insert image <input type="file" id="nImg" accept="image/*" hidden></label><button type="button" class="cta ghost sm" id="nTemplate">Load template</button></div>
+    <div class="bar"><button type="button" class="cta ghost sm" data-ins="&lt;h2&gt;Heading&lt;/h2&gt;">Heading</button><button type="button" class="cta ghost sm" data-ins="&lt;p&gt;Paragraph&lt;/p&gt;">Paragraph</button><button type="button" class="cta ghost sm" data-ins="&lt;b&gt;bold&lt;/b&gt;">Bold</button><button type="button" class="cta ghost sm" data-ins="&lt;a href=&quot;https://anwarbaryil.com/&quot;&gt;link text&lt;/a&gt;">Link</button><button type="button" class="cta ghost sm" data-ins="&lt;a href=&quot;https://wa.me/919840244034&quot; style=&quot;display:inline-block;background:#25D366;color:#fff;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:700&quot;&gt;WhatsApp Anwar&lt;/a&gt;">WhatsApp button</button><label class="cta ghost sm" style="margin:0;cursor:pointer">Insert image <input type="file" id="nImg" accept="image/*" hidden></label><button type="button" class="cta ghost sm" id="nTemplate">Load template</button><label class="cta sm" style="margin:0;cursor:pointer" title="PDF, HTML, CSV or TXT. Fills subject and body for you.">Import file (PDF / HTML / CSV) <input type="file" id="nImport" accept=".pdf,.html,.htm,.csv,.txt" hidden></label><a class="hint" href="../assets/newsletter-template.csv" download style="align-self:center">CSV template</a></div>
     <textarea id="nBody" class="code" placeholder="<p>Hello {{name}},</p>"></textarea>
     <p class="hint">{{name}} becomes the subscriber's name (or "there"). An unsubscribe line is added automatically.</p>
     <label>Preview</label><iframe id="nPrev" title="Preview"></iframe>
@@ -64,6 +64,7 @@
 </div>
 </div>
 <script src="../assets/ab.js"></script>
+<script src="../assets/nl-import.js"></script>
 <script>
 (() => {
 const { sb, esc, isAdmin, fmtDate, URL } = AB;
@@ -126,15 +127,29 @@ $('subCsv').onclick = () => csv('anwar-subscribers.csv', subs);
 $('subAdd').onsubmit = async e => { e.preventDefault(); const { error } = await sb.from('ab_subscribers').upsert({ email:$('subEmail').value.trim().toLowerCase(), name:$('subName').value.trim()||null, source:'admin' }, { onConflict:'email' }); if (error) return alert(error.message); $('subAdd').reset(); loadSubs(); };
 
 /* newsletter */
-const TEMPLATE = `<div style="font-family:Georgia,serif;font-size:26px;color:#0F2A47;margin-bottom:6px">Anwar Barayil</div>
+const NL_HEAD = `<div style="font-family:Georgia,serif;font-size:26px;color:#0F2A47;margin-bottom:6px">Anwar Barayil</div>
 <div style="font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#C9962E;font-weight:700;margin-bottom:20px">Sales &amp; goal-setting trainer · South India</div>
-<p>Hello {{name}},</p>
-<p>Write your news here. Keep it short: one idea, one photo, one call to action.</p>
-<p><a href="https://wa.me/919840244034" style="display:inline-block;background:#25D366;color:#fff;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:700">WhatsApp Anwar</a></p>
+<p>Hello {{name}},</p>`;
+const NL_FOOT = `<p><a href="https://wa.me/919840244034" style="display:inline-block;background:#25D366;color:#fff;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:700">WhatsApp Anwar</a></p>
 <p style="color:#5E6670;font-size:13px">Anwar Barayil · Chennai · +91 98402 44034 · <a href="https://anwarbaryil.com/">anwarbaryil.com</a></p>`;
+const TEMPLATE = NL_HEAD + `
+<p>Write your news here. Keep it short: one idea, one photo, one call to action.</p>
+` + NL_FOOT;
 const wrapHtml = (body, name) => `<!DOCTYPE html><html><body style="margin:0;background:#FBF8F1;font-family:Inter,Arial,sans-serif;color:#141414;line-height:1.55"><div style="max-width:600px;margin:0 auto;background:#fff;padding:32px 28px;border:1px solid #E8E1CF;border-radius:12px">${body.replace(/{{\s*name\s*}}/g, esc(name || 'there'))}<p style="margin-top:28px;font-size:12px;color:#888">You receive this because you joined Anwar Barayil's newsletter. <a href="mailto:anwar.barayil@gmail.com?subject=Unsubscribe" style="color:#888">Unsubscribe</a></p></div></body></html>`;
 const preview = () => { $('nPrev').srcdoc = wrapHtml($('nBody').value, 'Student'); };
-$('nBody').oninput = preview; $('nTemplate').onclick = () => { $('nBody').value = TEMPLATE; preview(); };
+$('nBody').oninput = preview; $('nImport').onchange = async () => {
+  const f = $('nImport').files[0]; $('nImport').value = ''; if (!f) return;
+  say('nmsg', 'Reading ' + f.name + '…', true);
+  try {
+    const r = await NLImport.read(f);
+    if (r.subject) $('nSubject').value = r.subject;
+    if (r.fromName) $('nFromName').value = r.fromName;
+    if (r.from) $('nFrom').value = r.from;
+    if (r.reply) $('nReply').value = r.reply;
+    $('nBody').value = r.branded ? NL_HEAD + '\n' + r.body + '\n' + NL_FOOT : r.body;
+    preview(); say('nmsg', 'Imported ' + f.name + ' (' + r.note + '). ' + (r.subject ? 'Check the preview, edit if needed, then Send test.' : 'The file has no title, so check the Subject line, then Send test.'), true); if (!r.subject) $('nSubject').focus();
+  } catch (e) { say('nmsg', 'Import failed: ' + e.message, false); }
+}; $('nTemplate').onclick = () => { $('nBody').value = TEMPLATE; preview(); };
 const insertAt = txt => { const t = $('nBody'), s = t.selectionStart, e = t.selectionEnd; t.value = t.value.slice(0, s) + txt + t.value.slice(e); t.selectionStart = t.selectionEnd = s + txt.length; t.focus(); preview(); };
 document.querySelectorAll('[data-ins]').forEach(b => b.onclick = () => insertAt(b.dataset.ins));
 $('nImg').onchange = async () => {
