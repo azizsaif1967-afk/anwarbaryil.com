@@ -1,8 +1,8 @@
 /* Shared Supabase client for anwarbaryil.com feedback portal. Anon key is public by design;
    security lives in the RLS policies in admin/setup.sql. */
 const AB = (() => {
-  const URL = 'https://qtkvtwwtkxwigibockhi.supabase.co';
-  const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0a3Z0d3d0a3h3aWdpYm9ja2hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0MDQ0ODEsImV4cCI6MjA5MTk4MDQ4MX0.6vYtrBuOWf0u3a98E77ICyLe0MkFJUF4pYW19EkjNwI';
+  const URL = 'https://pqyywopouifskughckcf.supabase.co';
+  const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxeXl3b3BvdWlmc2t1Z2hja2NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxODY1NzMsImV4cCI6MjEwOTc2MjU3M30.MDd_VBANCofulsgY5lzQOXeg5I8Ng1z-RBoXcUofZ7I';
   const ADMINS = ['aziz@azizsaif.com','azizsaif1967@gmail.com','aziz6492370@gmail.com','anwar.barayil@gmail.com'];
   const GOOGLE = false; // shortcut: Google provider not enabled in Supabase yet, flip to true after SETUP.md step 2b
   const sb = window.supabase.createClient(URL, KEY);

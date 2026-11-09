@@ -121,17 +121,5 @@ create policy ab_nl_read   on storage.objects for select using (bucket_id = 'ab-
 create policy ab_nl_upload on storage.objects for insert to authenticated
   with check (bucket_id = 'ab-newsletter' and public.ab_is_admin());
 
--- Students now sign in to this same Auth project, so "any authenticated user" must no
--- longer mean "admin" on the azizsaif.com newsletter tables. Admin pages keep working.
-drop policy if exists auth_all_subscribers on public.subscribers;
-create policy auth_all_subscribers on public.subscribers for all to authenticated
-  using (public.ab_is_admin()) with check (public.ab_is_admin());
-drop policy if exists auth_all_campaigns on public.campaigns;
-create policy auth_all_campaigns on public.campaigns for all to authenticated
-  using (public.ab_is_admin()) with check (public.ab_is_admin());
-drop policy if exists auth_read_settings  on public.settings;
-drop policy if exists auth_write_settings on public.settings;
-create policy auth_read_settings  on public.settings for select to authenticated using (public.ab_is_admin());
-create policy auth_write_settings on public.settings for all    to authenticated using (public.ab_is_admin()) with check (public.ab_is_admin());
 
 create index if not exists ab_reviews_seminar_idx on public.ab_reviews (seminar_id, created_at desc);

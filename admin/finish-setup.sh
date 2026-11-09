@@ -4,7 +4,7 @@
 # Optional: RESEND_API_KEY (resend.com/api-keys). Without it the newsletter "Send" stays off.
 # Run:  SUPABASE_ACCESS_TOKEN=sbp_xxx RESEND_API_KEY=re_xxx bash ~/anwarbaryil.com/admin/finish-setup.sh
 set -euo pipefail
-REF=qtkvtwwtkxwigibockhi; API=https://api.supabase.com/v1/projects/$REF
+REF=pqyywopouifskughckcf; API=https://api.supabase.com/v1/projects/$REF
 : "${SUPABASE_ACCESS_TOKEN:?Set SUPABASE_ACCESS_TOKEN first (dashboard → Account → Access Tokens)}"
 H=(-H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" -H "Content-Type: application/json")
 ADMINS="aziz@azizsaif.com,azizsaif1967@gmail.com,aziz6492370@gmail.com,anwar.barayil@gmail.com"

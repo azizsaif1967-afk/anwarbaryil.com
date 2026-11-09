@@ -1,7 +1,7 @@
 # Feedback portal + newsletter: one-time setup (Aziz, ~10 minutes)
 
 Pages: `/feedback/` (students, opens as a popup from the home page), `/reviews/` (public, all reviews),
-`/admin/` (Aziz + Anwar only). Backend = the existing Supabase project `qtkvtwwtkxwigibockhi`
+`/admin/` (Aziz + Anwar only). Backend = the existing Supabase project `pqyywopouifskughckcf`
 that already runs the azizsaif.com newsletter admin, so the Resend email function is already in place.
 Google login is NOT enabled in that project yet (the azizsaif.com admin uses email/password + magic link).
 
@@ -15,7 +15,7 @@ Google login is NOT enabled in that project yet (the azizsaif.com admin uses ema
    2b. **Google sign-in (optional, students see only email/password until this is done).**
    Google Cloud Console (project artful-wind-461910-f8) → APIs & Services → Credentials → Create OAuth client,
    Web application, name `anwarbaryil-supabase`, authorized redirect URI
-   `https://qtkvtwwtkxwigibockhi.supabase.co/auth/v1/callback`. Do NOT reuse "Web client 1" or `azizsaif-newsletter`.
+   `https://pqyywopouifskughckcf.supabase.co/auth/v1/callback`. Do NOT reuse "Web client 1" or `azizsaif-newsletter`.
    OAuth consent screen → Publish app (Production), otherwise only listed test users can sign in.
    Supabase → Authentication → Providers → Google → enable, paste Client ID + secret, save.
    Then set `GOOGLE = true` in `assets/ab.js` and push.
@@ -24,10 +24,10 @@ Google login is NOT enabled in that project yet (the azizsaif.com admin uses ema
 3. **Email function.** `send-email` is NOT deployed on this project yet (POST returns 404). Supabase → Edge Functions →
    Deploy a new function → name `send-email`, paste `~/aziz-saif-story/supabase/functions/send-email/index.ts`, deploy.
    Then Edge Functions → Secrets: `RESEND_API_KEY` (from resend.com/api-keys) and `ADMIN_EMAILS` (below).
-   Or with the CLI: `npx supabase@latest login`, then `npx supabase functions deploy send-email --project-ref qtkvtwwtkxwigibockhi`
+   Or with the CLI: `npx supabase@latest login`, then `npx supabase functions deploy send-email --project-ref pqyywopouifskughckcf`
    from `~/aziz-saif-story`.
 3b. **Anwar as sender.** Terminal:
-   `supabase secrets set ADMIN_EMAILS="aziz@azizsaif.com,azizsaif1967@gmail.com,aziz6492370@gmail.com,anwar.barayil@gmail.com" --project-ref qtkvtwwtkxwigibockhi`
+   `supabase secrets set ADMIN_EMAILS="aziz@azizsaif.com,azizsaif1967@gmail.com,aziz6492370@gmail.com,anwar.barayil@gmail.com" --project-ref pqyywopouifskughckcf`
    Without this Anwar can see everything in /admin/ but "Send" returns "Not an authorized admin".
 4. **From address.** Newsletter "From email" defaults to `newsletter@azizsaif.com` (the domain already
    verified in Resend). Reply-to is Anwar's Gmail. To send from `@anwarbaryil.com`, verify that domain at
