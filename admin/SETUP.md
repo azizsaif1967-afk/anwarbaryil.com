@@ -2,8 +2,8 @@
 
 Pages: `/feedback/` (students, opens as a popup from the home page), `/reviews/` (public, all reviews),
 `/admin/` (Aziz + Anwar only). Backend = the existing Supabase project `qtkvtwwtkxwigibockhi`
-that already runs the azizsaif.com newsletter admin, so Google login and the Resend email function
-are already in place.
+that already runs the azizsaif.com newsletter admin, so the Resend email function is already in place.
+Google login is NOT enabled in that project yet (the azizsaif.com admin uses email/password + magic link).
 
 1. **Database.** Supabase → SQL Editor → paste `admin/setup.sql` → Run. Creates `ab_seminars`,
    `ab_reviews`, `ab_subscribers`, `ab_campaigns`, the public view `ab_reviews_public`
@@ -11,7 +11,14 @@ are already in place.
    It also tightens the azizsaif.com newsletter policies to admin emails, because students now sign in
    to the same Auth project. The azizsaif.com admin keeps working.
 2. **Auth URLs.** Supabase → Authentication → URL Configuration → Redirect URLs: add
-   `https://anwarbaryil.com/**`. (Google provider is already enabled for azizsaif.com.)
+   `https://anwarbaryil.com/**` and `https://azizsaif.com/**`. Set Site URL to `https://anwarbaryil.com/feedback/`.
+   2b. **Google sign-in (optional, students see only email/password until this is done).**
+   Google Cloud Console (project artful-wind-461910-f8) → APIs & Services → Credentials → Create OAuth client,
+   Web application, name `anwarbaryil-supabase`, authorized redirect URI
+   `https://qtkvtwwtkxwigibockhi.supabase.co/auth/v1/callback`. Do NOT reuse "Web client 1" or `azizsaif-newsletter`.
+   OAuth consent screen → Publish app (Production), otherwise only listed test users can sign in.
+   Supabase → Authentication → Providers → Google → enable, paste Client ID + secret, save.
+   Then set `GOOGLE = true` in `assets/ab.js` and push.
    Optional: Authentication → Providers → Email → turn off "Confirm email" so students at a seminar
    can sign up and post in one step. Leave "Secure password change" off.
 3. **Anwar as sender.** Terminal:

@@ -105,6 +105,7 @@ const here = location.origin + location.pathname;
 let user = null;
 
 /* ---- auth ---- */
+$('google').hidden = !AB.GOOGLE; $('google').nextElementSibling.hidden = !AB.GOOGLE;
 $('google').onclick = () => sb.auth.signInWithOAuth({ provider:'google', options:{ redirectTo: here + location.search } });
 $('pw').onsubmit = async e => { e.preventDefault(); const { error } = await sb.auth.signInWithPassword({ email:$('email').value.trim(), password:$('pass').value }); if (error) say('amsg', error.message, false); };
 $('signup').onclick = async () => {

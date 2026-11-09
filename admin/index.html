@@ -74,6 +74,7 @@ const csv = (name, rows) => { if (!rows.length) return; const k = Object.keys(ro
 let user = null, seminars = [], reviews = [], subs = [];
 
 /* auth */
+$('google').hidden = !AB.GOOGLE;
 $('google').onclick = () => sb.auth.signInWithOAuth({ provider:'google', options:{ redirectTo: location.origin + location.pathname } });
 $('pw').onsubmit = async e => { e.preventDefault(); const { error } = await sb.auth.signInWithPassword({ email:$('email').value.trim(), password:$('pass').value }); if (error) say('amsg', error.message, false); };
 $('forgot').onclick = async () => { const { error } = await sb.auth.resetPasswordForEmail($('email').value.trim(), { redirectTo: location.origin + '/feedback/' }); say('amsg', error ? error.message : 'Reset link sent. Set the new password on the page it opens, then come back here.', !error); };
