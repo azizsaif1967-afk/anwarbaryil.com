@@ -79,13 +79,13 @@ $('google').onclick = () => sb.auth.signInWithOAuth({ provider:'google', options
 $('pw').onsubmit = async e => { e.preventDefault(); const { error } = await sb.auth.signInWithPassword({ email:$('email').value.trim(), password:$('pass').value }); if (error) say('amsg', error.message, false); };
 $('mkpass').onclick = async () => { const { error } = await sb.auth.signUp({ email:$('email').value.trim(), password:$('pass').value }); say('amsg', error ? error.message : 'Account created. Click Sign in.', !error); };
 $('forgot').onclick = async () => { const { error } = await sb.auth.resetPasswordForEmail($('email').value.trim(), { redirectTo: location.origin + '/feedback/' }); say('amsg', error ? error.message : 'Reset link sent. Set the new password on the page it opens, then come back here.', !error); };
-sb.auth.onAuthStateChange(async (_e, session) => {
+sb.auth.onAuthStateChange((_e, session) => setTimeout(async () => { // next tick: awaiting Supabase inside this callback deadlocks the auth lock
   user = session?.user || null;
   if (!user) { show('auth'); show('app', false); $('who').textContent=''; return; }
   if (!isAdmin(user.email)) { await sb.auth.signOut(); say('amsg', user.email + ' is not an admin.', false); return; }
   show('auth', false); show('app'); $('who').innerHTML = esc(user.email) + ' · <a href="#" id="out">Sign out</a>'; $('out').onclick = e => { e.preventDefault(); sb.auth.signOut(); };
   await Promise.all([loadSeminars(), loadReviews(), loadSubs(), loadSent()]);
-});
+}, 0));
 document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x===b)); document.querySelectorAll('.pane').forEach(p => p.classList.toggle('on', p.id === 'p-' + b.dataset.p)); });
 
 /* seminars */

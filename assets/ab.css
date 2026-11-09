@@ -38,3 +38,5 @@ table{width:100%;border-collapse:collapse;font-size:13.5px}th,td{padding:8px 6px
 .scroll{overflow-x:auto}
 .foot{color:var(--mute);font-size:12.5px;text-align:center;padding:28px 0}
 @media(max-width:760px){.row,.rv-grid{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr}h1{font-size:28px}}
+
+[hidden]{display:none!important}

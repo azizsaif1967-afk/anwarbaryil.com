@@ -122,11 +122,11 @@ $('forgot').onclick = async () => {
 $('recoverForm').onsubmit = async e => { e.preventDefault(); const { error } = await sb.auth.updateUser({ password:$('npass').value }); if (error) return say('rmsg', error.message, false); show('recover', false); await enter(); };
 $('out').onclick = () => sb.auth.signOut();
 $('again').onclick = () => { show('done', false); show('form'); };
-sb.auth.onAuthStateChange(async (ev, session) => {
+sb.auth.onAuthStateChange((ev, session) => setTimeout(async () => { // next tick: awaiting Supabase inside this callback deadlocks the auth lock
   if (ev === 'PASSWORD_RECOVERY') { show('auth', false); show('recover'); return; }
   user = session?.user || null;
   if (user) await enter(); else { show('auth'); show('form', false); show('done', false); }
-});
+}, 0));
 
 /* ---- form ---- */
 async function enter() {
