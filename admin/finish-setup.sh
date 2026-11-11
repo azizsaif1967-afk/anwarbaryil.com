@@ -1,8 +1,8 @@
 #!/bin/bash
-# Finishes the anwarbaryil.com Supabase setup through the Management API.
+# Finishes the anwarbarayil.com Supabase setup through the Management API.
 # Needs: SUPABASE_ACCESS_TOKEN (supabase.com/dashboard/account/tokens → Generate new token)
 # Optional: RESEND_API_KEY (resend.com/api-keys). Without it the newsletter "Send" stays off.
-# Run:  SUPABASE_ACCESS_TOKEN=sbp_xxx RESEND_API_KEY=re_xxx bash ~/anwarbaryil.com/admin/finish-setup.sh
+# Run:  SUPABASE_ACCESS_TOKEN=sbp_xxx RESEND_API_KEY=re_xxx bash ~/anwarbarayil.com/admin/finish-setup.sh
 set -euo pipefail
 REF=pqyywopouifskughckcf; API=https://api.supabase.com/v1/projects/$REF
 : "${SUPABASE_ACCESS_TOKEN:?Set SUPABASE_ACCESS_TOKEN first (dashboard → Account → Access Tokens)}"
@@ -10,7 +10,7 @@ H=(-H "Authorization: Bearer $SUPABASE_ACCESS_TOKEN" -H "Content-Type: applicati
 ADMINS="aziz@azizsaif.com,azizsaif1967@gmail.com,aziz6492370@gmail.com,anwar.barayil@gmail.com"
 
 echo "1. Auth URLs"
-curl -sS -f -X PATCH "$API/config/auth" "${H[@]}" -d '{"site_url":"https://anwarbaryil.com/feedback/","uri_allow_list":"https://anwarbaryil.com/**,https://azizsaif.com/**"}' \
+curl -sS -f -X PATCH "$API/config/auth" "${H[@]}" -d '{"site_url":"https://anwarbarayil.com/feedback/","uri_allow_list":"https://anwarbarayil.com/**,https://azizsaif.com/**"}' \
   | python3 -c "import json,sys; d=json.load(sys.stdin); print('   site_url =',d.get('site_url')); print('   allow    =',d.get('uri_allow_list'))"
 
 echo "2. Secrets"
@@ -27,4 +27,4 @@ curl -sS -f -X POST "$API/database/query" "${H[@]}" -d "$(python3 -c "import jso
 
 echo "5. Check"
 curl -sS -o /dev/null -w "   send-email function HTTP %{http_code} (want 401, not 404)\n" -X POST "https://$REF.supabase.co/functions/v1/send-email" -H "Content-Type: application/json" -d '{}'
-echo "Done. Open https://anwarbaryil.com/admin/ and send yourself a test newsletter."
+echo "Done. Open https://anwarbarayil.com/admin/ and send yourself a test newsletter."

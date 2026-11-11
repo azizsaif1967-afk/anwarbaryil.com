@@ -11,10 +11,10 @@ Google login is NOT enabled in that project yet (the azizsaif.com admin uses ema
    It also tightens the azizsaif.com newsletter policies to admin emails, because students now sign in
    to the same Auth project. The azizsaif.com admin keeps working.
 2. **Auth URLs.** Supabase → Authentication → URL Configuration → Redirect URLs: add
-   `https://anwarbaryil.com/**` and `https://azizsaif.com/**`. Set Site URL to `https://anwarbaryil.com/feedback/`.
+   `https://anwarbarayil.com/**` and `https://azizsaif.com/**`. Set Site URL to `https://anwarbarayil.com/feedback/`.
    2b. **Google sign-in (optional, students see only email/password until this is done).**
    Google Cloud Console (project artful-wind-461910-f8) → APIs & Services → Credentials → Create OAuth client,
-   Web application, name `anwarbaryil-supabase`, authorized redirect URI
+   Web application, name `anwarbarayil-supabase`, authorized redirect URI
    `https://pqyywopouifskughckcf.supabase.co/auth/v1/callback`. Do NOT reuse "Web client 1" or `azizsaif-newsletter`.
    OAuth consent screen → Publish app (Production), otherwise only listed test users can sign in.
    Supabase → Authentication → Providers → Google → enable, paste Client ID + secret, save.
@@ -30,11 +30,11 @@ Google login is NOT enabled in that project yet (the azizsaif.com admin uses ema
    `supabase secrets set ADMIN_EMAILS="aziz@azizsaif.com,azizsaif1967@gmail.com,aziz6492370@gmail.com,anwar.barayil@gmail.com" --project-ref pqyywopouifskughckcf`
    Without this Anwar can see everything in /admin/ but "Send" returns "Not an authorized admin".
 4. **From address.** Newsletter "From email" defaults to `newsletter@azizsaif.com` (the domain already
-   verified in Resend). Reply-to is Anwar's Gmail. To send from `@anwarbaryil.com`, verify that domain at
+   verified in Resend). Reply-to is Anwar's Gmail. To send from `@anwarbarayil.com`, verify that domain at
    resend.com/domains first.
 5. **Test.** Done 9 Nov by Claude as `ab-test-student@azizsaif.com`: sign-up, review insert (hidden), RLS checks all pass.
    Delete the test rows in /admin/ → Email database (ab-test-*@azizsaif.com) and Reviews (Test Student).
-   Then: open `https://anwarbaryil.com/admin/`, sign in with Google, Seminars tab shows SAFI.
+   Then: open `https://anwarbarayil.com/admin/`, sign in with Google, Seminars tab shows SAFI.
    Open the feedback link from that row in a private window, create a student account, submit.
    The review appears on `/reviews/` and the home page within a second.
 

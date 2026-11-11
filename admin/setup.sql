@@ -1,4 +1,4 @@
--- anwarbaryil.com — feedback portal + newsletter. Paste into Supabase SQL Editor
+-- anwarbarayil.com — feedback portal + newsletter. Paste into Supabase SQL Editor
 -- (project qtkvtwwtkxwigibockhi, shared with azizsaif.com newsletter) and Run.
 -- Safe to re-run.
 

@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Sitemap: https://anwarbaryil.com/sitemap.xml
+Sitemap: https://anwarbarayil.com/sitemap.xml
 Disallow: /admin/
 Disallow: /feedback/

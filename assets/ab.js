@@ -1,4 +1,4 @@
-/* Shared Supabase client for anwarbaryil.com feedback portal. Anon key is public by design;
+/* Shared Supabase client for anwarbarayil.com feedback portal. Anon key is public by design;
    security lives in the RLS policies in admin/setup.sql. */
 const AB = (() => {
   const URL = 'https://pqyywopouifskughckcf.supabase.co';
