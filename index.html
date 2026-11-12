@@ -879,6 +879,7 @@ var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)
       <button type="submit">Send</button>
     </form>
     <div class="bk-msg" id="bk-msg" role="status"></div>
+    <details class="appt"></details>
   </div>
 </section>
 
@@ -960,6 +961,7 @@ c.forEach(function(e,i){e.dataset.d=i%4*150;o.observe(e)})})()</script>
 </section>
 
 <script src="assets/gate.js"></script>
+<script src="assets/appt.js"></script>
 <script>abGate.on(()=>document.querySelectorAll('.clips .lk').forEach(g=>{const v=g.querySelector('video'),a=g.querySelector('a[data-href]');v.src=v.dataset.src;if(a){a.href=a.dataset.href;a.removeAttribute('data-href')}g.querySelector('.lk-btn').remove();g.classList.remove('lk')}));
 document.querySelectorAll('.lk-btn').forEach(b=>b.onclick=()=>abGate.open('the SAFI talk clips'))</script>
 <section id="faq">
@@ -1029,5 +1031,8 @@ const P=['selfie-safi','institute','presenting','classroom','group','audience','
 P.forEach(u=>{new Image().src=u});let cur=0;
 setInterval(()=>{if(document.hidden)return;let n;do{n=Math.floor(Math.random()*P.length)}while(n===cur);cur=n;
 el.style.opacity=0;setTimeout(()=>{el.src=P[n];el.style.opacity=1},350)},2000)})()</script>
+<link rel="stylesheet" href="/assets/voicebot.css?v=1">
+<script defer src="/assets/voicebot.js?v=1"></script>
+<script defer src="/assets/voice-widget.js?v=1"></script>
 </body>
 </html>
