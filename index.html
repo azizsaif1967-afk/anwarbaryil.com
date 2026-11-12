@@ -698,15 +698,7 @@ section{padding:44px 0;border-top:1px solid var(--line)}
 .lk-btn{position:absolute;top:0;left:0;width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r);background:rgba(10,21,22,.62);backdrop-filter:blur(3px);color:#fff;font:800 16px/1.3 inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:background .3s}
 .lk-btn small{font-weight:600;font-size:12px;color:#E9C77A}.lk-btn:hover{background:rgba(10,21,22,.45)}
 .lk a[data-href]{opacity:.4;pointer-events:none}
-#vg{border:0;border-radius:16px;padding:28px;width:min(440px,92vw);box-shadow:0 30px 80px rgba(0,0,0,.35);background:var(--bg)}
-#vg::backdrop{background:rgba(10,21,22,.6)}
-.vg-bar{height:4px;background:var(--soft);border-radius:2px;margin-bottom:22px}.vg-bar i{display:block;height:100%;width:0;background:var(--gold);border-radius:2px;transition:width .4s}
-.vg-q{font-family:var(--serif);font-size:28px;font-weight:700;margin:0 0 14px;animation:vgin .35s}
-@keyframes vgin{from{opacity:0;transform:translateX(16px)}}
-#vgI{width:100%;font:inherit;font-size:18px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;box-sizing:border-box}#vgI:focus{outline:2px solid var(--gold);border-color:transparent}
-.vg-go{margin-top:14px;display:flex;justify-content:space-between;align-items:center}
-.vg-go button{background:var(--navy);color:#fff;border:0;border-radius:99px;padding:11px 22px;font:800 15px inherit;cursor:pointer}
-.vg-go span{font-size:12px;color:var(--mute)}.vg-x{position:absolute;top:10px;right:14px;background:none;border:0;font-size:22px;cursor:pointer;color:var(--mute)}
+
 .reels figcaption{font-size:13px;font-weight:600;margin-top:6px}.reels a,.vid a{color:var(--navy);font-weight:700}
 @media (max-width:760px){.dl-grid{grid-template-columns:1fr 1fr}.reels.clips{grid-template-columns:repeat(6,85%)}.reels{grid-template-columns:repeat(5,70%);overflow-x:auto;scroll-snap-type:x mandatory}.reels figure{scroll-snap-align:start}}
 @media print{#downloads{display:none}}
@@ -967,28 +959,9 @@ c.forEach(function(e,i){e.dataset.d=i%4*150;o.observe(e)})})()</script>
   </div>
 </section>
 
-<dialog id="vg" aria-labelledby="vgQ"><button class="vg-x" type="button" aria-label="Close" onclick="this.parentNode.close()">&times;</button>
-<form id="vgf" novalidate><div class="vg-bar"><i></i></div><label class="vg-q" id="vgQ" for="vgI"></label><input id="vgI" required>
-<div class="vg-go"><span id="vgN"></span><button>Next &rarr;</button></div></form></dialog>
-<script>
-// shortcut: client-side gate only, the clip URLs are still in the page source. Real lock needs signed R2 URLs.
-(()=>{const K='ab-clips',dlg=document.getElementById('vg'),f=document.getElementById('vgf'),I=document.getElementById('vgI'),Q=document.getElementById('vgQ'),N=document.getElementById('vgN'),bar=dlg.querySelector('.vg-bar i');
-const S=[{k:'Name',q:()=>'First, your name?',t:'text',ac:'name'},{k:'Mobile',q:d=>'Thanks '+d.Name.split(' ')[0]+'. Your WhatsApp number?',t:'tel',ac:'tel',pt:'[0-9+ \\(\\)\\-]{8,}'},{k:'Company',q:()=>'College or company?',t:'text',ac:'organization'},{k:'City',q:()=>'And your city?',t:'text',ac:'address-level2'}];
-let i=0,d={};
-const open=()=>{document.querySelectorAll('.clips .lk').forEach(g=>{const v=g.querySelector('video'),a=g.querySelector('a[data-href]');v.src=v.dataset.src;if(a)a.href=a.dataset.href;a&&a.removeAttribute('data-href');g.querySelector('.lk-btn').remove();g.classList.remove('lk')})};
-try{if(localStorage.getItem(K))open()}catch(_){}
-const show=()=>{const s=S[i];Q.textContent=s.q(d);Q.style.animation='none';Q.offsetWidth;Q.style.animation='';I.type=s.t;I.autocomplete=s.ac;I.value=d[s.k]||'';s.pt?I.pattern=s.pt:I.removeAttribute('pattern');N.textContent='Step '+(i+1)+' of '+S.length;bar.style.width=(i/S.length*100)+'%';I.focus()};
-document.querySelectorAll('.lk-btn').forEach(b=>b.addEventListener('click',()=>{i=0;dlg.showModal();show()}));
-f.addEventListener('submit',async e=>{e.preventDefault();const v=I.value.trim();if(!v||!I.checkValidity()){I.reportValidity();return}
-d[S[i].k]=v;if(++i<S.length)return show();
-bar.style.width='100%';Q.textContent='Unlocked. Enjoy the clips.';I.hidden=true;f.querySelector('button').hidden=true;N.textContent='';
-let n=d.Mobile.replace(/[^0-9]/g,'');if(n.length===10)n='91'+n;const wa='https://wa.me/'+n;
-fetch('https://formsubmit.co/ajax/c411e0fd2158ffd37fb38dbcb99b501c',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_subject:'Reminder to connect: '+d.Name+' ('+d.Company+', '+d.City+') watched your SAFI clips',_cc:'anwar.barayil@gmail.com',_template:'table',_captcha:'false',
-Note:'Hello Anwar, '+d.Name+' from '+d.Company+', '+d.City+' just unlocked your SAFI talk clips on anwarbaryil.com. A short WhatsApp today while the talk is fresh works best. Tap to message: '+wa,
-Name:d.Name,WhatsApp:d.Mobile,Message_link:wa,Company:d.Company,City:d.City,Page:location.href})}).catch(()=>{});
-try{localStorage.setItem(K,'1')}catch(_){}
-open();setTimeout(()=>{dlg.close();I.hidden=false;f.querySelector('button').hidden=false},1400)});})();
-</script>
+<script src="assets/gate.js"></script>
+<script>abGate.on(()=>document.querySelectorAll('.clips .lk').forEach(g=>{const v=g.querySelector('video'),a=g.querySelector('a[data-href]');v.src=v.dataset.src;if(a){a.href=a.dataset.href;a.removeAttribute('data-href')}g.querySelector('.lk-btn').remove();g.classList.remove('lk')}));
+document.querySelectorAll('.lk-btn').forEach(b=>b.onclick=()=>abGate.open('the SAFI talk clips'))</script>
 <section id="faq">
   <div class="wrap">
     <div class="label">Questions</div>
