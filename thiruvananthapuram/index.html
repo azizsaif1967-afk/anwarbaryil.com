@@ -62,6 +62,22 @@ section .cta.ghost{color:var(--navy)}
 @media (max-width:760px){.hero h1{font-size:38px}h2{font-size:28px}.offer{grid-template-columns:1fr}section{padding:40px 0}}
 
 </style>
+<!-- AB:CONVERT:CSS:BEGIN --><style>
+.ab-form{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:720px}
+.ab-form label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600;color:var(--mute)}
+.ab-form input,.ab-form select,.ab-form textarea{font:inherit;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.ab-form .full{grid-column:1/-1}.ab-form button{grid-column:1/-1;justify-self:start;background:var(--navy);color:#fff;border:0;border-radius:99px;padding:13px 26px;font-weight:800;font-size:16px;cursor:pointer}
+.ab-sent{display:none;background:#E8F5EC;border:1px solid #9BD3AE;padding:12px 14px;border-radius:10px;margin-bottom:14px}.ab-sent:target{display:block}
+.ab-bar{display:none}
+@media(max-width:720px){.ab-form{grid-template-columns:1fr}
+.ab-bar{display:grid;grid-template-columns:1fr 1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--navy);padding:8px 8px calc(8px + env(safe-area-inset-bottom));gap:8px;box-shadow:0 -6px 20px rgba(0,0,0,.18)}
+.ab-bar a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:10px;font-weight:800;font-size:15px;text-decoration:none;color:#fff;background:rgba(255,255,255,.12)}
+.ab-bar a.wa{background:#25D366;color:#0b2e17}.ab-bar a.bk{background:var(--gold);color:#141414}
+body{padding-bottom:76px}
+#az-voice-host{position:fixed;right:0;bottom:76px;width:0;height:0;transform:translateZ(0);z-index:2147483000}
+.azvb-launch{bottom:230px!important}.azvb-bubble{bottom:298px!important}section.azvb-panel,.azvb-panel{bottom:172px!important}}
+.hero .appt>summary{background:var(--gold);color:#141414}
+</style><!-- AB:CONVERT:CSS:END -->
 </head>
 <body>
 <header class="hero">
@@ -70,8 +86,9 @@ section .cta.ghost{color:var(--navy)}
     <h1>Sales trainer in Thiruvananthapuram</h1>
     <div class="role">Career talks, goal setting and selling skills, taught from experience</div>
     <p>Anwar Barayil spent <b>27 years</b> with multinationals in the Gulf, including <b>Gillette, P&amp;G and Etisalat</b>, then <b>20 years</b> building his own businesses in the UAE and India. He is based in Chennai.</p>
-    <div class="ctas"><a class="cta wa" href="https://wa.me/919840244034?text=Hello%20Anwar%2C%20I%20would%20like%20to%20book%20a%20training%20session%20in%20Thiruvananthapuram.">WhatsApp Anwar</a><a class="cta ghost" href="tel:+919840244034">Call +91 98402 44034</a><a class="cta ghost" href="mailto:anwar.barayil@gmail.com?subject=Training%20enquiry%20Thiruvananthapuram">anwar.barayil@gmail.com</a></div>
-    <p class="crumb"><a href="../">Anwar Barayil home</a> · <a href="../why-sales-career/">Watch the full talk</a></p>
+    <div class="ctas"><a class="cta wa" data-track="wa-hero-thiruvananthapuram" href="https://wa.me/919840244034?text=Hello%20Anwar%2C%20I%27d%20like%20to%20book%20a%20sales%20training%20consultation%20for%20Thiruvananthapuram.">WhatsApp Anwar</a><a class="cta ghost" data-track="call-hero-thiruvananthapuram" href="tel:+919840244034">Call +91 98402 44034</a><a class="cta ghost" href="mailto:anwar.barayil@gmail.com?subject=Training%20enquiry%20Thiruvananthapuram">anwar.barayil@gmail.com</a></div>
+    <!-- AB:CONVERT:HERO:BEGIN --><div id="book"><details class="appt" data-track="book-hero-thiruvananthapuram"></details></div><!-- AB:CONVERT:HERO:END -->
+<p class="crumb"><a href="../">Anwar Barayil home</a> · <a href="../why-sales-career/">Watch the full talk</a></p>
   </div>
 </header>
 <div class="proof"><div class="wrap"><span>&#9733; <b>8.5/10</b> from 24 MBA &amp; PGDM students</span><span><b>96%</b> want to learn selling skills</span><span>SAFI Institute, Calicut · 2 Nov 2026</span></div></div>
@@ -106,6 +123,22 @@ section .cta.ghost{color:var(--navy)}
     <p class="prose-p">Anywhere outside his first-preference southern states, the host covers travel, stay and fee.</p>
   </div>
 </section>
+<!-- AB:CONVERT:FORM:BEGIN --><section id="enquire"><div class="wrap"><div class="label">Enquire</div><h2>Training enquiry for Thiruvananthapuram</h2>
+<p class="ab-sent" id="sent">Thank you. Anwar will reply on WhatsApp or email, usually within a day.</p>
+<form class="ab-form" action="https://formsubmit.co/c411e0fd2158ffd37fb38dbcb99b501c" method="POST" data-track="form-thiruvananthapuram">
+<input type="hidden" name="_subject" value="Training enquiry: Thiruvananthapuram (anwarbarayil.com/thiruvananthapuram/)"><input type="hidden" name="_cc" value="anwar.barayil@gmail.com">
+<input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://anwarbarayil.com/thiruvananthapuram/#sent">
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+<label>Name<input name="Name" required autocomplete="name"></label>
+<label>Company or college<input name="Company" required autocomplete="organization"></label>
+<label>City<input name="City" value="Thiruvananthapuram" required autocomplete="address-level2"></label>
+<label>Team size<select name="Team size"><option>1-10</option><option>11-25</option><option>26-50</option><option>51-100</option><option>100+</option><option>Students / batch</option></select></label>
+<label>Phone<input name="Phone" type="tel" required autocomplete="tel" inputmode="tel" pattern="[0-9+ ()-]{7,20}"></label>
+<label>Email<input name="email" type="email" required autocomplete="email"></label>
+<label class="full">Message<textarea name="Message" rows="4" placeholder="What should the training cover?"></textarea></label>
+<button type="submit">Send enquiry</button></form>
+<p class="prose-p" style="margin-top:12px;font-size:14px">Prefer email? <a href="mailto:anwar.barayil@gmail.com?subject=Training%20enquiry%20Thiruvananthapuram" data-track="mail-thiruvananthapuram">anwar.barayil@gmail.com</a></p>
+</div></section><!-- AB:CONVERT:FORM:END -->
 <section id="faq">
   <div class="wrap">
     <div class="label">Questions</div>
@@ -128,5 +161,7 @@ section .cta.ghost{color:var(--navy)}
 <link rel="stylesheet" href="/assets/voicebot.css?v=1">
 <script defer src="/assets/voicebot.js?v=1"></script>
 <script defer src="/assets/voice-widget.js?v=1"></script>
+<!-- AB:CONVERT:BAR:BEGIN --><nav class="ab-bar" aria-label="Contact Anwar"><a href="tel:+919840244034" data-track="call-bar-thiruvananthapuram">Call</a><a class="wa" href="https://wa.me/919840244034?text=Hello%20Anwar%2C%20I%27d%20like%20to%20book%20a%20sales%20training%20consultation%20for%20Thiruvananthapuram." data-track="wa-bar-thiruvananthapuram">WhatsApp</a><a class="bk" href="#book" onclick="var d=document.querySelector('.appt');if(d)d.open=true" data-track="book-bar-thiruvananthapuram">Book a call</a></nav>
+<script src="../assets/appt.js"></script><!-- AB:CONVERT:BAR:END -->
 </body>
 </html>
