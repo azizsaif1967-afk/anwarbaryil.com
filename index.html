@@ -645,17 +645,25 @@ section{padding:44px 0;border-top:1px solid var(--line)}
 .rv-ask{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px;font-size:14px}
 .rv-ask span{color:var(--mute);text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:700}
 .rv-ask b{background:var(--soft);border-radius:99px;padding:6px 14px}.rv-ask i{color:var(--gold);font-style:normal;font-weight:800}
-/* career heat timeline */
-.tl{display:flex;gap:6px;margin-top:8px}
-.tl-era{min-width:0}.tl-era>b{display:block;font-size:15px;margin:10px 0 8px}
-.tl-bar{color:#fff;font-weight:800;font-size:14px;padding:10px 12px;border-radius:4px}
-.tl-steps{display:flex;flex-direction:column;gap:6px}
-.tl-steps span{font-size:13px;font-weight:600;padding:6px 10px;border-radius:4px}
-.h1{background:#F6E7C4;color:#5a4410}.h2{background:#E9C77A;color:#3d2c06}.h3{background:#C9962E;color:#fff}
-.h4{background:#5C6F86;color:#fff}.h5{background:#0F2A47;color:#fff}.h6{background:#0A1516;color:#E9C77A}
-.tl-bar.h1,.tl-bar.h2{color:#3d2c06}
-.tl-key{display:flex;align-items:center;gap:4px;margin:18px 0 8px;font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.12em;font-weight:700}
-.tl-key i{width:34px;height:10px;border-radius:2px}.tl-key span{margin:0 6px}
+/* career climb: bars rise one by one when scrolled into view */
+.cl{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:end;margin-top:12px;position:relative}
+.cl-s{display:flex;flex-direction:column;justify-content:flex-end}
+.cl-s .y{font-family:var(--serif);font-size:34px;font-weight:700;line-height:1;color:var(--ink);opacity:0;transform:translateY(10px);transition:.5s var(--d)}
+.cl-s .r{font-weight:800;font-size:15px;margin:6px 0 2px;opacity:0;transition:.5s var(--d)}
+.cl-s .w{font-size:12px;color:var(--mute);margin-bottom:8px;opacity:0;transition:.5s var(--d)}
+.cl-s .bar{height:calc(var(--h)*2.4px);border-radius:8px 8px 0 0;background:var(--c);transform:scaleY(0);transform-origin:bottom;transition:transform .8s cubic-bezier(.2,.8,.2,1) var(--d)}
+.cl-s:hover .bar{filter:brightness(1.12)}
+.cl.go .bar{transform:scaleY(1)}.cl.go .y,.cl.go .r,.cl.go .w{opacity:1;transform:none}
+.cl-now .bar{box-shadow:0 0 0 0 rgba(201,150,46,.6);animation:clp 2s 2s infinite}
+.cl-now .y{color:var(--gold)}
+@keyframes clp{70%{box-shadow:0 0 0 14px rgba(201,150,46,0)}100%{box-shadow:0 0 0 0 rgba(201,150,46,0)}}
+.cl-base{height:4px;background:linear-gradient(90deg,#F6E7C4,var(--gold),var(--navy));border-radius:2px}
+@media (max-width:760px){.cl{grid-template-columns:1fr;height:auto;gap:8px}
+.cl-s{height:auto;display:grid;grid-template-columns:64px 1fr;align-items:center;column-gap:10px}
+.cl-s .y{font-size:24px;grid-row:span 3}.cl-s .r,.cl-s .w{margin:0}
+.cl-s .bar{height:10px;width:calc(var(--h)*1%);border-radius:0 6px 6px 0;transform:scaleX(0);transform-origin:left;margin-top:4px}
+.cl.go .bar{transform:scaleX(1)}.cl-base{display:none}}
+@media (prefers-reduced-motion:reduce){.cl *{transition:none!important;animation:none!important}}
 /* where: landmark thumbnails */
 .pl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
 .pl{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;background:var(--navy)}
@@ -665,6 +673,12 @@ section{padding:44px 0;border-top:1px solid var(--line)}
 .pl-c{display:flex;flex-wrap:wrap;gap:4px}.pl-c span{font-size:11px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:2px 8px}
 .pl-badge{position:absolute;top:10px;left:10px;background:var(--gold);color:var(--ink);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:4px 9px;border-radius:99px}
 .pl-wide{aspect-ratio:auto;height:220px}
+/* zoom-in when the card scrolls into view; photo settles from 1.3x, hover pushes in again */
+.pl{opacity:0;transform:scale(.82);transition:opacity .7s,transform .9s cubic-bezier(.2,.8,.2,1)}
+.pl img{transform:scale(1.3);transition:transform 1.6s cubic-bezier(.2,.8,.2,1)}
+.pl.in{opacity:1;transform:none}.pl.in img{transform:scale(1)}
+.pl.in:hover img{transform:scale(1.1);transition-duration:.6s}
+@media (prefers-reduced-motion:reduce){.pl,.pl img{opacity:1!important;transform:none!important;transition:none!important}}
 .pl-host{margin-top:8px;font-size:13px;font-weight:700;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .pl-host span{background:var(--gold);color:var(--ink);border-radius:99px;padding:3px 10px;font-size:12px}
 .src a{color:inherit}
@@ -679,6 +693,20 @@ section{padding:44px 0;border-top:1px solid var(--line)}
 .reels{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:10px}
 .reels video{width:100%;aspect-ratio:9/16;border-radius:var(--r);background:var(--navy);object-fit:cover}
 .reels.clips{grid-template-columns:repeat(3,1fr)}.clips video{aspect-ratio:16/9}
+/* clip gate: 1 free clip, rest unlock after a 4-step form */
+.clips figure{position:relative;margin:0}
+.lk-btn{position:absolute;top:0;left:0;width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r);background:rgba(10,21,22,.62);backdrop-filter:blur(3px);color:#fff;font:800 16px/1.3 inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:background .3s}
+.lk-btn small{font-weight:600;font-size:12px;color:#E9C77A}.lk-btn:hover{background:rgba(10,21,22,.45)}
+.lk a[data-href]{opacity:.4;pointer-events:none}
+#vg{border:0;border-radius:16px;padding:28px;width:min(440px,92vw);box-shadow:0 30px 80px rgba(0,0,0,.35);background:var(--bg)}
+#vg::backdrop{background:rgba(10,21,22,.6)}
+.vg-bar{height:4px;background:var(--soft);border-radius:2px;margin-bottom:22px}.vg-bar i{display:block;height:100%;width:0;background:var(--gold);border-radius:2px;transition:width .4s}
+.vg-q{font-family:var(--serif);font-size:28px;font-weight:700;margin:0 0 14px;animation:vgin .35s}
+@keyframes vgin{from{opacity:0;transform:translateX(16px)}}
+#vgI{width:100%;font:inherit;font-size:18px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;box-sizing:border-box}#vgI:focus{outline:2px solid var(--gold);border-color:transparent}
+.vg-go{margin-top:14px;display:flex;justify-content:space-between;align-items:center}
+.vg-go button{background:var(--navy);color:#fff;border:0;border-radius:99px;padding:11px 22px;font:800 15px inherit;cursor:pointer}
+.vg-go span{font-size:12px;color:var(--mute)}.vg-x{position:absolute;top:10px;right:14px;background:none;border:0;font-size:22px;cursor:pointer;color:var(--mute)}
 .reels figcaption{font-size:13px;font-weight:600;margin-top:6px}.reels a,.vid a{color:var(--navy);font-weight:700}
 @media (max-width:760px){.dl-grid{grid-template-columns:1fr 1fr}.reels.clips{grid-template-columns:repeat(6,85%)}.reels{grid-template-columns:repeat(5,70%);overflow-x:auto;scroll-snap-type:x mandatory}.reels figure{scroll-snap-align:start}}
 @media print{#downloads{display:none}}
@@ -845,7 +873,7 @@ var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)
     <form class="bk" id="bk" autocomplete="on">
       <input name="Name" placeholder="Your name" required autocomplete="name" aria-label="Your name">
       <input name="Company" placeholder="College or company" required autocomplete="organization" aria-label="College or company">
-      <input name="Mobile" type="tel" placeholder="Mobile / WhatsApp" required autocomplete="tel" pattern="[0-9+ ()-]{8,}" aria-label="Mobile or WhatsApp number">
+      <input name="Mobile" type="tel" placeholder="Mobile / WhatsApp" required autocomplete="tel" pattern="[0-9+ \(\)\-]{8,}" aria-label="Mobile or WhatsApp number">
       <input name="City" placeholder="City" required autocomplete="address-level2" aria-label="City">
       <select name="Purpose" required aria-label="Purpose">
         <option value="" disabled selected>Purpose</option>
@@ -866,14 +894,16 @@ var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)
   <div class="wrap">
     <div class="label">Background</div>
     <h2>Fifty years of sales, from clerk to owner</h2>
-    <div class="tl">
-      <div class="tl-era" style="flex:10"><div class="tl-bar h1">1977–87</div><b>Etisalat, Dubai</b><div class="tl-steps"><span class="h1">Shipping clerk</span><span class="h1">Sales clerk</span><span class="h2">Outdoor sales exec</span><span class="h2">Asst supervisor</span></div></div>
-      <div class="tl-era" style="flex:18"><div class="tl-bar h3">1987–2005</div><b>Transmed → Gillette</b><div class="tl-steps"><span class="h2">Van salesman</span><span class="h3">Unit manager</span><span class="h3">Area Sales Mgr, KSA</span><span class="h4">Sales Training Mgr, ME</span><span class="h4">Trade Marketing Mgr, ME</span></div></div>
-      <div class="tl-era" style="flex:20"><div class="tl-bar h5">2005–2025</div><b>Entrepreneur</b><div class="tl-steps"><span class="h4">1 → 10 mattress outlets</span><span class="h5">Kerala + TN distribution</span><span class="h5">Garment export · chemical import</span></div></div>
-      <div class="tl-era tl-now" style="flex:7"><div class="tl-bar h6">2026 →</div><b>Trainer</b><div class="tl-steps"><span class="h6">Chennai</span></div></div>
+    <div class="cl" id="climb">
+      <div class="cl-s" style="--h:30;--c:#F6E7C4;--d:0s"><div class="y">1977</div><div class="r">Clerk</div><div class="w">Etisalat, Dubai</div><div class="bar"></div></div>
+      <div class="cl-s" style="--h:45;--c:#E9C77A;--d:.25s"><div class="y">1987</div><div class="r">Van salesman</div><div class="w">Transmed, 40% pay cut</div><div class="bar"></div></div>
+      <div class="cl-s" style="--h:62;--c:#C9962E;--d:.5s"><div class="y">Gillette</div><div class="r">Sales &amp; Training Mgr</div><div class="w">KSA → Middle East</div><div class="bar"></div></div>
+      <div class="cl-s" style="--h:80;--c:#0F2A47;--d:.75s"><div class="y">2005</div><div class="r">Owner</div><div class="w">10 outlets · Kerala + TN</div><div class="bar"></div></div>
+      <div class="cl-s cl-now" style="--h:100;--c:#0A1516;--d:1s"><div class="y">2026</div><div class="r">Trainer</div><div class="w">Chennai</div><div class="bar"></div></div>
     </div>
-    <div class="tl-key"><span>Clerk</span><i class="h1"></i><i class="h2"></i><i class="h3"></i><i class="h4"></i><i class="h5"></i><i class="h6"></i><span>Owner</span></div>
-    <p class="src">Took a 40% pay cut at Transmed to learn FMCG. Educated at Madras Christian College, Chennai.</p>
+    <div class="cl-base"></div>
+    <script>(function(){var c=document.getElementById('climb');if(!('IntersectionObserver'in window))return c.classList.add('go');new IntersectionObserver(function(e,o){if(e[0].isIntersecting){c.classList.add('go');o.disconnect()}},{threshold:.3}).observe(c)})()</script>
+    <p class="src">Took a 40% pay cut at Transmed to learn FMCG. Also ran garment export and chemical import. Educated at Madras Christian College, Chennai.</p>
   </div>
 </section>
 
@@ -890,6 +920,9 @@ var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)
     <figure class="pl pl-wide"><img src="photos/institute.jpg" alt="Anwar Barayil at PMA SAFI Human Resources Institute, Kerala" loading="lazy"><figcaption><b>Rest of India &amp; abroad</b><div class="pl-c"><span>Hyderabad</span><span>Mumbai</span><span>Pune</span><span>Delhi NCR</span><span>Kolkata</span><span>Gulf</span></div><div class="pl-host">Host covers <span>✈ Travel</span><span>🛏 Stay</span><span>₹ Fee</span></div></figcaption></figure>
     <p class="src">Landmark photos via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Houseboat_on_Punnamada_Backwaters_-Kerala.jpg" rel="nofollow">Varghesepunnamada</a> (CC BY 4.0) · <a href="https://commons.wikimedia.org/wiki/File:Chennai_train_station.jpg" rel="nofollow">Arian Zwegers</a> (CC BY 2.0) · <a href="https://commons.wikimedia.org/wiki/File:Illuminated_Mysore_palace_at_night.JPG" rel="nofollow">Subhashish Panigrahi</a> (CC BY-SA 3.0) · <a href="https://commons.wikimedia.org/wiki/File:RK_Beach_Visakhapatnam_Nov_2012_-_02.JPG" rel="nofollow">Rishabh Tatiraju</a> (CC BY-SA 3.0).</p>
   </div>
+<script>(function(){var c=document.querySelectorAll('#where .pl');if(!('IntersectionObserver'in window)){c.forEach(function(e){e.classList.add('in')});return}
+var o=new IntersectionObserver(function(x){x.forEach(function(e){if(e.isIntersecting){var t=e.target;setTimeout(function(){t.classList.add('in')},t.dataset.d);o.unobserve(t)}})},{threshold:.2});
+c.forEach(function(e,i){e.dataset.d=i%4*150;o.observe(e)})})()</script>
 </section>
 
 <style>.city-row{display:flex;flex-wrap:wrap;gap:10px}.city-row a{background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 16px;font-size:15px;font-weight:600;text-decoration:none;color:var(--navy)}.city-row a:hover{border-color:var(--gold)}</style>
@@ -925,15 +958,37 @@ var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)
     <div class="label" style="margin-top:22px">From the SAFI talk · real clips</div>
     <div class="reels clips">
       <figure><video controls playsinline preload="none" poster="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-01-van-salesman.jpg" src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-01-van-salesman.mp4"></video><figcaption>Clerk to van salesman · 1:38 · <a href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-01-van-salesman.mp4" download>Download</a></figcaption></figure>
-      <figure><video controls playsinline preload="none" poster="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-02-short-term-losses.jpg" src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-02-short-term-losses.mp4"></video><figcaption>Short-term loss, long-term gain · 1:08 · <a href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-02-short-term-losses.mp4" download>Download</a></figcaption></figure>
-      <figure><video controls playsinline preload="none" poster="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-03-bounty-story.jpg" src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-03-bounty-story.mp4"></video><figcaption>The bounty story · 1:58 · <a href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-03-bounty-story.mp4" download>Download</a></figcaption></figure>
-      <figure><video controls playsinline preload="none" poster="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-04-200-rupee-bag.jpg" src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-04-200-rupee-bag.mp4"></video><figcaption>The 200-rupee bag · 1:19 · <a href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-04-200-rupee-bag.mp4" download>Download</a></figcaption></figure>
-      <figure><video controls playsinline preload="none" poster="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-05-goal-posts.jpg" src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-05-goal-posts.mp4"></video><figcaption>Put the goal posts back · 1:00 · <a href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-05-goal-posts.mp4" download>Download</a></figcaption></figure>
-      <figure><video controls playsinline preload="none" poster="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-06-smart-goals.jpg" src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-06-smart-goals.mp4"></video><figcaption>SMART goals · 1:15 · <a href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-06-smart-goals.mp4" download>Download</a></figcaption></figure>
+      <figure class="lk"><button type="button" class="lk-btn" aria-label="Unlock this clip">&#128274; Unlock 5 more clips<small>4 quick answers</small></button><video controls playsinline preload="none" poster="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-02-short-term-losses.jpg" data-src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-02-short-term-losses.mp4"></video><figcaption>Short-term loss, long-term gain · 1:08 ·  <a data-href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-02-short-term-losses.mp4" download>Download</a></figcaption></figure>
+      <figure class="lk"><button type="button" class="lk-btn" aria-label="Unlock this clip">&#128274; Unlock 5 more clips<small>4 quick answers</small></button><video controls playsinline preload="none" poster="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-03-bounty-story.jpg" data-src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-03-bounty-story.mp4"></video><figcaption>The bounty story · 1:58 ·  <a data-href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-03-bounty-story.mp4" download>Download</a></figcaption></figure>
+      <figure class="lk"><button type="button" class="lk-btn" aria-label="Unlock this clip">&#128274; Unlock 5 more clips<small>4 quick answers</small></button><video controls playsinline preload="none" poster="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-04-200-rupee-bag.jpg" data-src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-04-200-rupee-bag.mp4"></video><figcaption>The 200-rupee bag · 1:19 ·  <a data-href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-04-200-rupee-bag.mp4" download>Download</a></figcaption></figure>
+      <figure class="lk"><button type="button" class="lk-btn" aria-label="Unlock this clip">&#128274; Unlock 5 more clips<small>4 quick answers</small></button><video controls playsinline preload="none" poster="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-05-goal-posts.jpg" data-src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-05-goal-posts.mp4"></video><figcaption>Put the goal posts back · 1:00 ·  <a data-href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-05-goal-posts.mp4" download>Download</a></figcaption></figure>
+      <figure class="lk"><button type="button" class="lk-btn" aria-label="Unlock this clip">&#128274; Unlock 5 more clips<small>4 quick answers</small></button><video controls playsinline preload="none" poster="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-06-smart-goals.jpg" data-src="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-06-smart-goals.mp4"></video><figcaption>SMART goals · 1:15 ·  <a data-href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/talk/talk-06-smart-goals.mp4" download>Download</a></figcaption></figure>
     </div>
   </div>
 </section>
 
+<dialog id="vg" aria-labelledby="vgQ"><button class="vg-x" type="button" aria-label="Close" onclick="this.parentNode.close()">&times;</button>
+<form id="vgf" novalidate><div class="vg-bar"><i></i></div><label class="vg-q" id="vgQ" for="vgI"></label><input id="vgI" required>
+<div class="vg-go"><span id="vgN"></span><button>Next &rarr;</button></div></form></dialog>
+<script>
+// shortcut: client-side gate only, the clip URLs are still in the page source. Real lock needs signed R2 URLs.
+(()=>{const K='ab-clips',dlg=document.getElementById('vg'),f=document.getElementById('vgf'),I=document.getElementById('vgI'),Q=document.getElementById('vgQ'),N=document.getElementById('vgN'),bar=dlg.querySelector('.vg-bar i');
+const S=[{k:'Name',q:()=>'First, your name?',t:'text',ac:'name'},{k:'Mobile',q:d=>'Thanks '+d.Name.split(' ')[0]+'. Your WhatsApp number?',t:'tel',ac:'tel',pt:'[0-9+ \\(\\)\\-]{8,}'},{k:'Company',q:()=>'College or company?',t:'text',ac:'organization'},{k:'City',q:()=>'And your city?',t:'text',ac:'address-level2'}];
+let i=0,d={};
+const open=()=>{document.querySelectorAll('.clips .lk').forEach(g=>{const v=g.querySelector('video'),a=g.querySelector('a[data-href]');v.src=v.dataset.src;if(a)a.href=a.dataset.href;a&&a.removeAttribute('data-href');g.querySelector('.lk-btn').remove();g.classList.remove('lk')})};
+try{if(localStorage.getItem(K))open()}catch(_){}
+const show=()=>{const s=S[i];Q.textContent=s.q(d);Q.style.animation='none';Q.offsetWidth;Q.style.animation='';I.type=s.t;I.autocomplete=s.ac;I.value=d[s.k]||'';s.pt?I.pattern=s.pt:I.removeAttribute('pattern');N.textContent='Step '+(i+1)+' of '+S.length;bar.style.width=(i/S.length*100)+'%';I.focus()};
+document.querySelectorAll('.lk-btn').forEach(b=>b.addEventListener('click',()=>{i=0;dlg.showModal();show()}));
+f.addEventListener('submit',async e=>{e.preventDefault();const v=I.value.trim();if(!v||!I.checkValidity()){I.reportValidity();return}
+d[S[i].k]=v;if(++i<S.length)return show();
+bar.style.width='100%';Q.textContent='Unlocked. Enjoy the clips.';I.hidden=true;f.querySelector('button').hidden=true;N.textContent='';
+let n=d.Mobile.replace(/[^0-9]/g,'');if(n.length===10)n='91'+n;const wa='https://wa.me/'+n;
+fetch('https://formsubmit.co/ajax/c411e0fd2158ffd37fb38dbcb99b501c',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_subject:'Reminder to connect: '+d.Name+' ('+d.Company+', '+d.City+') watched your SAFI clips',_cc:'anwar.barayil@gmail.com',_template:'table',_captcha:'false',
+Note:'Hello Anwar, '+d.Name+' from '+d.Company+', '+d.City+' just unlocked your SAFI talk clips on anwarbaryil.com. A short WhatsApp today while the talk is fresh works best. Tap to message: '+wa,
+Name:d.Name,WhatsApp:d.Mobile,Message_link:wa,Company:d.Company,City:d.City,Page:location.href})}).catch(()=>{});
+try{localStorage.setItem(K,'1')}catch(_){}
+open();setTimeout(()=>{dlg.close();I.hidden=false;f.querySelector('button').hidden=false},1400)});})();
+</script>
 <section id="faq">
   <div class="wrap">
     <div class="label">Questions</div>
