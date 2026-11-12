@@ -11,7 +11,7 @@ const css=`#vg{border:0;border-radius:16px;padding:28px;width:min(440px,92vw);bo
 #vgI{width:100%;font:inherit;font-size:18px;padding:12px 14px;border:1.5px solid #E8E1CF;border-radius:10px;box-sizing:border-box;background:#fff}#vgI:focus{outline:2px solid #C9962E;border-color:transparent}
 #vg .vg-go{margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}#vg .vg-go button{background:#0F2A47;color:#fff;border:0;border-radius:99px;padding:11px 22px;font:800 15px inherit;cursor:pointer}
 #vg .vg-go span{font-size:12px;color:#5E6670}#vg .vg-x{position:absolute;top:10px;right:14px;background:none;border:0;font-size:24px;cursor:pointer;color:#5E6670}`;
-let dlg,what='';
+let dlg,what='',req=false;
 function build(){document.head.insertAdjacentHTML('beforeend','<style>'+css+'</style>');
 document.body.insertAdjacentHTML('beforeend','<dialog id="vg" aria-labelledby="vgQ"><button class="vg-x" type="button" aria-label="Close">&times;</button><form id="vgf" novalidate><div class="vg-bar"><i></i></div><p class="vg-t">Free · takes 20 seconds</p><label class="vg-q" id="vgQ" for="vgI"></label><input id="vgI" required><div class="vg-go"><span id="vgN"></span><button>Next &rarr;</button></div></form></dialog>');
 dlg=document.getElementById('vg');const f=document.getElementById('vgf'),I=document.getElementById('vgI'),Q=document.getElementById('vgQ'),N=document.getElementById('vgN'),bar=dlg.querySelector('.vg-bar i'),btn=f.querySelector('button');
@@ -22,11 +22,13 @@ const show=()=>{const s=S[i];Q.textContent=s.q(d);Q.style.animation='none';Q.off
 dlg.reset=()=>{i=0;I.hidden=btn.hidden=false;show()};
 f.addEventListener('submit',e=>{e.preventDefault();const v=I.value.trim();if(!v||!I.checkValidity()){I.reportValidity();return}
 d[S[i].k]=v;if(++i<S.length)return show();
-bar.style.width='100%';Q.textContent='Unlocked. Anwar may WhatsApp you once.';I.hidden=btn.hidden=true;N.textContent='';
+bar.style.width='100%';Q.textContent=req?'Thank you. Anwar will WhatsApp you the '+what+'.':'Unlocked. Anwar may WhatsApp you once.';I.hidden=btn.hidden=true;N.textContent='';
 let n=d.Mobile.replace(/[^0-9]/g,'');if(n.length===10)n='91'+n;const wa='https://wa.me/'+n;
-fetch('https://formsubmit.co/ajax/c411e0fd2158ffd37fb38dbcb99b501c',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_subject:'Reminder to connect: '+d.Name+' ('+d.Company+', '+d.City+') unlocked '+what,_cc:'anwar.barayil@gmail.com',_template:'table',_captcha:'false',
-Note:'Hello Anwar, '+d.Name+' from '+d.Company+', '+d.City+' came to anwarbaryil.com and unlocked '+what+'. A short WhatsApp today while it is fresh works best. Tap to message: '+wa,
+fetch('https://formsubmit.co/ajax/c411e0fd2158ffd37fb38dbcb99b501c',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_subject:(req?'Send '+what+' to: ':'Reminder to connect: ')+d.Name+' ('+d.Company+', '+d.City+')'+(req?'':' unlocked '+what),_cc:'anwar.barayil@gmail.com',_template:'table',_captcha:'false',
+Note:'Hello Anwar, '+d.Name+' from '+d.Company+', '+d.City+' came to '+location.host+(req?' and asked for '+what+'. Please send it on WhatsApp. Tap to message: ':' and unlocked '+what+'. A short WhatsApp today while it is fresh works best. Tap to message: ')+wa,
 Name:d.Name,WhatsApp:d.Mobile,Message_link:wa,Company:d.Company,City:d.City,Unlocked:what,Page:location.href})}).catch(()=>{});
 done();setTimeout(()=>dlg.close(),1400)})}
-window.abGate={unlocked:has,on:f=>has()?f():subs.push(f),open:w=>{if(has())return done();what=w||'the full talk';if(!dlg)build();dlg.showModal();dlg.reset()}};
+window.abGate={unlocked:has,on:f=>has()?f():subs.push(f),open:w=>{req=false;if(has())return done();what=w||'the full talk';if(!dlg)build();dlg.showModal();dlg.reset()},
+// request: always asks (even if unlocked), no file is given; Anwar sends it himself
+request:w=>{req=true;what=w;if(!dlg)build();dlg.showModal();dlg.reset()}};
 })();
