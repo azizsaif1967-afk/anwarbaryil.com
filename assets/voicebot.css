@@ -1,0 +1,125 @@
+/* ==========================================================================
+   voice guide styles for anwarbarayil.com (ported from azizsaif.com)
+   Greets visitors, speaks the six AI service lines and lets them choose.
+   Uses the Web Speech API (no server needed — works on GitHub Pages).
+   Tokens fall back gracefully if /assets/nav.css (the --az-* set) isn't loaded.
+   ========================================================================== */
+:root{
+  --azvb-cream:var(--az-cream,#F7F5F1);
+  --azvb-ink:var(--az-ink,#1C1914);
+  --azvb-mute:var(--az-mute,#6B6558);
+  --azvb-terra:var(--az-terra,#C47820);
+  --azvb-terra-d:var(--az-terra-d,#9A5E16);
+  --azvb-line:var(--az-line,#E4DDD0);
+  --azvb-ff:var(--az-ff-body,"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif);
+}
+
+.azvb-launch{
+  position:fixed; right:20px; bottom:154px; z-index:950;
+  width:60px; height:60px; border-radius:50%; border:none; cursor:pointer;
+  background:var(--azvb-terra); color:#fff; box-shadow:0 12px 30px rgba(28,25,20,.32);
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .2s ease, background .2s ease;
+}
+.azvb-launch:hover{ background:var(--azvb-terra-d); transform:scale(1.05); }
+.azvb-launch svg{ width:26px; height:26px; }
+.azvb-launch.azvb-pulse::after{
+  content:""; position:absolute; inset:0; border-radius:50%;
+  border:2px solid var(--azvb-terra); animation:azvb-ring 2.2s ease-out infinite;
+}
+@keyframes azvb-ring{ 0%{transform:scale(1);opacity:.7} 100%{transform:scale(1.7);opacity:0} }
+
+.azvb-bubble{
+  position:fixed; right:20px; bottom:222px; z-index:949; max-width:260px;
+  background:var(--azvb-ink); color:#fff; font-family:var(--azvb-ff); font-size:13.5px;
+  line-height:1.5; padding:12px 34px 12px 14px; border-radius:14px 14px 2px 14px;
+  box-shadow:0 12px 30px rgba(28,25,20,.3);
+}
+.azvb-bubble button{
+  position:absolute; top:6px; right:8px; background:none; border:none; color:#fff;
+  font-size:16px; line-height:1; cursor:pointer; opacity:.7; padding:2px;
+}
+.azvb-bubble button:hover{ opacity:1; }
+
+.azvb-panel{
+  position:fixed; right:20px; bottom:96px; z-index:951; width:min(340px,calc(100vw - 28px));
+  background:var(--azvb-cream); color:var(--azvb-ink); font-family:var(--azvb-ff);
+  border:1px solid var(--azvb-line); border-radius:16px; overflow:hidden;
+  box-shadow:0 22px 60px rgba(28,25,20,.34); display:none;
+  max-height:min(540px, calc(100vh - 120px));
+}
+.azvb-panel.azvb-open{ display:flex; flex-direction:column; }
+
+.azvb-head{
+  display:flex; align-items:center; gap:10px; padding:13px 14px 13px 16px;
+  background:var(--azvb-ink); color:#fff; flex:0 0 auto;
+}
+.azvb-head .azvb-dot{ width:9px; height:9px; border-radius:50%; background:var(--azvb-terra); box-shadow:0 0 10px var(--azvb-terra); }
+.azvb-head b{ font-size:14px; font-weight:700; }
+.azvb-head .azvb-x{
+  margin-left:auto; background:rgba(255,255,255,.14); border:none; color:#fff;
+  width:30px; height:30px; border-radius:50%; font-size:20px; cursor:pointer;
+  line-height:1; display:flex; align-items:center; justify-content:center;
+  flex:0 0 auto; transition:background .15s;
+}
+.azvb-head .azvb-x:hover{ background:rgba(255,255,255,.32); }
+
+.azvb-body{ padding:14px 16px; overflow-y:auto; -webkit-overflow-scrolling:touch; flex:1 1 auto; min-height:0; }
+.azvb-greet{ font-size:13.5px; line-height:1.55; color:var(--azvb-ink); margin-bottom:6px; }
+.azvb-prompt{ font-size:12px; color:var(--azvb-mute); margin-bottom:12px; }
+
+.azvb-opts{ display:flex; flex-direction:column; gap:6px; list-style:none; margin:0; padding:0; }
+.azvb-opts button{
+  width:100%; text-align:left; background:#fff; border:1px solid var(--azvb-line);
+  border-radius:10px; padding:9px 12px; cursor:pointer; font-family:inherit;
+  font-size:13px; font-weight:600; color:var(--azvb-ink); transition:.15s;
+  display:flex; align-items:center; gap:9px;
+}
+.azvb-opts button:hover{ border-color:var(--azvb-terra); color:var(--azvb-terra-d); background:#fff; }
+.azvb-opts .azvb-num{
+  flex:0 0 22px; height:22px; border-radius:50%; background:var(--azvb-terra);
+  color:#fff; font-size:12px; display:flex; align-items:center; justify-content:center; font-weight:700;
+}
+
+.azvb-detail{ display:none; }
+.azvb-detail.azvb-show{ display:block; }
+.azvb-detail h4{ font-size:14.5px; margin:0 0 6px; color:var(--azvb-ink); }
+.azvb-detail p{ font-size:13px; line-height:1.55; color:var(--azvb-ink); margin:0 0 12px; }
+.azvb-detail .azvb-cta{
+  display:inline-block; background:var(--azvb-terra); color:#fff; text-decoration:none;
+  font-size:12.5px; font-weight:700; padding:9px 15px; border-radius:999px; margin-right:8px;
+}
+.azvb-detail .azvb-cta.alt{ background:transparent; color:var(--azvb-ink); border:1px solid var(--azvb-line); }
+.azvb-back{ background:none; border:none; color:var(--azvb-mute); font-size:12px; cursor:pointer; padding:0; margin-bottom:10px; font-family:inherit; }
+.azvb-back:hover{ color:var(--azvb-terra); }
+
+.azvb-foot{
+  display:flex; align-items:center; gap:10px; padding:11px 16px; border-top:1px solid var(--azvb-line);
+  flex:0 0 auto; background:var(--azvb-cream);
+}
+.azvb-mic{
+  flex:0 0 auto; width:38px; height:38px; border-radius:50%; border:1px solid var(--azvb-line);
+  background:#fff; color:var(--azvb-terra); cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.azvb-mic[disabled]{ opacity:.4; cursor:not-allowed; }
+.azvb-mic.azvb-listening{ background:var(--azvb-terra); color:#fff; animation:azvb-blink 1s infinite; }
+@keyframes azvb-blink{ 50%{opacity:.55} }
+.azvb-mic svg{ width:17px; height:17px; }
+.azvb-status{ font-size:11.5px; color:var(--azvb-mute); flex:1; }
+.azvb-sound{ background:none; border:none; color:var(--azvb-mute); cursor:pointer; font-size:14px; }
+.azvb-sound:hover{ color:var(--azvb-terra); }
+
+@media (max-width:480px){
+  .azvb-panel,.azvb-bubble{ right:12px; left:auto; }
+  .azvb-panel{ width:calc(100vw - 24px); bottom:84px; max-height:calc(100vh - 110px); }
+  .azvb-launch{ right:14px; bottom:150px; }
+}
+
+/* The panel is a <section>; on .ds pages site.css's ".ds section{position:relative}"
+   would otherwise win and drop it into flow on the left. Keep it viewport-fixed bottom-right. */
+section.azvb-panel{ position:fixed !important; left:auto !important; z-index:951; }
+@media (prefers-reduced-motion: reduce){
+  .azvb-launch.azvb-pulse::after{ animation:none; display:none; }
+  .azvb-mic.azvb-listening{ animation:none; }
+  .azvb-launch{ transition:none; }
+}

@@ -170,5 +170,8 @@ addEventListener('keydown',e=>{if(!view.classList.contains('on'))return;
 let y0=null;view.addEventListener('touchstart',e=>{y0=e.touches[0].clientY},{passive:true});
 view.addEventListener('touchend',e=>{if(y0===null)return;const d=e.changedTouches[0].clientY-y0;y0=null;if(Math.abs(d)>60)open(cur+(d<0?1:-1))});
 </script>
+<link rel="stylesheet" href="/assets/voicebot.css?v=1">
+<script defer src="/assets/voicebot.js?v=1"></script>
+<script defer src="/assets/voice-widget.js?v=1"></script>
 </body>
 </html>

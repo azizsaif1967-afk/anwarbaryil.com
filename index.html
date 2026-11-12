@@ -645,25 +645,17 @@ section{padding:44px 0;border-top:1px solid var(--line)}
 .rv-ask{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px;font-size:14px}
 .rv-ask span{color:var(--mute);text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:700}
 .rv-ask b{background:var(--soft);border-radius:99px;padding:6px 14px}.rv-ask i{color:var(--gold);font-style:normal;font-weight:800}
-/* career climb: bars rise one by one when scrolled into view */
-.cl{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:end;margin-top:12px;position:relative}
-.cl-s{display:flex;flex-direction:column;justify-content:flex-end}
-.cl-s .y{font-family:var(--serif);font-size:34px;font-weight:700;line-height:1;color:var(--ink);opacity:0;transform:translateY(10px);transition:.5s var(--d)}
-.cl-s .r{font-weight:800;font-size:15px;margin:6px 0 2px;opacity:0;transition:.5s var(--d)}
-.cl-s .w{font-size:12px;color:var(--mute);margin-bottom:8px;opacity:0;transition:.5s var(--d)}
-.cl-s .bar{height:calc(var(--h)*2.4px);border-radius:8px 8px 0 0;background:var(--c);transform:scaleY(0);transform-origin:bottom;transition:transform .8s cubic-bezier(.2,.8,.2,1) var(--d)}
-.cl-s:hover .bar{filter:brightness(1.12)}
-.cl.go .bar{transform:scaleY(1)}.cl.go .y,.cl.go .r,.cl.go .w{opacity:1;transform:none}
-.cl-now .bar{box-shadow:0 0 0 0 rgba(201,150,46,.6);animation:clp 2s 2s infinite}
-.cl-now .y{color:var(--gold)}
-@keyframes clp{70%{box-shadow:0 0 0 14px rgba(201,150,46,0)}100%{box-shadow:0 0 0 0 rgba(201,150,46,0)}}
-.cl-base{height:4px;background:linear-gradient(90deg,#F6E7C4,var(--gold),var(--navy));border-radius:2px}
-@media (max-width:760px){.cl{grid-template-columns:1fr;height:auto;gap:8px}
-.cl-s{height:auto;display:grid;grid-template-columns:64px 1fr;align-items:center;column-gap:10px}
-.cl-s .y{font-size:24px;grid-row:span 3}.cl-s .r,.cl-s .w{margin:0}
-.cl-s .bar{height:10px;width:calc(var(--h)*1%);border-radius:0 6px 6px 0;transform:scaleX(0);transform-origin:left;margin-top:4px}
-.cl.go .bar{transform:scaleX(1)}.cl-base{display:none}}
-@media (prefers-reduced-motion:reduce){.cl *{transition:none!important;animation:none!important}}
+/* career heat timeline */
+.tl{display:flex;gap:6px;margin-top:8px}
+.tl-era{min-width:0}.tl-era>b{display:block;font-size:15px;margin:10px 0 8px}
+.tl-bar{color:#fff;font-weight:800;font-size:14px;padding:10px 12px;border-radius:4px}
+.tl-steps{display:flex;flex-direction:column;gap:6px}
+.tl-steps span{font-size:13px;font-weight:600;padding:6px 10px;border-radius:4px}
+.h1{background:#F6E7C4;color:#5a4410}.h2{background:#E9C77A;color:#3d2c06}.h3{background:#C9962E;color:#fff}
+.h4{background:#5C6F86;color:#fff}.h5{background:#0F2A47;color:#fff}.h6{background:#0A1516;color:#E9C77A}
+.tl-bar.h1,.tl-bar.h2{color:#3d2c06}
+.tl-key{display:flex;align-items:center;gap:4px;margin:18px 0 8px;font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+.tl-key i{width:34px;height:10px;border-radius:2px}.tl-key span{margin:0 6px}
 /* where: landmark thumbnails */
 .pl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
 .pl{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;background:var(--navy)}
@@ -887,16 +879,14 @@ var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)
   <div class="wrap">
     <div class="label">Background</div>
     <h2>Fifty years of sales, from clerk to owner</h2>
-    <div class="cl" id="climb">
-      <div class="cl-s" style="--h:30;--c:#F6E7C4;--d:0s"><div class="y">1977</div><div class="r">Clerk</div><div class="w">Etisalat, Dubai</div><div class="bar"></div></div>
-      <div class="cl-s" style="--h:45;--c:#E9C77A;--d:.25s"><div class="y">1987</div><div class="r">Van salesman</div><div class="w">Transmed, 40% pay cut</div><div class="bar"></div></div>
-      <div class="cl-s" style="--h:62;--c:#C9962E;--d:.5s"><div class="y">Gillette</div><div class="r">Sales &amp; Training Mgr</div><div class="w">KSA → Middle East</div><div class="bar"></div></div>
-      <div class="cl-s" style="--h:80;--c:#0F2A47;--d:.75s"><div class="y">2005</div><div class="r">Owner</div><div class="w">10 outlets · Kerala + TN</div><div class="bar"></div></div>
-      <div class="cl-s cl-now" style="--h:100;--c:#0A1516;--d:1s"><div class="y">2026</div><div class="r">Trainer</div><div class="w">Chennai</div><div class="bar"></div></div>
+    <div class="tl">
+      <div class="tl-era" style="flex:10"><div class="tl-bar h1">1977–87</div><b>Etisalat, Dubai</b><div class="tl-steps"><span class="h1">Shipping clerk</span><span class="h1">Sales clerk</span><span class="h2">Outdoor sales exec</span><span class="h2">Asst supervisor</span></div></div>
+      <div class="tl-era" style="flex:18"><div class="tl-bar h3">1987–2005</div><b>Transmed → Gillette</b><div class="tl-steps"><span class="h2">Van salesman</span><span class="h3">Unit manager</span><span class="h3">Area Sales Mgr, KSA</span><span class="h4">Sales Training Mgr, ME</span><span class="h4">Trade Marketing Mgr, ME</span></div></div>
+      <div class="tl-era" style="flex:20"><div class="tl-bar h5">2005–2025</div><b>Entrepreneur</b><div class="tl-steps"><span class="h4">1 → 10 mattress outlets</span><span class="h5">Kerala + TN distribution</span><span class="h5">Garment export · chemical import</span></div></div>
+      <div class="tl-era tl-now" style="flex:7"><div class="tl-bar h6">2026 →</div><b>Trainer</b><div class="tl-steps"><span class="h6">Chennai</span></div></div>
     </div>
-    <div class="cl-base"></div>
-    <script>(function(){var c=document.getElementById('climb');if(!('IntersectionObserver'in window))return c.classList.add('go');new IntersectionObserver(function(e,o){if(e[0].isIntersecting){c.classList.add('go');o.disconnect()}},{threshold:.3}).observe(c)})()</script>
-    <p class="src">Took a 40% pay cut at Transmed to learn FMCG. Also ran garment export and chemical import. Educated at Madras Christian College, Chennai.</p>
+    <div class="tl-key"><span>Clerk</span><i class="h1"></i><i class="h2"></i><i class="h3"></i><i class="h4"></i><i class="h5"></i><i class="h6"></i><span>Owner</span></div>
+    <p class="src">Took a 40% pay cut at Transmed to learn FMCG. Educated at Madras Christian College, Chennai.</p>
   </div>
 </section>
 
