@@ -746,6 +746,7 @@ b.onclick=v.onclick=function(){sound(v.muted||v.paused)};
 v.muted=false;v.play().then(ui,function(){v.muted=true;v.play().catch(function(){});ui()});/* browsers block speech before the first click, so fall back to silent */
 function first(e){removeEventListener('pointerdown',first,true);removeEventListener('keydown',first,true);if(e.target!==b&&e.target!==v&&v.muted)sound(true)}
 addEventListener('pointerdown',first,true);addEventListener('keydown',first,true);
+v.loop=false;v.addEventListener('timeupdate',function(){if(v.currentTime>=10){v.pause();v.currentTime=0;ui()}});/* free 10 s on the landing page, then it stops */
 var on=false;new IntersectionObserver(function(x){if(x[0].isIntersecting){if(on)v.play().catch(function(){})}else{on=!v.paused;v.pause()}}).observe(v)})()</script>
 <div class="proof"><div class="wrap"><span>&#9733; <b>8.5/10</b> from 24 MBA &amp; PGDM students</span><span><b>96%</b> want to learn selling skills</span><span>SAFI Institute, Calicut · 2 Nov 2026</span><a href="#feedback">See the feedback &rarr;</a><a href="feedback/" class="ab-open" style="background:var(--gold);color:#fff;border-radius:999px;padding:6px 14px;text-decoration:none;font-weight:700">Attended? Give feedback</a></div></div>
 
@@ -972,7 +973,7 @@ c.forEach(function(e,i){e.dataset.d=i%4*150;o.observe(e)})})()</script>
 <script>abGate.on(()=>document.querySelectorAll('#downloads .lk').forEach(g=>{const v=g.querySelector('video');v.src=v.dataset.src;g.querySelector('.lk-btn').remove();g.classList.remove('lk')}));
 document.querySelectorAll('.lk-btn').forEach(b=>b.onclick=()=>abGate.open('the SAFI talk videos'));
 // one free clip, 5 seconds, then the form
-(()=>{const v=document.getElementById('peek');if(!v)return;const cut=()=>{if(abGate.unlocked()||v.currentTime<5)return;v.pause();v.currentTime=0;abGate.open('the SAFI talk videos')};v.addEventListener('timeupdate',cut);v.addEventListener('seeked',cut)})()</script>
+(()=>{const v=document.getElementById('peek');if(!v)return;const cut=()=>{if(abGate.unlocked()||v.currentTime<10)return;v.pause();v.currentTime=0;abGate.open('the SAFI talk videos')};v.addEventListener('timeupdate',cut);v.addEventListener('seeked',cut)})()</script>
 <section id="faq">
   <div class="wrap">
     <div class="label">Questions</div>
@@ -996,7 +997,7 @@ document.querySelectorAll('.lk-btn').forEach(b=>b.onclick=()=>abGate.open('the S
       <a href="Anwar-Barayil-Pitch-Deck.html">Pitch deck</a>
       <a href="linkedin/">LinkedIn posts</a>
       <a href="instagram/">Reels</a> <a href="reviews/">Student reviews</a> <a href="feedback/" class="ab-open">Give feedback</a>
-      <a href="https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/anwar-barayil-promo.mp4">1-minute video</a>
+      <a href="#downloads" onclick="abGate.open('the SAFI talk videos');return false">1-minute video</a>
     </div>
   </div>
   <form class="wrap" id="nlJoin" style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><label for="nlEmail" style="font-weight:700">Join the newsletter</label><input id="nlEmail" type="email" required placeholder="your@email.com" autocomplete="email" style="padding:9px 12px;border:1px solid #cfc7b4;border-radius:999px;font:14px Inter,system-ui,sans-serif;min-width:220px"><button type="submit" style="background:var(--gold);color:#fff;border:0;border-radius:999px;padding:9px 18px;font:700 14px Inter,system-ui,sans-serif;cursor:pointer">Join</button><span id="nlMsg" style="font-size:13px"></span></form>

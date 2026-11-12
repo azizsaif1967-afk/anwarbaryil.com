@@ -2,6 +2,7 @@
    Usage: abGate.on(fn) runs fn once unlocked; abGate.open('what they unlocked') shows the form.
    shortcut: client-side only, the files are still public at their URLs. A real lock needs signed URLs. */
 (()=>{const K='ab-unlocked',subs=[];
+if(/[?&]relock\b/.test(location.search))try{localStorage.removeItem(K);localStorage.removeItem('ab-clips')}catch(_){}// visit any page with ?relock to lock this browser again
 const has=()=>{try{return !!(localStorage.getItem(K)||localStorage.getItem('ab-clips'))}catch(_){return false}};
 const done=()=>{try{localStorage.setItem(K,'1')}catch(_){}subs.splice(0).forEach(f=>f())};
 const css=`#vg{border:0;border-radius:16px;padding:28px;width:min(440px,92vw);box-shadow:0 30px 80px rgba(0,0,0,.35);background:#FBF8F1;color:#141414;font-family:inherit}

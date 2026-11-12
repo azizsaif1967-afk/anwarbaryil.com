@@ -111,6 +111,7 @@ main{max-width:935px;margin:auto;padding:0 16px 40px}
   <button class="vb next" id="vn" aria-label="Next reel">›</button>
 </div>
 
+<script src="/assets/gate.js"></script>
 <script>
 const R2='https://pub-a1b2b4129ae44f909ae430713748e564.r2.dev/pro-trainer-consultant/';
 // [video path on R2, poster in ../photos/, title, caption]
@@ -126,6 +127,8 @@ const REELS=[
  ['talk/hero-loop.mp4','hero-loop.jpg','In the room','SAFI Institute of Advanced Study, Calicut.']
 ];
 const grid=document.getElementById('grid');
+// locked until the 4-question form: first reel plays 10 s, the rest open the form
+const L=()=>!abGate.unlocked(),FREE=10,ask=()=>abGate.open("Anwar's reels");
 const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
 REELS.forEach(([v,p,t],i)=>{
   const b=document.createElement('button');b.className='tile';b.setAttribute('aria-label','Play reel: '+t);
@@ -135,7 +138,7 @@ REELS.forEach(([v,p,t],i)=>{
 // grid previews: play muted only while on screen, like the Instagram reels tab
 const io=new IntersectionObserver(es=>es.forEach(e=>{
   const v=e.target;
-  if(e.isIntersecting){if(!v.src)v.src=v.dataset.src;if(!still)v.play().catch(()=>{})}else v.pause();
+  if(e.isIntersecting){if(L())return;if(!v.src)v.src=v.dataset.src;if(!still)v.play().catch(()=>{})}else v.pause();
 }),{threshold:.5});
 grid.querySelectorAll('video').forEach(v=>{
   io.observe(v);
@@ -145,6 +148,7 @@ grid.querySelectorAll('video').forEach(v=>{
 const view=document.getElementById('view'),vv=document.getElementById('vv'),snd=document.getElementById('vsnd');
 let cur=0,last=null;
 function open(i){
+  if(L()&&(i+REELS.length)%REELS.length){if(view.classList.contains('on'))close();return ask()}
   cur=(i+REELS.length)%REELS.length;const [v,p,t,c]=REELS[cur];
   last=last||document.activeElement;
   grid.querySelectorAll('video').forEach(x=>x.pause());
@@ -157,7 +161,8 @@ function open(i){
 }
 function close(){view.classList.remove('on');vv.pause();vv.removeAttribute('src');vv.load();document.body.style.overflow='';if(last)last.focus();last=null;io.takeRecords();grid.querySelectorAll('video').forEach(v=>{io.unobserve(v);io.observe(v)})}
 vv.onended=()=>open(cur+1);
-vv.ontimeupdate=()=>{document.getElementById('vbar').style.width=(vv.currentTime/vv.duration*100||0)+'%'};
+vv.ontimeupdate=()=>{if(L()&&vv.currentTime>=FREE){close();return ask()}document.getElementById('vbar').style.width=(vv.currentTime/vv.duration*100||0)+'%'};
+abGate.on(()=>grid.querySelectorAll('video').forEach(v=>{io.unobserve(v);io.observe(v)}));
 vv.onclick=()=>vv.paused?vv.play():vv.pause();
 snd.onclick=()=>{vv.muted=!vv.muted;snd.textContent=vv.muted?'🔇':'🔊';snd.setAttribute('aria-label',vv.muted?'Unmute':'Mute')};
 document.getElementById('vx').onclick=close;
